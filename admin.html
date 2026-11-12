@@ -710,13 +710,18 @@
     };
     async function logout(){try{await api('/api/auth/logout',{method:'POST'});state.csrf='';state.email='';location.hash='';showLogin()}catch(error){if(error.status===401){state.csrf='';state.email='';showLogin();toast('Your session already expired. Please sign in again.',true)}else toast(`Logout failed: ${error.message}`,true)}}
     $('#login-form').onsubmit=async event=>{
-      event.preventDefault();const form=new FormData(event.currentTarget);
-      try{const user=await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:form.get('email'),password:form.get('password')})});state.csrf=user.csrfToken;state.email=user.email;history.replaceState(null,'','/admin');showApp()}
+      event.preventDefault();
+      if(location.hostname.endsWith('.github.io')&&!getApiBase()){
+        $('#login-error').textContent='No backend API connected. Enter your hosted server.mjs URL below and click Connect (GitHub Pages returns 405 for POST /api/auth/login).';
+        return;
+      }
+      const form=new FormData(event.currentTarget);
+      try{const user=await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:form.get('email'),password:form.get('password')})});state.csrf=user.csrfToken;state.email=user.email;history.replaceState(null,'',BASE_PATH+'admin');showApp()}
       catch(error){$('#login-error').textContent=error.message}
     };
     $('#forgot-button').onclick=()=>showLogin('forgot-view');document.querySelectorAll('.back-login').forEach(button=>button.onclick=()=>showLogin());
     $('#forgot-form').onsubmit=async event=>{event.preventDefault();try{const form=new FormData(event.currentTarget);const result=await api('/api/auth/forgot',{method:'POST',body:JSON.stringify({email:form.get('email')})});$('#forgot-error').textContent=result.message}catch(error){$('#forgot-error').textContent=error.message}};
-    $('#reset-form').onsubmit=async event=>{event.preventDefault();try{const form=new FormData(event.currentTarget);const result=await api('/api/auth/reset',{method:'POST',body:JSON.stringify({token:new URLSearchParams(location.search).get('token'),password:form.get('password')})});toast(result.message);history.replaceState(null,'','/admin');showLogin()}catch(error){$('#reset-error').textContent=error.message}};
+    $('#reset-form').onsubmit=async event=>{event.preventDefault();try{const form=new FormData(event.currentTarget);const result=await api('/api/auth/reset',{method:'POST',body:JSON.stringify({token:new URLSearchParams(location.search).get('token'),password:form.get('password')})});toast(result.message);history.replaceState(null,'',BASE_PATH+'admin');showLogin()}catch(error){$('#reset-error').textContent=error.message}};
     $('#logout').onclick=logout;
     checkSession();
   </script>
