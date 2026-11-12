@@ -57,7 +57,7 @@
 <body>
   <div id="login" class="login-wrap">
     <div class="login-card">
-      <a class="brand" href="/">ENPEE<small>INTERNATIONAL SCHOOL · KARAIKAL</small></a>
+      <a class="brand" href="./">ENPEE<small>INTERNATIONAL SCHOOL · KARAIKAL</small></a>
       <div id="sign-in">
         <h1>Welcome back</h1><p class="muted">Sign in to manage your school website.</p>
         <form id="login-form"><label>Email address</label><input name="email" type="email" autocomplete="username" required><label>Password</label><input name="password" type="password" autocomplete="current-password" required><button class="btn full" type="submit">Sign in</button><div class="error" id="login-error"></div></form>
@@ -73,7 +73,7 @@
     </div>
   </div>
   <div id="app" class="app hidden">
-    <header class="portal-header"><a class="brand" href="/">ENPEE<small>INTERNATIONAL SCHOOL · KARAIKAL</small></a><div class="portal-actions"><div class="user-pill" id="user-email"></div><button class="logout" id="logout">Sign out</button></div></header>
+    <header class="portal-header"><a class="brand" href="./">ENPEE<small>INTERNATIONAL SCHOOL · KARAIKAL</small></a><div class="portal-actions"><div class="user-pill" id="user-email"></div><button class="logout" id="logout">Sign out</button></div></header>
     <nav class="admin-nav" id="navigation" aria-label="Website content"></nav>
     <main class="main"><div class="content" id="view"></div></main>
   </div>
@@ -95,6 +95,14 @@
     };
     const apiUrl = (url) => (/^https?:\/\//i.test(url) ? url : (getApiBase() ? getApiBase() + url : url));
     const credentialsMode = () => (getApiBase() ? 'include' : 'same-origin');
+    function getPreviewUrl(subpath='') {
+      var base = BASE_PATH || '/';
+      if (!base.endsWith('/')) base += '/';
+      var url = base;
+      if (subpath) url += subpath.replace(/^\/+/, '');
+      var sep = url.indexOf('?') === -1 ? '?' : '&';
+      return url + sep + 'preview=' + Date.now();
+    }
     document.querySelectorAll('.brand').forEach((el) => { el.href = BASE_PATH; });
     const state = { csrf:'', email:'', page:'home', collection:'', editing:null, items:[], pageNum:1, query:'', filters:{}, galleryFiles:[], editingPage:'about' };
     document.addEventListener('click',event=>{const button=event.target.closest('[data-close-dialog]');if(button)document.getElementById(button.dataset.closeDialog).close()});
@@ -164,7 +172,7 @@
     }
     function showApp(){
       $('#login').classList.add('hidden');$('#app').classList.remove('hidden');$('#user-email').textContent=state.email;
-      $('#navigation').innerHTML=navItems.map(([key,icon,label])=>`<a href="${key==='preview'?BASE_PATH:'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`).join('');
+      $('#navigation').innerHTML=navItems.map(([key,icon,label])=>`<a href="${key==='preview'?escapeHtml(getPreviewUrl()):'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`).join('');
       $('#navigation').onclick=event=>{const link=event.target.closest('[data-page]');if(link){event.preventDefault();navigate(link.dataset.page)}};
       window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)||'home'));
       navigate(location.hash.slice(1)||'home');
@@ -192,7 +200,7 @@
         else if(page==='photos')await renderPhotos(view);
         else if(collectionNames[page])await renderCollection(view,page);
         else if(page==='enquiries')await renderEnquiries(view);
-        else if(page==='preview')view.innerHTML='<section class="panel"><h2>Preview the website</h2><p class="muted">Open the current published website in a new tab.</p><a class="btn green" href="/" target="_blank" rel="noopener">Open Website</a></section>';
+        else if(page==='preview'){window.open(getPreviewUrl(),'_blank');view.innerHTML=`<section class="panel"><h2>Preview website</h2><p class="muted">Opening published website in a new tab…</p><a class="btn green" href="${escapeHtml(getPreviewUrl())}" target="_blank" rel="noopener">Open Website</a></section>`;}
       }catch(error){view.innerHTML=`<div class="panel"><b>Unable to load this page</b><p class="error">${escapeHtml(error.message)}</p><button class="btn" id="retry-page">Retry</button></div>`;$('#retry-page').onclick=()=>location.reload()}
     }
     const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -354,8 +362,12 @@
     }
     function safeImageUrl(value){
       if(typeof value!=='string'||!value.trim())return '';
-      try{const url=new URL(value,location.origin);return url.protocol==='https:'||url.origin===location.origin?url.href:''}
-      catch{return ''}
+      if(value.indexOf('/uploads/')===0)return apiUrl(value);
+      try{
+        const url=new URL(value,location.origin);
+        if(url.origin===location.origin&&url.pathname.indexOf('/uploads/')===0)return apiUrl(url.pathname);
+        return url.protocol==='https:'||url.origin===location.origin?url.href:'';
+      }catch{return ''}
     }
     function fieldHtml(name,label,value,type='text',required=false){
       const id=escapeHtml(name),safe=escapeHtml(Array.isArray(value)?value.join('\n'):value??'');
@@ -404,7 +416,10 @@
       const image=form.querySelector('.image-picker input[type=hidden]')?.value||'';
       openDraftPreview(`${title} preview`,heading,description,image,entries);
     }
-    function previewLink(){return '<a class="btn light" href="/" target="_blank" rel="noopener">Preview website</a>'}
+    function previewLink(route=''){
+      const target = getPreviewUrl(route ? (route === 'home' ? '' : (route === 'about' ? 'about' : (route === 'contact' ? 'contact-us' : route.indexOf('#') === 0 ? route : '#' + route))) : '');
+      return `<a class="btn light" href="${escapeHtml(target)}" target="_blank" rel="noopener">↗ Preview website</a>`;
+    }
     async function renderPageEditor(view){
       const pages=await api('/api/admin/documents/pages');
       const pageOptions=[

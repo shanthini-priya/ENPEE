@@ -102,6 +102,10 @@ const notFoundHtml = `<!DOCTYPE html>
       if (base && path.indexOf(base) === 0) {
         path = path.slice(base.length) || '/';
       }
+      if (path === '/admin' || path.indexOf('/admin/') === 0 || path === '/admin.html') {
+        location.replace(base + '/admin/' + location.search + location.hash);
+        return;
+      }
       var target = base + '/?route=' + encodeURIComponent(path + location.search) + location.hash;
       location.replace(target);
     })();

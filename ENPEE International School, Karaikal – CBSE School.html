@@ -4298,9 +4298,18 @@
     // ─── Environment & Routing Helpers ─────────────────────────────────────────────
     var BASE_PATH = (document.querySelector('meta[name="enpee-base-path"]') && document.querySelector('meta[name="enpee-base-path"]').content || '').replace(/\/+$/, '');
     if (!BASE_PATH && location.hostname.endsWith('.github.io') && /^\/ENPEE(\/|$)/.test(location.pathname)) BASE_PATH = '/ENPEE';
-    var API_BASE = (window.ENPEE_API_BASE || (document.querySelector('meta[name="enpee-api-base"]') && document.querySelector('meta[name="enpee-api-base"]').content) || '').replace(/\/+$/, '');
+    var API_BASE = (
+      window.ENPEE_API_BASE ||
+      (document.querySelector('meta[name="enpee-api-base"]') && document.querySelector('meta[name="enpee-api-base"]').content) ||
+      (() => { try { return localStorage.getItem('enpee_api_base') || ''; } catch (e) { return ''; } })()
+    ).trim().replace(/\/+$/, '');
     var IS_GITHUB_PAGES = location.hostname.endsWith('.github.io');
-    function apiUrl(path) { return API_BASE ? API_BASE + path : path }
+    function apiUrl(path) {
+      if (/^https?:\/\//i.test(path)) return path;
+      var base = API_BASE;
+      if (!base && !IS_GITHUB_PAGES) return path;
+      return base ? base + path : path;
+    }
     function stripBasePath(pathname) {
       var p = pathname || '/';
       if (BASE_PATH && p.indexOf(BASE_PATH) === 0) p = p.slice(BASE_PATH.length) || '/';
@@ -4311,31 +4320,51 @@
       if (BASE_PATH && path.indexOf(BASE_PATH + '/') !== 0 && path !== BASE_PATH) return BASE_PATH + path;
       return path;
     }
+    function resolveMediaUrl(url) {
+      if (!url || typeof url !== 'string') return '';
+      url = url.trim();
+      if (/^https?:\/\//i.test(url) || url.indexOf('data:') === 0 || url.indexOf('blob:') === 0) return url;
+      if (url.charAt(0) === '/') {
+        if (url.indexOf('/uploads/') === 0) return apiUrl(url);
+        if (url.indexOf('/assets/') === 0) return withBasePath(url);
+        return apiUrl(url);
+      }
+      return url;
+    }
     // ─── CMS Content Loader ────────────────────────────────────────────────────────
     var cmsData = null; var cmsLoadPromise = null; var cmsInitialized = false;
-    function loadCmsContent() {
-      if (cmsLoadPromise) return cmsLoadPromise;
-      cmsLoadPromise = fetch('/api/public/content').then(function (r) {
-        if (IS_GITHUB_PAGES && !API_BASE) {
-          handleRoute();
-          cmsLoadPromise = Promise.resolve(null);
-          return cmsLoadPromise;
-        }
-        cmsLoadPromise = fetch(apiUrl('/api/public/content')).then(function (r) {
-          if (!r.ok) throw new Error('CMS content unavailable');
-          return r.json();
-        }).then(function (data) {
+    function loadCmsContent(forceRefresh) {
+      if (cmsLoadPromise && !forceRefresh) return cmsLoadPromise;
+      if (IS_GITHUB_PAGES && !API_BASE) {
+        handleRoute();
+        cmsLoadPromise = Promise.resolve(null);
+        return cmsLoadPromise;
+      }
+      var endpoint = apiUrl('/api/public/content');
+      var sep = endpoint.indexOf('?') === -1 ? '?' : '&';
+      var fetchUrl = forceRefresh ? endpoint + sep + 't=' + Date.now() : endpoint;
+      cmsLoadPromise = fetch(fetchUrl, {
+        headers: { 'Accept': 'application/json' },
+        cache: forceRefresh ? 'no-store' : 'default'
+      }).then(function (r) {
+        if (!r.ok) throw new Error('CMS content unavailable (' + r.status + ')');
+        return r.json();
+      }).then(function (data) {
+        if (data) {
           cmsData = data;
           renderCmsContent(data);
-          return data;
-        }).catch(function (err) { console.error('CMS load error:', err) });
-      }).catch(function (err) { console.error('CMS load error:', err); handleRoute() });
+        }
+        return data;
+      }).catch(function (err) {
+        console.warn('CMS load error:', err.message);
+        handleRoute();
+        return null;
+      });
       return cmsLoadPromise;
     }
 
     function renderCmsContent(data) {
-      if (!data || cmsInitialized) return;
-      cmsInitialized = true;
+      if (!data) return;
       var docs = data.documents || {};
       var collections = data.collections || {};
 
@@ -4358,7 +4387,10 @@
 
       // ─ Routes ─
       handleRoute();
-      window.addEventListener('popstate', handleRoute);
+      if (!cmsInitialized) {
+        cmsInitialized = true;
+        window.addEventListener('popstate', handleRoute);
+      }
     }
 
     function renderDocumentValues(docs) {
@@ -4372,12 +4404,33 @@
         }
         if (typeof value === 'string' && value) el.textContent = value;
       });
-      // Hero image
+      document.querySelectorAll('[data-cms-link]').forEach(function (el) {
+        var path = el.dataset.cmsLink.split('.');
+        var value = docs;
+        for (var i = 0; i < path.length; i++) {
+          if (!value) break;
+          value = value[path[i]];
+        }
+        if (typeof value === 'string' && value) el.setAttribute('href', value);
+      });
+      // Hero & Logo
       var home = docs.home;
       if (home) {
         if (home.heroImage) {
           var hp = document.querySelector('.hp');
-          if (hp) hp.style.backgroundImage = "linear-gradient(180deg,rgba(11,24,39,.1),rgba(11,24,39,.45)),url('" + home.heroImage + "')";
+          if (hp) hp.style.backgroundImage = "linear-gradient(180deg,rgba(11,24,39,.1),rgba(11,24,39,.45)),url('" + resolveMediaUrl(home.heroImage) + "')";
+        }
+        if (home.logoImage) {
+          var logoUrl = resolveMediaUrl(home.logoImage);
+          document.querySelectorAll('.logo').forEach(function (el) {
+            var img = el.querySelector('.brand-image');
+            if (img) { img.src = logoUrl; img.hidden = false; }
+          });
+        } else if (home.logoImage === '') {
+          document.querySelectorAll('.logo').forEach(function (el) {
+            var img = el.querySelector('.brand-image');
+            if (img) img.hidden = true;
+          });
         }
         if (home.statistics && Array.isArray(home.statistics)) {
           var sg = document.querySelector('.sg');
@@ -4385,7 +4438,7 @@
             sg.innerHTML = '';
             home.statistics.forEach(function (stat) {
               var div = document.createElement('div');
-              div.innerHTML = '<i>' + (stat.number || stat.title || '') + '</i><b>' + (stat.title || '') + '</b><small>' + (stat.detail || '') + '</small>';
+              div.innerHTML = '<i>' + escapeHtml(stat.number || stat.title || '') + '</i><b>' + escapeHtml(stat.title || '') + '</b><small>' + escapeHtml(stat.detail || '') + '</small>';
               sg.appendChild(div);
             });
           }
@@ -4396,26 +4449,57 @@
       if (about && about.photos && Array.isArray(about.photos)) {
         var aboutPhotos = document.querySelectorAll('#about .ph');
         about.photos.forEach(function (url, i) {
-          if (aboutPhotos[i]) aboutPhotos[i].style.backgroundImage = "linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.45)),url('" + url + "')";
+          if (aboutPhotos[i] && url) {
+            aboutPhotos[i].style.backgroundImage = "linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.45)),url('" + resolveMediaUrl(url) + "')";
+          }
         });
       }
       // About extra text
       var aboutExtra = document.getElementById('about-extra');
       if (aboutExtra && about) {
         var parts = [];
-        if (about.vision) parts.push('<h3>Our Vision</h3><p>' + about.vision + '</p>');
-        if (about.mission) parts.push('<h3>Our Mission</h3><p>' + about.mission + '</p>');
+        if (about.vision) parts.push('<h3>Our Vision</h3><p>' + escapeHtml(about.vision) + '</p>');
+        if (about.mission) parts.push('<h3>Our Mission</h3><p>' + escapeHtml(about.mission) + '</p>');
         if (about.highlights && Array.isArray(about.highlights)) {
-          parts.push('<ul class="tick">' + about.highlights.map(function (h) { return '<li>' + h + '</li>' }).join('') + '</ul>');
+          parts.push('<ul class="tick">' + about.highlights.map(function (h) { return '<li>' + escapeHtml(h) + '</li>' }).join('') + '</ul>');
         }
         aboutExtra.innerHTML = parts.join('');
       }
-      // Footer contact
-      if (docs.contactUs) {
-        var c = docs.contactUs;
+      // Footer & Contact section
+      var c = docs.contact || docs.contactUs;
+      if (c) {
+        var addrEl = document.querySelector('#contact address');
+        if (addrEl && (c.address || c.phone || c.email || c.mobile)) {
+          var addrHtml = '<b style="color:var(--hd)">' + escapeHtml(c.schoolName || 'ENPEE International School') + '</b><br>' +
+            escapeHtml(c.address || '').replace(/\n/g, '<br>') + '<br><br>';
+          if (c.phone) addrHtml += 'Phone: <a href="tel:' + escapeHtml(c.phone.replace(/[^+0-9]/g, '')) + '">' + escapeHtml(c.phone) + '</a><br>';
+          if (c.mobile) addrHtml += 'Mobile: <a href="tel:' + escapeHtml(c.mobile.replace(/[^+0-9]/g, '')) + '">' + escapeHtml(c.mobile) + '</a><br>';
+          if (c.email) addrHtml += 'Email: <a href="mailto:' + escapeHtml(c.email) + '">' + escapeHtml(c.email) + '</a>';
+          addrEl.innerHTML = addrHtml;
+        }
+        var contactActions = document.querySelector('#contact .contact-actions');
+        if (contactActions) {
+          if (c.phone) {
+            var callBtn = contactActions.querySelector('a[href^="tel:"]');
+            if (callBtn) callBtn.href = 'tel:' + c.phone.replace(/[^+0-9]/g, '');
+          }
+          if (c.mobile || c.whatsapp) {
+            var waBtn = contactActions.querySelector('.wa');
+            var waNum = (c.whatsapp || c.mobile || '').replace(/[^0-9]/g, '');
+            if (waBtn && waNum) waBtn.href = 'https://wa.me/' + waNum;
+          }
+          if (c.email) {
+            var mailBtn = contactActions.querySelector('a[href^="mailto:"]');
+            if (mailBtn) mailBtn.href = 'mailto:' + c.email;
+          }
+          if (c.mapsUrl) {
+            var dirBtn = contactActions.querySelector('a.gold');
+            if (dirBtn) dirBtn.href = c.mapsUrl;
+          }
+        }
         if (c.address) { var fa = document.getElementById('footer-address'); if (fa) fa.textContent = c.address }
-        if (c.phone) { var fp = document.getElementById('footer-phone'); if (fp) fp.innerHTML = '<a href="tel:' + c.phone.replace(/\s/g, '') + '">' + c.phone + '</a>' }
-        if (c.email) { var fe = document.getElementById('footer-email'); if (fe) fe.innerHTML = '<a href="mailto:' + c.email + '">' + c.email + '</a>' }
+        if (c.phone) { var fp = document.getElementById('footer-phone'); if (fp) fp.innerHTML = '<a href="tel:' + c.phone.replace(/[^+0-9]/g, '') + '">' + escapeHtml(c.phone) + '</a>' }
+        if (c.email) { var fe = document.getElementById('footer-email'); if (fe) fe.innerHTML = '<a href="mailto:' + c.email + '">' + escapeHtml(c.email) + '</a>' }
       }
       // Copyright year
       var cy = document.getElementById('cp-year'); if (cy) cy.textContent = new Date().getFullYear();
@@ -4452,7 +4536,8 @@
       container.innerHTML = '';
       items.forEach(function (p) {
         var card = document.createElement('article'); card.className = 'card rv';
-        var imgStyle = p.image ? "background-image:linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.55)),url('" + escapeHtml(p.image) + "')" : '';
+        var imgUrl = resolveMediaUrl(p.image);
+        var imgStyle = imgUrl ? "background-image:linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.55)),url('" + escapeHtml(imgUrl) + "')" : '';
         card.innerHTML = '<div class="ph" style="' + imgStyle + '"><span>' + escapeHtml(p.title || '') + '</span></div><div class="b">' + (p.eyebrow ? '<div class="lb">' + escapeHtml(p.eyebrow) + '</div>' : '') + '<h3>' + escapeHtml(p.title || '') + '</h3><p>' + escapeHtml(p.description || '') + '</p><a href="#admissions">Learn More →</a></div>';
         container.appendChild(card);
       });
@@ -4472,8 +4557,9 @@
       withImages.forEach(function (f) {
         var btn = document.createElement('button'); btn.className = 'gallery-card'; btn.type = 'button';
         btn.dataset.category = f.category || 'Campus';
-        btn.dataset.lightboxUrl = f.image;
-        btn.innerHTML = '<img loading="lazy" src="' + escapeHtml(f.image) + '" alt="' + escapeHtml(f.title || '') + '"><span>' + escapeHtml(f.title || '') + '</span>';
+        var imgUrl = resolveMediaUrl(f.image);
+        btn.dataset.lightboxUrl = imgUrl;
+        btn.innerHTML = '<img loading="lazy" src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(f.title || '') + '"><span>' + escapeHtml(f.title || '') + '</span>';
         photos.appendChild(btn);
       });
     }
@@ -4510,8 +4596,9 @@
         filtered.forEach(function (g) {
           var card = document.createElement('button'); card.className = 'gallery-card rv'; card.type = 'button';
           card.dataset.category = g.category || '';
-          card.dataset.lightboxUrl = g.image || '';
-          card.innerHTML = '<img src="' + escapeHtml(g.image || '') + '" alt="' + escapeHtml(g.title || '') + '" loading="lazy"><span>' + escapeHtml(g.title || '') + '</span>';
+          var imgUrl = resolveMediaUrl(g.image || '');
+          card.dataset.lightboxUrl = imgUrl;
+          card.innerHTML = '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(g.title || '') + '" loading="lazy"><span>' + escapeHtml(g.title || '') + '</span>';
           container.appendChild(card);
         });
         container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
@@ -4584,9 +4671,11 @@
       container.innerHTML = '';
       items.forEach(function (e) {
         var card = document.createElement('div'); card.className = 'card rv';
-        card.innerHTML = '<div class="ph" style="background-image:linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.55)),url(\'' + escapeHtml(e.image || '') + '\')"><span>' + escapeHtml(e.title || '') + '</span></div><div class="b"><h3>' + escapeHtml(e.title || '') + '</h3><p>' + escapeHtml(e.description || '') + '</p></div>';
+        var imgUrl = resolveMediaUrl(e.image || '');
+        card.innerHTML = '<div class="ph" style="background-image:linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.55)),url(\'' + escapeHtml(imgUrl) + '\')"><span>' + escapeHtml(e.title || '') + '</span></div><div class="b"><h3>' + escapeHtml(e.title || '') + '</h3><p>' + escapeHtml(e.description || '') + '</p></div>';
         container.appendChild(card);
       });
+      container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
     }
 
     function renderActivities(items) {
@@ -4595,7 +4684,8 @@
       container.innerHTML = '';
       items.forEach(function (a) {
         var card = document.createElement('div'); card.className = 'ph rv';
-        card.style.backgroundImage = "linear-gradient(180deg,rgba(6,18,30,.1),rgba(6,18,30,.52)),url('" + escapeHtml(a.image || '') + "')";
+        var imgUrl = resolveMediaUrl(a.image || '');
+        card.style.backgroundImage = "linear-gradient(180deg,rgba(6,18,30,.1),rgba(6,18,30,.52)),url('" + escapeHtml(imgUrl) + "')";
         card.innerHTML = '<span>' + escapeHtml(a.title || '') + '</span>';
         container.appendChild(card);
       });
@@ -4612,7 +4702,8 @@
       container.innerHTML = '';
       items.forEach(function (p) {
         var card = document.createElement('div'); card.className = 'cms-profile rv';
-        card.innerHTML = (p.image ? '<img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(p.name || '') + '" loading="lazy">' : '') + '<h3>' + escapeHtml(p.name || '') + '</h3><div class="role">' + escapeHtml(p.title || p.role || '') + '</div>' + (p.description ? '<p>' + escapeHtml(p.description) + '</p>' : '');
+        var imgUrl = p.image ? resolveMediaUrl(p.image) : '';
+        card.innerHTML = (imgUrl ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(p.name || '') + '" loading="lazy">' : '') + '<h3>' + escapeHtml(p.name || '') + '</h3><div class="role">' + escapeHtml(p.title || p.role || '') + '</div>' + (p.description ? '<p>' + escapeHtml(p.description) + '</p>' : '');
         container.appendChild(card);
       });
       container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
@@ -4640,38 +4731,62 @@
       container.innerHTML = '';
       items.forEach(function (s) {
         var div = document.createElement('div'); div.className = 'cms-section rv';
-        div.innerHTML = '<h3>' + escapeHtml(s.heading || s.title || '') + '</h3>' + (s.body || s.content ? '<p>' + (s.body || s.content) + '</p>' : '') + (s.image ? '<img src="' + escapeHtml(s.image) + '" alt="' + escapeHtml(s.heading || s.title || '') + '" loading="lazy">' : '');
+        var imgUrl = s.image ? resolveMediaUrl(s.image) : '';
+        div.innerHTML = '<h3>' + escapeHtml(s.heading || s.title || '') + '</h3>' + (s.body || s.content ? '<p>' + (s.body || s.content) + '</p>' : '') + (imgUrl ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(s.heading || s.title || '') + '" loading="lazy">' : '');
         container.appendChild(div);
       });
+      container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
     }
 
     // ─── Client-Side Routing ───────────────────────────────────────────────────────
     var routes = {
       '/': function () { showPage('home') },
+      '/index.php': function () { showPage('home') },
       '/about': function () { showPage('about') },
-      '/promoters': function () { showPage('promoters') },
-      '/management': function () { showPage('management') },
+      '/about.php': function () { showPage('about') },
+      '/promoters': function () { showPage('leadership-section') },
+      '/promoters.php': function () { showPage('leadership-section') },
+      '/management': function () { showPage('leadership-section') },
+      '/management.php': function () { showPage('leadership-section') },
+      '/advisory-board': function () { showPage('leadership-section') },
+      '/advisory-board.php': function () { showPage('leadership-section') },
+      '/cbse-mandatory-disclosure': function () { showPage('academics') },
+      '/cbse-mandatory-disclosure.php': function () { showPage('academics') },
       '/chateau-francais': function () { showPage('campus') },
+      '/chateau-francais.php': function () { showPage('campus') },
       '/way-we-work': function () { showPage('academics') },
+      '/way-we-work.php': function () { showPage('academics') },
       '/programs-offered': function () { showPage('academics') },
+      '/programs-offered.php': function () { showPage('academics') },
       '/what-makes-us-different': function () { showPage('features') },
-      '/contact-us': function () { showPage('contact') }
+      '/what-makes-us-different.php': function () { showPage('features') },
+      '/contact-us': function () { showPage('contact') },
+      '/contact.php': function () { showPage('contact') }
     };
 
     function handleRoute() {
-      var path = location.pathname.replace(/\/+$/, '') || '/';
       var params = new URLSearchParams(location.search);
       var redirectRoute = params.get('route');
       if (redirectRoute) {
-        history.replaceState(null, '', withBasePath(redirectRoute) + location.hash);
+        try {
+          var cleanTarget = withBasePath(redirectRoute);
+          history.replaceState(null, '', cleanTarget + location.hash);
+        } catch (e) {}
       }
-      var path = stripBasePath(location.pathname);
-      var routeFn = routes[path];
-      if (routeFn) routeFn();
+      var rawPath = stripBasePath(location.pathname);
+      var cleanPath = (rawPath.replace(/\/+$/, '') || '/').replace(/\/index\.php$/, '/');
+      var routeFn = routes[cleanPath] || routes[rawPath];
+      if (routeFn) {
+        routeFn();
+      } else {
+        showPage('home');
+      }
       var hash = location.hash;
       if (hash) {
-        var target = document.querySelector(hash);
-        if (target) window.setTimeout(function () { target.scrollIntoView({ behavior: 'smooth' }) }, 100);
+        try {
+          var target = document.querySelector(hash);
+          if (target) window.setTimeout(function () { target.scrollIntoView({ behavior: 'smooth' }) }, 100);
+        } catch (e) {}
       }
       setActiveNav();
     }
@@ -4680,6 +4795,16 @@
       document.querySelectorAll('main>section,main>.page-hero,.phil,.parents-corner').forEach(function (section) {
         section.style.display = '';
       });
+      if (pageId && pageId !== 'home') {
+        var target = document.getElementById(pageId);
+        if (target) {
+          window.setTimeout(function () {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }, 80);
+        }
+      } else if (pageId === 'home' && !location.hash) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
 
     // ─── SPA Navigation ───────────────────────────────────────────────────────────
@@ -4687,13 +4812,28 @@
       var link = event.target.closest('a[data-page-link],a[href^="/"]');
       if (!link) return;
       var href = link.getAttribute('href');
-      if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
-      if (href.startsWith('/')) {
+      if (!href || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+      var targetPath = null;
+      if (href.indexOf('http://') === 0 || href.indexOf('https://') === 0) {
+        try {
+          var u = new URL(href);
+          if (u.hostname === 'www.enpeekkl.com' || u.hostname === 'enpeekkl.com') {
+            targetPath = u.pathname;
+          } else {
+            return;
+          }
+        } catch (e) { return; }
+      } else if (href.indexOf('#') === 0) {
+        return;
+      } else if (href.indexOf('/') === 0) {
+        targetPath = href;
+      }
+      if (targetPath) {
         event.preventDefault();
-        history.pushState(null, '', href);
-        history.pushState(null, '', withBasePath(href));
+        var cleanPath = stripBasePath(targetPath);
+        var targetUrl = withBasePath(cleanPath);
+        history.pushState(null, '', targetUrl);
         handleRoute();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
         closeMobileNav(false);
       }
     });
@@ -4715,8 +4855,8 @@
           headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify(data)
         });
-          var result = await response.json();
-          if(!response.ok)throw new Error(result.error || 'Submission failed');
+        var result = await response.json();
+        if(!response.ok)throw new Error(result.error || 'Submission failed');
         form.reset();
         if (statusElement) {
           statusElement.textContent = 'Thank you! Your enquiry has been submitted to ENPEE International School.';
@@ -4741,7 +4881,11 @@
       event.preventDefault(); var form = event.currentTarget;
       submitEnquiry(form, { kind: 'parent', parentName: form.elements.parentName.value, email: form.elements.email.value, message: form.elements.message.value, website: form.elements.website.value }, form.querySelector('.ok'));
     });
-    loadCmsContent();
+    window.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') loadCmsContent(true);
+    });
+    var hasPreviewParam = /[?&](?:preview|t)=\d+/.test(location.search);
+    loadCmsContent(hasPreviewParam);
   </script>
   <!-- ═══════════════════════════════════════════════════════════════════
      ENPEE Buddy Floating Mascot — Phase 2 Widget
