@@ -3,6 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ENPEE International School, Karaikal – CBSE School</title>
 <meta name="description" content="ENPEE International School, Karaikal – CBSE school with a 5-acre campus. Admissions open 2026–27, Pre-KG to Class IX.">
+<meta name="enpee-base-path" content="">
+<meta name="enpee-api-base" content="">
 <link rel="canonical" href="https://www.enpeekkl.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -538,7 +540,7 @@ function renderNavigation(documentValue){
   setActiveNav();
 }
 function setActiveNav(){
-  var currentPath=(location.pathname.replace(/\/+$/,'')||'/').replace(/\/index\.php$/,'/');
+  var currentPath=stripBasePath(location.pathname);
   var routeAliases={'/':'/index.php','/about':'/about.php','/promoters':'/promoters.php','/management':'/management.php','/chateau-francais':'/chateau-francais.php','/way-we-work':'/way-we-work.php','/programs-offered':'/programs-offered.php','/what-makes-us-different':'/what-makes-us-different.php','/contact-us':'/contact.php'};
   var currentAlias=routeAliases[currentPath]||currentPath;
   nv.querySelectorAll('a[data-page-link]').forEach(function(link){
@@ -585,18 +587,39 @@ document.querySelectorAll('.rv').forEach(function(element){if(io)io.observe(elem
 document.addEventListener('pointermove',function(event){if(reduceMotion||!finePointer||!finePointer.matches||event.pointerType==='touch')return;var card=event.target.closest('.feature-card,.card,.gallery-card');if(!card)return;var rect=card.getBoundingClientRect(),x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width)),y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));card.style.setProperty('--tilt-x',((.5-y)*5).toFixed(2)+'deg');card.style.setProperty('--tilt-y',((x-.5)*7).toFixed(2)+'deg');card.style.setProperty('--glow-x',(x*100).toFixed(1)+'%');card.style.setProperty('--glow-y',(y*100).toFixed(1)+'%')},{passive:true});
 document.addEventListener('pointerout',function(event){var card=event.target.closest('.feature-card,.card,.gallery-card');if(!card||card.contains(event.relatedTarget))return;card.style.setProperty('--tilt-x','0deg');card.style.setProperty('--tilt-y','0deg');card.style.setProperty('--glow-x','50%');card.style.setProperty('--glow-y','50%')});
 document.addEventListener('pointerdown',function(event){var button=event.target.closest('.btn');if(!button||button.disabled)return;var rect=button.getBoundingClientRect();button.style.setProperty('--ripple-x',(event.clientX-rect.left)+'px');button.style.setProperty('--ripple-y',(event.clientY-rect.top)+'px');button.classList.remove('is-rippling');void button.offsetWidth;button.classList.add('is-rippling');window.setTimeout(function(){button.classList.remove('is-rippling')},600)},{passive:true});
+// ─── Environment & Routing Helpers ─────────────────────────────────────────────
+var BASE_PATH=(document.querySelector('meta[name="enpee-base-path"]')&&document.querySelector('meta[name="enpee-base-path"]').content||'').replace(/\/+$/,'');
+if(!BASE_PATH&&location.hostname.endsWith('.github.io')&&/^\/ENPEE(\/|$)/.test(location.pathname))BASE_PATH='/ENPEE';
+var API_BASE=(window.ENPEE_API_BASE||(document.querySelector('meta[name="enpee-api-base"]')&&document.querySelector('meta[name="enpee-api-base"]').content)||'').replace(/\/+$/,'');
+var IS_GITHUB_PAGES=location.hostname.endsWith('.github.io');
+function apiUrl(path){return API_BASE?API_BASE+path:path}
+function stripBasePath(pathname){
+  var p=pathname||'/';
+  if(BASE_PATH&&p.indexOf(BASE_PATH)===0)p=p.slice(BASE_PATH.length)||'/';
+  return (p.replace(/\/+$/,'')||'/').replace(/\/index\.php$/,'/');
+}
+function withBasePath(path){
+  if(!path||path.charAt(0)!=='/')return path;
+  if(BASE_PATH&&path.indexOf(BASE_PATH+'/')!==0&&path!==BASE_PATH)return BASE_PATH+path;
+  return path;
+}
 // ─── CMS Content Loader ────────────────────────────────────────────────────────
 var cmsData=null;var cmsLoadPromise=null;var cmsInitialized=false;
 function loadCmsContent(){
   if(cmsLoadPromise)return cmsLoadPromise;
-  cmsLoadPromise=fetch('/api/public/content').then(function(r){
+  if(IS_GITHUB_PAGES&&!API_BASE){
+    handleRoute();
+    cmsLoadPromise=Promise.resolve(null);
+    return cmsLoadPromise;
+  }
+  cmsLoadPromise=fetch(apiUrl('/api/public/content')).then(function(r){
     if(!r.ok)throw new Error('CMS content unavailable');
     return r.json();
   }).then(function(data){
     cmsData=data;
     renderCmsContent(data);
     return data;
-  }).catch(function(err){console.error('CMS load error:',err)});
+  }).catch(function(err){console.error('CMS load error:',err);handleRoute()});
   return cmsLoadPromise;
 }
 
@@ -926,7 +949,12 @@ var routes={
 };
 
 function handleRoute(){
-  var path=location.pathname.replace(/\/+$/,'')||'/';
+  var params=new URLSearchParams(location.search);
+  var redirectRoute=params.get('route');
+  if(redirectRoute){
+    history.replaceState(null,'',withBasePath(redirectRoute)+location.hash);
+  }
+  var path=stripBasePath(location.pathname);
   var routeFn=routes[path];
   if(routeFn)routeFn();
   var hash=location.hash;
@@ -951,7 +979,7 @@ document.addEventListener('click',function(event){
   if(!href||href.startsWith('http')||href.startsWith('mailto:')||href.startsWith('tel:')||link.target==='_blank')return;
   if(href.startsWith('/')){
     event.preventDefault();
-    history.pushState(null,'',href);
+    history.pushState(null,'',withBasePath(href));
     handleRoute();
     window.scrollTo({top:0,behavior:'smooth'});
     closeMobileNav(false);
@@ -964,10 +992,13 @@ async function submitEnquiry(form,data,statusElement){
   var label=button?button.querySelector('.btn-label'):null;
   var originalLabel=label?label.textContent:button?button.textContent:'';
   try{
+    if(IS_GITHUB_PAGES&&!API_BASE){
+      throw new Error('Online enquiry API is not connected to this static preview.');
+    }
     if(button){button.disabled=true;button.setAttribute('aria-busy','true');button.classList.add('is-loading')}
     form.classList.add('is-submitting');
     var csrfToken=form.elements._csrf?form.elements._csrf.value:'';
-    var response=await fetch('/api/public/enquiries',{
+    var response=await fetch(apiUrl('/api/public/enquiries'),{
       method:'POST',
       headers:{'Content-Type':'application/json','X-CSRF-Token':csrfToken},
       body:JSON.stringify(data)
