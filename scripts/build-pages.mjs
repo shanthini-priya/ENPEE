@@ -72,6 +72,23 @@ if (!fs.existsSync(path.join(root, 'assets', 'mascot', 'enpee-buddy.js'))) {
 
 fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
 
+// Build static admin UI for /ENPEE/admin and /ENPEE/admin.html
+const sourceAdminHtml = path.join(root, 'admin.html');
+if (fs.existsSync(sourceAdminHtml)) {
+  let adminHtml = fs.readFileSync(sourceAdminHtml, 'utf8');
+  adminHtml = adminHtml.replace(
+    '<meta name="enpee-base-path" content="">',
+    `<meta name="enpee-base-path" content="${basePath}">`
+  );
+  adminHtml = adminHtml.replace(
+    '<meta name="enpee-api-base" content="">',
+    `<meta name="enpee-api-base" content="${apiBase.replace(/"/g, '&quot;')}">`
+  );
+  fs.mkdirSync(path.join(distDir, 'admin'), { recursive: true });
+  fs.writeFileSync(path.join(distDir, 'admin', 'index.html'), adminHtml, 'utf8');
+  fs.writeFileSync(path.join(distDir, 'admin.html'), adminHtml, 'utf8');
+}
+
 // Create 404.html for GitHub Pages SPA direct-route & refresh support
 const notFoundHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -100,3 +117,4 @@ fs.writeFileSync(path.join(distDir, '.nojekyll'), '', 'utf8');
 console.log(`Built GitHub Pages output in ${distDir}`);
 console.log(`Base path: ${basePath}`);
 console.log(`API base: ${apiBase || '(static fallback mode — set ENPEE_API_BASE to connect external Express API)'}`);
+

@@ -747,6 +747,11 @@ if (!adminsCount) {
 }
 
 app.disable('x-powered-by');
+const allowedCorsOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((o) => o.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
+
 app.set('trust proxy', process.env.TRUST_PROXY === 'true' ? 1 : false);
 app.use(helmet({
   contentSecurityPolicy: {
@@ -763,8 +768,23 @@ app.use(helmet({
       frameAncestors: ["'none'"]
     }
   },
-  crossOriginEmbedderPolicy: false
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: allowedCorsOrigins.length ? { policy: 'cross-origin' } : { policy: 'same-origin' }
 }));
+if (allowedCorsOrigins.length) {
+  app.use((req, res, next) => {
+    const origin = req.headers.origin?.replace(/\/+$/, '');
+    if (origin && allowedCorsOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Vary', 'Origin');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-CSRF-Token');
+      if (req.method === 'OPTIONS') return res.sendStatus(204);
+    }
+    next();
+  });
+}
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: false, limit: '16kb' }));
 app.use('/uploads', express.static(uploadDir, { index: false, dotfiles: 'deny', maxAge: '0', setHeaders: (res) => res.setHeader('X-Content-Type-Options', 'nosniff') }));
@@ -884,8 +904,11 @@ const passwordMatches = (password, stored) => {
   return Boolean(salt && expected && safeEqual(crypto.scryptSync(password, salt, 64).toString('hex'), expected));
 };
 const cookieOptions = (maxAge) => ({
-  httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict',
-  path: '/', maxAge
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production' || allowedCorsOrigins.length > 0,
+  sameSite: allowedCorsOrigins.length > 0 ? 'none' : 'strict',
+  path: '/',
+  maxAge
 });
 const logAction = (admin, action, target) => db.prepare(
   'INSERT INTO activity_log(id,admin_email,action,target,created_at) VALUES(?,?,?,?,?)'

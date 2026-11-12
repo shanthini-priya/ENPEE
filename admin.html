@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="enpee-base-path" content="">
+  <meta name="enpee-api-base" content="">
   <title>ENPEE CMS · Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,6 +61,11 @@
       <div id="sign-in">
         <h1>Welcome back</h1><p class="muted">Sign in to manage your school website.</p>
         <form id="login-form"><label>Email address</label><input name="email" type="email" autocomplete="username" required><label>Password</label><input name="password" type="password" autocomplete="current-password" required><button class="btn full" type="submit">Sign in</button><div class="error" id="login-error"></div></form>
+        <div id="api-config-box" class="hidden" style="margin-top:16px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#f8fafb">
+          <label for="api-base-input" style="margin-top:0">Backend API URL</label>
+          <p class="help" style="margin:0 0 8px">GitHub Pages cannot run Node.js/SQLite. Enter your hosted <code>server.mjs</code> URL (e.g. <code>https://your-app.onrender.com</code>):</p>
+          <div style="display:flex;gap:8px"><input id="api-base-input" type="url" placeholder="https://your-backend-url.com"><button class="btn light small" id="api-base-save" type="button">Connect</button></div>
+        </div>
         <button class="link-button" id="forgot-button" type="button">Forgot password?</button>
       </div>
       <div id="forgot-view" class="hidden"><h1>Reset password</h1><p class="muted">We’ll email a secure reset link if the account exists.</p><form id="forgot-form"><label>Admin email</label><input name="email" type="email" required><button class="btn full" type="submit">Send reset link</button><div class="error" id="forgot-error"></div></form><button class="link-button back-login">Back to sign in</button></div>
@@ -76,6 +83,19 @@
   <div id="toast" class="toast hidden" role="status"></div>
   <script>
     const $ = (selector, root=document) => root.querySelector(selector);
+    const BASE_PATH = (() => {
+      const meta = document.querySelector('meta[name="enpee-base-path"]')?.content?.trim();
+      if (meta) return meta.endsWith('/') ? meta : meta + '/';
+      return location.hostname.endsWith('.github.io') ? '/ENPEE/' : '/';
+    })();
+    const getApiBase = () => {
+      const meta = document.querySelector('meta[name="enpee-api-base"]')?.content?.trim().replace(/\/+$/, '');
+      if (meta) return meta;
+      try { return (localStorage.getItem('enpee_api_base') || '').trim().replace(/\/+$/, ''); } catch { return ''; }
+    };
+    const apiUrl = (url) => (/^https?:\/\//i.test(url) ? url : (getApiBase() ? getApiBase() + url : url));
+    const credentialsMode = () => (getApiBase() ? 'include' : 'same-origin');
+    document.querySelectorAll('.brand').forEach((el) => { el.href = BASE_PATH; });
     const state = { csrf:'', email:'', page:'home', collection:'', editing:null, items:[], pageNum:1, query:'', filters:{}, galleryFiles:[], editingPage:'about' };
     document.addEventListener('click',event=>{const button=event.target.closest('[data-close-dialog]');if(button)document.getElementById(button.dataset.closeDialog).close()});
     const navItems = [
@@ -115,7 +135,7 @@
       const headers = new Headers(options.headers || {});
       if (options.body && !(options.body instanceof FormData)) headers.set('Content-Type','application/json');
       if (state.csrf && options.method && options.method !== 'GET') headers.set('X-CSRF-Token',state.csrf);
-      const response = await fetch(url,{...options,headers,credentials:'same-origin'});
+      const response = await fetch(apiUrl(url),{...options,headers,credentials:credentialsMode()});
       const type=response.headers.get('content-type')||'';
       const body=type.includes('application/json')?await response.json():await response.text();
       if(!response.ok){const error=new Error(body.error||`Request failed (${response.status})`);error.status=response.status;throw error}
@@ -124,10 +144,27 @@
     function showLogin(mode='sign-in'){
       $('#login').classList.remove('hidden');$('#app').classList.add('hidden');
       ['sign-in','forgot-view','reset-view'].forEach(id=>$('#'+id).classList.toggle('hidden',id!==mode));
+      const box = $('#api-config-box');
+      if (box && location.hostname.endsWith('.github.io')) {
+        box.classList.remove('hidden');
+        const input = $('#api-base-input');
+        if (input && !input.value) input.value = getApiBase();
+      }
+    }
+    if ($('#api-base-save')) {
+      $('#api-base-save').onclick = () => {
+        const val = ($('#api-base-input').value || '').trim().replace(/\/+$/, '');
+        try {
+          if (val) localStorage.setItem('enpee_api_base', val);
+          else localStorage.removeItem('enpee_api_base');
+        } catch {}
+        $('#login-error').textContent = '';
+        checkSession();
+      };
     }
     function showApp(){
       $('#login').classList.add('hidden');$('#app').classList.remove('hidden');$('#user-email').textContent=state.email;
-      $('#navigation').innerHTML=navItems.map(([key,icon,label])=>`<a href="${key==='preview'?'/':'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`).join('');
+      $('#navigation').innerHTML=navItems.map(([key,icon,label])=>`<a href="${key==='preview'?BASE_PATH:'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`).join('');
       $('#navigation').onclick=event=>{const link=event.target.closest('[data-page]');if(link){event.preventDefault();navigate(link.dataset.page)}};
       window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)||'home'));
       navigate(location.hash.slice(1)||'home');
@@ -135,6 +172,11 @@
     async function checkSession(){
       const params=new URLSearchParams(location.search);
       if(location.pathname.endsWith('/reset')&&params.has('token')){showLogin('reset-view');return}
+      if(location.hostname.endsWith('.github.io')&&!getApiBase()){
+        showLogin();
+        $('#login-error').textContent='Connect a hosted ENPEE Express API URL below (or set ENPEE_API_BASE in GitHub Actions) to sign in.';
+        return;
+      }
       try{const user=await api('/api/auth/me');state.csrf=user.csrfToken;state.email=user.email;showApp()}catch(error){showLogin();if(error.status!==401)$('#login-error').textContent=`Sign-in service unavailable: ${error.message}`}
     }
     async function navigate(page){
@@ -263,7 +305,7 @@
       view.innerHTML=`<div class="section-heading"><div><h2>Admission enquiries</h2><div class="help">Enquiries are stored securely in the website database.</div></div><button class="btn light" id="export-enquiries">Export CSV</button></div>
         <div class="toolbar"><input id="enquiry-search" type="search" placeholder="Search parent, student, email or phone" value="${escapeHtml(state.filters.q||'')}"><select id="status-filter"><option value="">All statuses</option>${['New','Contacted','In Progress','Completed'].map(value=>`<option ${state.filters.status===value?'selected':''}>${value}</option>`).join('')}</select><input id="class-filter" placeholder="Class" value="${escapeHtml(state.filters.class||'')}"><label>From <input id="from-filter" type="date" value="${escapeHtml(state.filters.from||'')}"></label><label>To <input id="to-filter" type="date" value="${escapeHtml(state.filters.to||'')}"></label></div>
         ${tableEnquiries(result.items)}<div class="pager"><span>${result.total} enquiry(ies) · Page ${result.page} of ${result.pages}</span><div class="actions"><button class="btn light small" id="prev-page" ${result.page<=1?'disabled':''}>Previous</button><button class="btn light small" id="next-page" ${result.page>=result.pages?'disabled':''}>Next</button></div></div>`;
-      $('#export-enquiries').onclick=async()=>{try{const response=await fetch('/api/admin/enquiries.csv',{credentials:'same-origin'});if(!response.ok)throw new Error('CSV export failed.');const blob=await response.blob();const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='enpee-enquiries.csv';link.click();URL.revokeObjectURL(link.href)}catch(error){toast(error.message,true)}};
+      $('#export-enquiries').onclick=async()=>{try{const response=await fetch(apiUrl('/api/admin/enquiries.csv'),{credentials:credentialsMode()});if(!response.ok)throw new Error('CSV export failed.');const blob=await response.blob();const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='enpee-enquiries.csv';link.click();URL.revokeObjectURL(link.href)}catch(error){toast(error.message,true)}};
       const search=debounce(event=>{state.filters.q=event.target.value;state.pageNum=1;renderEnquiries($('#view'))},300);
       $('#enquiry-search').oninput=search;$('#status-filter').onchange=event=>{state.filters.status=event.target.value;renderEnquiries($('#view'))};
       ['class','from','to'].forEach(key=>$('#'+key+'-filter').onchange=event=>{state.filters[key]=event.target.value;renderEnquiries($('#view'))});
