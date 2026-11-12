@@ -1,0 +1,25 @@
+{
+  "name": "enpee-school-cms",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "lottie-web": "^5.13.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^10.5.0",
+    "sharp": "^0.35.5"
+  }
+}
