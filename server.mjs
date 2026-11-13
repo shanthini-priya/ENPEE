@@ -831,7 +831,7 @@ for (const route of publicPageRoutes) {
       const canonical = `${process.env.PUBLIC_ORIGIN || `http://localhost:${port}`}${route.path}`;
       const rendered = html
         .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)
-        .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`)
+        .replace(/<meta\s+name="description"[\s\S]*?content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`)
         .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${escapeHtml(canonical)}">`);
       res.set('Cache-Control', 'no-store').type('html').send(rendered);
     }).catch(next);
@@ -854,7 +854,7 @@ function sendContentDetail(collection, slug, res, next) {
     const description = String(item.description || item.title).slice(0, 160);
     const page = html
       .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`)
-      .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`);
+      .replace(/<meta\s+name="description"[\s\S]*?content="[^"]*">/, `<meta name="description" content="${escapeHtml(description)}">`);
     res.set('Cache-Control', 'no-store').type('html').send(page);
   }).catch(next);
 }

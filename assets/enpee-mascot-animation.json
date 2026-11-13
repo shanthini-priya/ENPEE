@@ -1,0 +1,21 @@
+{
+  "v": "5.7.0",
+  "fr": 30,
+  "ip": 0,
+  "op": 60,
+  "w": 360,
+  "h": 504,
+  "nm": "enpee-mascot-animation",
+  "ddd": 0,
+  "assets": [
+    {
+      "id": "image_0",
+      "w": 360,
+      "h": 504,
+      "u": "/assets/",
+      "p": "enpee-mascot-welcome.webp",
+      "e": 0
+    }
+  ],
+  "layers": []
+}
