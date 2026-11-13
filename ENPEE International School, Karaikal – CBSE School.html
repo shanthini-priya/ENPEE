@@ -4350,6 +4350,62 @@
     }
 
     /* Downloads Grid & Cards */
+    .downloads-category-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.45rem;
+      color: var(--heading-navy);
+      margin: 36px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--royal-blue);
+      display: inline-block;
+    }
+    .download-card-thumb-wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-soft);
+      background: var(--soft-offwhite);
+      position: relative;
+    }
+    .download-card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+    .download-card:hover .download-card-thumb {
+      transform: scale(1.04);
+    }
+    .download-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .download-badge {
+      display: inline-block;
+      background: var(--badge-bg-on-light);
+      border: 1px solid var(--badge-border-on-light);
+      color: var(--badge-text-on-light);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 16px;
+    }
+    .download-format {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
     .downloads-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -6176,42 +6232,183 @@
           break;
 
         case 'downloads':
+          var dlAppPdf = resolveMediaUrl('/assets/mascot/ApplicationForm.pdf');
+          var dlAdmissionFlyerPdf = resolveMediaUrl('/assets/downloads/ENPEE-ADMISSION-FLYER.pdf');
+          var dlAdmissionFlyerImg = resolveMediaUrl('/assets/downloads/enpee-admission-flyer.jpg');
+          var dlBrochurePdf = resolveMediaUrl('/assets/downloads/ENPEE-Brochure.pdf');
+          var dlBrochureImg = resolveMediaUrl('/assets/downloads/ENPEE-Brochure-2019.jpg');
+          var dlCalendarPdf = resolveMediaUrl('/assets/downloads/ENPEE-School-Calendar-2019.pdf');
+          var dlCalendarImg = resolveMediaUrl('/assets/downloads/ENPEE-School-Calendar-2019.jpg');
+          var dlFlyerImg = resolveMediaUrl('/assets/downloads/ENPEE-School-Flyer-2019.jpg');
+          var dlLaunchCardPdf = resolveMediaUrl('/assets/downloads/ENPEE-School-Invitation-Card-2019.pdf');
+          var dlLaunchCardImg = resolveMediaUrl('/assets/downloads/ENPEE-School-Invitation-Card-2019.jpg');
+          var dlAnnualInv2020Pdf = resolveMediaUrl('/assets/downloads/ENPEE-School-Invitation-2020.pdf');
+          var dlAnnualInvImg = resolveMediaUrl('/assets/downloads/annual-invitation.jpg');
+          var dlAnnualPosterImg = resolveMediaUrl('/assets/downloads/first-annual-day-celebration.jpeg');
+
           container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
             '<a href="/">Home</a> <span class="bc-sep">/</span> <span class="bc-current">Downloads</span>' +
           '</nav>' +
           '<div class="subpage-hero">' +
-            '<div class="subpage-badge">Resources &amp; Forms</div>' +
+            '<div class="subpage-badge">Resources &amp; Official Documents</div>' +
             '<h1>School Downloads &amp; Documents</h1>' +
-            '<p class="subpage-desc">Access official application forms, academic calendars, prospectus, and mandatory disclosure documents.</p>' +
+            '<p class="subpage-desc">Access official application forms, admission guides, institutional brochures, academic calendars, event celebrations, and mandatory disclosure reports from ENPEE International School.</p>' +
           '</div>' +
+
+          '<h2 class="downloads-category-title">Admissions &amp; Prospectus</h2>' +
           '<div class="downloads-grid">' +
+
             '<div class="download-card">' +
-              '<div class="download-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="18"/><line x1="15" y1="15" x2="12" y2="18"/></svg></div>' +
-              '<h4>Application Form (2026–27)</h4>' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlAdmissionFlyerImg) + '" alt="ENPEE Student Admission Application Form 2026-27" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Admissions 2026–27</span>' +
+                '<span class="download-format">PDF · 722 KB</span>' +
+              '</div>' +
+              '<h4>Student Application Form (2026–27)</h4>' +
               '<p>Official ENPEE International School Student Admission Application Form for Academic Year 2026–27 (Pre-KG to Class IX).</p>' +
-              '<a class="download-btn" href="' + escapeHtml(appPdf) + '" download="ENPEE-Application-Form-2026-27.pdf">' +
+              '<a class="download-btn" href="' + escapeHtml(dlAppPdf) + '" download="ENPEE-Application-Form-2026-27.pdf" target="_blank" rel="noopener">' +
                 '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
-                'Download Application PDF' +
+                'Download Application Form' +
               '</a>' +
             '</div>' +
 
             '<div class="download-card">' +
-              '<div class="download-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>' +
-              '<h4>CBSE Mandatory Disclosure</h4>' +
-              '<p>Official Appendix IX disclosure report covering affiliation, trust status, safety certificates, and infrastructure.</p>' +
-              '<a class="download-btn" style="background:var(--brand-blue);" href="/cbse-mandatory-disclosure">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlAdmissionFlyerImg) + '" alt="ENPEE Admission Flyer" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Admission Guide</span>' +
+                '<span class="download-format">PDF · 412 KB</span>' +
+              '</div>' +
+              '<h4>ENPEE Admission Flyer</h4>' +
+              '<p>Comprehensive admission flyer detailing curriculum highlights, extracurricular programs, age criteria, and admissions contact.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlAdmissionFlyerPdf) + '" download="ENPEE-Admission-Flyer.pdf" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                'Download Admission Flyer' +
+              '</a>' +
+            '</div>' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlBrochureImg) + '" alt="ENPEE School Brochure" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">School Prospectus</span>' +
+                '<span class="download-format">PDF · 3.38 MB</span>' +
+              '</div>' +
+              '<h4>School Information Brochure</h4>' +
+              '<p>Complete official institutional prospectus covering campus infrastructure, Château Français architecture, learning methodologies, and philosophy.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlBrochurePdf) + '" download="ENPEE-School-Brochure.pdf" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                'Download School Brochure' +
+              '</a>' +
+            '</div>' +
+
+          '</div>' +
+
+          '<h2 class="downloads-category-title">Academic Calendar &amp; Mandatory Disclosure</h2>' +
+          '<div class="downloads-grid">' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlCalendarImg) + '" alt="ENPEE School Academic Calendar" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Academic Calendar</span>' +
+                '<span class="download-format">PDF · 4.00 MB</span>' +
+              '</div>' +
+              '<h4>Annual Academic Calendar</h4>' +
+              '<p>Yearly schedule of academic terms, examination cycles, national observances, school holidays, and cultural events.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlCalendarPdf) + '" download="ENPEE-School-Calendar.pdf" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                'Download Academic Calendar' +
+              '</a>' +
+            '</div>' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-icon" style="margin-top:10px;"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">CBSE Compliance</span>' +
+                '<span class="download-format">Appendix IX · Live</span>' +
+              '</div>' +
+              '<h4>CBSE Mandatory Public Disclosure</h4>' +
+              '<p>Official Appendix IX disclosure report covering CBSE affiliation No. 2930085, trust status, safety certificates, fee structure, and staff details.</p>' +
+              '<a class="download-btn" href="/cbse-mandatory-disclosure">' +
                 'View Mandatory Disclosure →' +
               '</a>' +
             '</div>' +
 
             '<div class="download-card">' +
-              '<div class="download-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>' +
-              '<h4>Annual Academic Calendar</h4>' +
-              '<p>Overview of term dates, examination schedules, national holidays, and school celebrations for 2026–27.</p>' +
-              '<a class="download-btn" style="background:var(--brand-blue);" href="/way-we-work">' +
-                'View Academic Schedule →' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlFlyerImg) + '" alt="Grand Launch Bilingual Flyer" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Bilingual Resource</span>' +
+                '<span class="download-format">JPG · High Resolution</span>' +
+              '</div>' +
+              '<h4>Grand Launch Flyer (English &amp; Tamil)</h4>' +
+              '<p>Bilingual launch overview presenting the school’s founding mission, world-class pedagogical framework, and campus highlights.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlFlyerImg) + '" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+                'View Launch Flyer' +
               '</a>' +
             '</div>' +
+
+          '</div>' +
+
+          '<h2 class="downloads-category-title">Celebrations &amp; Milestone Invitations</h2>' +
+          '<div class="downloads-grid">' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlAnnualInvImg) + '" alt="1st Annual Day Celebration Invitation" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Celebration Archive</span>' +
+                '<span class="download-format">PDF · 164 KB</span>' +
+              '</div>' +
+              '<h4>1st Annual Day Celebration 2020</h4>' +
+              '<p>Official celebration invitation card and itinerary for ENPEE International School’s milestone 1st Annual Day celebration.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlAnnualInv2020Pdf) + '" download="ENPEE-Annual-Day-Invitation-2020.pdf" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                'Download Invitation (PDF)' +
+              '</a>' +
+            '</div>' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlLaunchCardImg) + '" alt="Grand Launch Invitation Card" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Foundation Milestone</span>' +
+                '<span class="download-format">PDF · 546 KB</span>' +
+              '</div>' +
+              '<h4>Grand Launch Inauguration Invitation</h4>' +
+              '<p>Historic foundation invitation card commemorating the official inauguration of ENPEE International School Karaikal.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlLaunchCardPdf) + '" download="ENPEE-Grand-Launch-Invitation.pdf" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                'Download Invitation Card (PDF)' +
+              '</a>' +
+            '</div>' +
+
+            '<div class="download-card">' +
+              '<div class="download-card-thumb-wrap">' +
+                '<img class="download-card-thumb" src="' + escapeHtml(dlAnnualPosterImg) + '" alt="First Annual Day Celebration Poster" loading="lazy">' +
+              '</div>' +
+              '<div class="download-card-meta">' +
+                '<span class="download-badge">Events Poster</span>' +
+                '<span class="download-format">JPG · Full Poster</span>' +
+              '</div>' +
+              '<h4>Annual Day Celebration Poster</h4>' +
+              '<p>Commemorative visual poster featuring cultural celebrations, student performances, and inaugural campus memories.</p>' +
+              '<a class="download-btn" href="' + escapeHtml(dlAnnualPosterImg) + '" target="_blank" rel="noopener">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
+                'View Celebration Poster' +
+              '</a>' +
+            '</div>' +
+
           '</div>' +
           subpageCtaHtml;
           break;
