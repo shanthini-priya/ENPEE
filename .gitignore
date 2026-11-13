@@ -4,3 +4,6 @@ uploads/
 node_modules/
 dist/
 npm-debug.log*
+*.db
+*.sqlite
+*.sqlite-journal

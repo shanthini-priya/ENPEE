@@ -227,11 +227,7 @@
     }
 
     .logo small {
-      display: block;
-      font: 700 .6rem Inter;
-      letter-spacing: .22em;
-      color: var(--gold);
-      margin-top: 4px
+      display: none !important;
     }
 
     nav ul {
@@ -844,9 +840,16 @@
     .sg div {
       background: #fff;
       border: 1px solid var(--line);
-      border-left: 3px solid var(--gf);
-      padding: 14px 16px;
-      border-radius: 8px
+      border-left: 4px solid var(--gf);
+      padding: 18px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(30, 97, 172, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .sg div:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(30, 97, 172, 0.16), 0 4px 10px rgba(0, 0, 0, 0.06);
     }
 
     .sg i {
@@ -870,11 +873,15 @@
     }
 
     .photo-campus {
-      background-image: linear-gradient(180deg, rgba(6, 18, 30, .08), rgba(6, 18, 30, .45)), url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80') !important
+      background-image: linear-gradient(180deg, rgba(6, 18, 30, .08), rgba(6, 18, 30, .45)), url('/assets/images/school-img.jpg'), url('/assets/images/5-acre-campus-secured.jpg') !important;
+      background-size: cover !important;
+      background-position: center !important;
     }
 
     .photo-students {
-      background-image: linear-gradient(180deg, rgba(6, 18, 30, .08), rgba(6, 18, 30, .45)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80') !important
+      background-image: linear-gradient(180deg, rgba(6, 18, 30, .08), rgba(6, 18, 30, .45)), url('/assets/images/interactive-digitized.jpg'), url('/assets/images/carosel/003.jpg') !important;
+      background-size: cover !important;
+      background-position: center !important;
     }
 
     .photo-chateau {
@@ -1302,89 +1309,183 @@
       max-width: 62ch
     }
 
+    /* ─── NOTICE MARQUEE SYSTEM (PERFECT CONTAINER ALIGNMENT) ─── */
     .notice-marquee {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      min-height: 42px;
-      padding: 6px max(20px, calc((100vw - 1180px)/2));
-      border-top: 1px solid var(--gf);
-      border-bottom: 1px solid var(--gf);
-      background: var(--navy);
-      color: #fff
+      background: #F4F8FD !important;
+      border-top: 1px solid #E2E8F0 !important; /* border-y border-slate-200 */
+      border-bottom: 1px solid #E2E8F0 !important; /* border-y border-slate-200 */
+      width: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      position: relative !important;
+      z-index: 10 !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
     .notice-marquee[hidden] {
-      display: none
+      display: none !important;
+    }
+
+    .notice-container {
+      display: flex !important;
+      align-items: center !important;
+      gap: 18px !important;
+      min-height: 44px !important;
+      padding-top: 6px !important;
+      padding-bottom: 6px !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+      max-width: var(--container-max, 1180px) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding-left: clamp(16px, 3vw, 28px) !important;
+      padding-right: clamp(16px, 3vw, 28px) !important;
     }
 
     .notice-label {
-      color: var(--gf);
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      white-space: nowrap
+      background: #2162A8 !important;
+      color: #FFFFFF !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      border-radius: 9999px !important;
+      padding: 4px 12px 4px 10px !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 2px 6px rgba(33, 98, 168, 0.22) !important;
+      line-height: 1.4 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 7px !important;
+    }
+
+    .notice-live-dot {
+      width: 7px !important;
+      height: 7px !important;
+      background-color: #22c55e !important;
+      border-radius: 50% !important;
+      display: inline-block !important;
+      position: relative !important;
+      flex-shrink: 0 !important;
+    }
+
+    .notice-live-dot::after {
+      content: "" !important;
+      position: absolute !important;
+      top: -2.5px !important;
+      left: -2.5px !important;
+      right: -2.5px !important;
+      bottom: -2.5px !important;
+      border-radius: 50% !important;
+      background-color: rgba(34, 197, 94, 0.55) !important;
+      animation: live-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+    }
+
+    @keyframes live-dot-pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.85;
+      }
+      50% {
+        transform: scale(2);
+        opacity: 0;
+      }
     }
 
     .notice-window {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+      position: relative !important;
+      mask-image: linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 20px), transparent 100%) !important;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14px, black calc(100% - 20px), transparent 100%) !important;
     }
 
     .notice-track {
-      display: flex;
-      width: max-content;
-      animation: notice-scroll 28s linear infinite;
-      will-change: transform
+      display: flex !important;
+      width: max-content !important;
+      flex-shrink: 0 !important;
+      animation: notice-scroll 34s linear infinite !important;
+      will-change: transform !important;
+      color: #1E293B !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-weight: 500 !important;
+      font-size: 0.88rem !important;
+      padding-left: 12px !important;
     }
 
     .notice-group {
-      display: flex;
-      align-items: center;
-      flex: none;
-      gap: 38px;
-      padding-right: 38px;
-      white-space: nowrap;
-      font-size: .86rem;
-      font-weight: 600
+      display: flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+      gap: 38px !important;
+      padding-right: 38px !important;
+      margin: 0 !important;
+      white-space: nowrap !important;
+      font-size: 0.88rem !important;
+      font-weight: 500 !important;
+      color: #1E293B !important;
     }
 
     .notice-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      color: #1E293B !important;
+      line-height: 1.4 !important;
     }
 
     .notice-dot {
-      color: var(--gf);
-      font-size: 1.2em;
-      line-height: 1
+      color: #2162A8 !important;
+      font-size: 0.75rem !important;
+      opacity: 0.7 !important;
+      margin: 0 2px !important;
+      flex-shrink: 0 !important;
     }
 
-    @media(hover:hover) and (pointer:fine) {
-      .notice-marquee:hover .notice-track {
-        animation-play-state: paused
-      }
+    .notice-marquee:hover .notice-track {
+      animation-play-state: paused !important;
     }
 
     @keyframes notice-scroll {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
       to {
-        transform: translateX(-50%)
+        transform: translate3d(-50%, 0, 0);
       }
     }
 
-    @media(max-width:600px) {
-      .notice-marquee {
-        gap: 12px;
-        min-height: 40px;
-        padding: 6px 14px
+    @media (max-width: 768px) {
+      .notice-container {
+        gap: 12px !important;
+        min-height: 40px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
       }
-
       .notice-label {
-        font-size: .64rem
+        font-size: 0.68rem !important;
+        padding: 3px 9px 3px 8px !important;
       }
+      .notice-track,
+      .notice-group,
+      .notice-item {
+        font-size: 0.82rem !important;
+      }
+      .notice-group {
+        gap: 24px !important;
+        padding-right: 24px !important;
+      }
+    }
+
+    
 
       .notice-group {
         gap: 24px;
@@ -2573,19 +2674,9 @@
       margin-bottom: 2px
     }
 
-    .logo .brand-wordmark {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: .04em;
-      color: var(--deep)
-    }
-
+    .logo .brand-wordmark,
     .logo small {
-      font: 700 .56rem Inter, sans-serif;
-      letter-spacing: .2em;
-      color: var(--gold-accent);
-      margin-top: 2px
+      display: none !important;
     }
 
     #nav .nav-menu {
@@ -2600,50 +2691,6 @@
 
     #nav .nav-menu>li {
       position: relative
-    }
-
-    #nav .nav-menu>li>a:not(.header-cta),
-    #nav .nav-dropdown-toggle {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 12px 4px;
-      color: var(--deep);
-      font-weight: 600;
-      letter-spacing: .01em;
-      transition: color .2s ease
-    }
-
-    #nav .nav-menu>li>a:not(.header-cta)::after,
-    #nav .nav-dropdown-toggle::after {
-      content: "";
-      position: absolute;
-      left: 4px;
-      right: 4px;
-      bottom: 6px;
-      height: 2px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, var(--gold-accent), var(--gf));
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform .24s cubic-bezier(.22, 1, .36, 1)
-    }
-
-    #nav .nav-menu>li>a:not(.header-cta):hover,
-    #nav .nav-dropdown-toggle:hover,
-    #nav .nav-menu>li>a[aria-current="page"],
-    #nav .has-submenu.has-active-descendant>.nav-dropdown-toggle,
-    #nav .has-submenu.menu-open>.nav-dropdown-toggle {
-      color: var(--navy)
-    }
-
-    #nav .nav-menu>li>a:not(.header-cta):hover::after,
-    #nav .nav-dropdown-toggle:hover::after,
-    #nav .nav-menu>li>a[aria-current="page"]::after,
-    #nav .has-submenu.has-active-descendant>.nav-dropdown-toggle::after,
-    #nav .has-submenu.menu-open>.nav-dropdown-toggle::after {
-      transform: scaleX(1)
     }
 
     #nav a[aria-current="page"] {
@@ -2758,8 +2805,8 @@
       width: 28px;
       height: 28px;
       border-radius: 8px;
-      background: rgba(25, 59, 87, .06);
-      color: var(--navy);
+      background: rgba(104, 184, 46, .1);
+      color: var(--brand-green);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -2769,8 +2816,8 @@
 
     #nav .nav-dropdown-menu a:hover .nav-item-icon,
     #nav .nav-dropdown-menu a[aria-current="page"] .nav-item-icon {
-      background: var(--navy);
-      color: var(--gold-light)
+      background: var(--brand-green);
+      color: #fff
     }
 
     .nav-item-icon svg {
@@ -3450,26 +3497,7 @@
       }
     }
 
-    .notice-marquee {
-      background: linear-gradient(90deg, var(--deep), var(--navy));
-      border-top: 1px solid rgba(197, 155, 39, .35);
-      border-bottom: 2px solid var(--gold-accent);
-      padding: 8px max(24px, calc((100vw - 1180px)/2 + 24px))
-    }
-
-    .notice-label {
-      background: rgba(197, 155, 39, .18);
-      color: var(--gold-light);
-      border: 1px solid rgba(197, 155, 39, .4);
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: .7rem;
-      letter-spacing: .12em
-    }
-
-    .notice-dot {
-      color: var(--gold-light)
-    }
+/* Legacy notice marquee removed */
 
     /* ─── ENPEE OFFICIAL BRAND COLOUR & UNIFIED DESIGN SYSTEM ─── */
     :root {
@@ -3488,11 +3516,11 @@
       --border-subtle: #E2E8F0;
       --card-border: #EEEEEE;
 
-      /* Shared System Metrics - Compact & Perfectly Aligned */
+      /* Shared System Metrics - Harmonious Spacing & Alignment */
       --button-radius: 8px;
       --card-radius: 12px;
       --container-max: 1180px;
-      --section-padding: clamp(40px, 4.8vw, 56px) 0;
+      --section-padding: clamp(48px, 5vw, 64px) 0;
 
       /* Legacy compatibility mappings */
       --brand-blue: #1E61AC;
@@ -3629,21 +3657,21 @@
       display: inline-block;
     }
 
-    /* ─── GLOBAL UNIFIED BUTTON DESIGN SYSTEM ─── */
-    /* Primary Buttons: #1E61AC background, white text, #06A9E4 hover, 8px radius */
+    /* ─── GLOBAL UNIFIED PRIMARY BUTTON DESIGN SYSTEM ─── */
+    /* Primary Buttons: #2162A8 background, #FFFFFF text, #174C85 hover/active, 6px radius, 0.3s ease */
     .btn-primary,
+    .btn.primary,
     .download-btn,
     .btn[type="submit"],
     button[type="submit"],
-    .btn.primary,
-    .header-cta,
-    .top-enquire,
     .btn.gold,
-    .contact-actions .btn.gold {
-      background: var(--primary-blue) !important;
-      color: var(--white) !important;
-      border: 1.5px solid var(--primary-blue) !important;
-      border-radius: var(--button-radius) !important;
+    .contact-actions .btn.gold,
+    .subpage-cta-actions .btn.gold,
+    .hero .btns .btn.gold {
+      background: #2162A8 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #2162A8 !important;
+      border-radius: 6px !important;
       font-family: 'Inter', system-ui, sans-serif !important;
       font-weight: 600 !important;
       font-size: 0.92rem !important;
@@ -3651,30 +3679,48 @@
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
+      text-align: center !important;
       gap: 8px !important;
       cursor: pointer !important;
       text-decoration: none !important;
-      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
-      box-shadow: 0 2px 8px rgba(30, 97, 172, 0.2) !important;
+      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+      box-shadow: 0 2px 8px rgba(33, 98, 168, 0.2) !important;
       height: auto !important;
-      min-height: 42px;
-      box-sizing: border-box;
+      min-height: 42px !important;
+      box-sizing: border-box !important;
+      outline: none !important;
     }
 
     .btn-primary:hover,
+    .btn.primary:hover,
     .download-btn:hover,
     .btn[type="submit"]:hover,
     button[type="submit"]:hover,
-    .btn.primary:hover,
-    .header-cta:hover,
-    .top-enquire:hover,
     .btn.gold:hover,
-    .contact-actions .btn.gold:hover {
-      background: var(--sky-blue) !important;
-      border-color: var(--sky-blue) !important;
-      color: var(--white) !important;
+    .contact-actions .btn.gold:hover,
+    .subpage-cta-actions .btn.gold:hover,
+    .hero .btns .btn.gold:hover {
+      background: #174C85 !important;
+      border-color: #174C85 !important;
+      color: #FFFFFF !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 4px 14px rgba(6, 169, 228, 0.3) !important;
+      box-shadow: 0 4px 14px rgba(23, 76, 133, 0.3) !important;
+    }
+
+    .btn-primary:active,
+    .btn.primary:active,
+    .download-btn:active,
+    .btn[type="submit"]:active,
+    button[type="submit"]:active,
+    .btn.gold:active,
+    .contact-actions .btn.gold:active,
+    .subpage-cta-actions .btn.gold:active,
+    .hero .btns .btn.gold:active {
+      background: #174C85 !important;
+      border-color: #174C85 !important;
+      color: #FFFFFF !important;
+      transform: none !important;
+      box-shadow: 0 0 0 3px rgba(33, 98, 168, 0.3) !important;
     }
 
     /* Secondary Buttons: #68B82E background, white text, #559824 hover, 8px radius */
@@ -3712,15 +3758,15 @@
       box-shadow: 0 4px 14px rgba(85, 152, 36, 0.3) !important;
     }
 
-    /* Outline Buttons: White background, 1.5px solid #1E61AC, #1E61AC text, #1E61AC hover with white text */
+    /* Outline Buttons: White background, 1.5px solid #2162A8, #2162A8 text, #2162A8 hover with white text */
     .btn-outline,
     .btn.ghost,
     .btn.ghost2,
     .btn:not(.gold):not(.btn-primary):not(.download-btn):not([type="submit"]):not(.header-cta):not(.top-enquire):not(.wa):not(.btn-secondary):not(.btn-green) {
       background: var(--white) !important;
-      color: var(--primary-blue) !important;
-      border: 1.5px solid var(--primary-blue) !important;
-      border-radius: var(--button-radius) !important;
+      color: #2162A8 !important;
+      border: 1.5px solid #2162A8 !important;
+      border-radius: 6px !important;
       font-family: 'Inter', system-ui, sans-serif !important;
       font-weight: 600 !important;
       font-size: 0.92rem !important;
@@ -3728,34 +3774,35 @@
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
+      text-align: center !important;
       gap: 8px !important;
       cursor: pointer !important;
       text-decoration: none !important;
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
       height: auto !important;
-      min-height: 42px;
-      box-sizing: border-box;
+      min-height: 42px !important;
+      box-sizing: border-box !important;
     }
 
     .btn-outline:hover,
     .btn.ghost:hover,
     .btn.ghost2:hover,
     .btn:not(.gold):not(.btn-primary):not(.download-btn):not([type="submit"]):not(.header-cta):not(.top-enquire):not(.wa):not(.btn-secondary):not(.btn-green):hover {
-      background: var(--primary-blue) !important;
-      color: var(--white) !important;
-      border-color: var(--primary-blue) !important;
+      background: #2162A8 !important;
+      color: #FFFFFF !important;
+      border-color: #2162A8 !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 4px 12px rgba(30, 97, 172, 0.18) !important;
+      box-shadow: 0 4px 12px rgba(33, 98, 168, 0.2) !important;
     }
 
-    /* ─── WHATSAPP BUTTON SYSTEM (STRICT PRIMARY CTA COLOUR CORRECTION) ─── */
+    /* ─── WHATSAPP BUTTON SYSTEM (OFFICIAL WHATSAPP BRAND COLOUR #25D366) ─── */
     .wa,
     .btn.wa,
     a.wa,
     button.wa {
-      background: var(--primary-blue) !important;
-      color: var(--white) !important;
-      border: 1.5px solid var(--primary-blue) !important;
+      background: #25D366 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #25D366 !important;
       border-radius: var(--button-radius) !important;
       font-family: 'Inter', system-ui, sans-serif !important;
       font-weight: 600 !important;
@@ -3765,7 +3812,7 @@
       gap: 8px !important;
       cursor: pointer !important;
       text-decoration: none !important;
-      box-shadow: 0 2px 8px rgba(30, 97, 172, 0.2) !important;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35) !important;
       transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
       height: auto !important;
       min-height: 42px;
@@ -3776,11 +3823,11 @@
     .btn.wa:hover,
     a.wa:hover,
     button.wa:hover {
-      background: var(--sky-blue) !important;
-      border-color: var(--sky-blue) !important;
-      color: var(--white) !important;
+      background: #20BA5A !important;
+      border-color: #20BA5A !important;
+      color: #FFFFFF !important;
       transform: translateY(-2px) !important;
-      box-shadow: 0 4px 14px rgba(6, 169, 228, 0.3) !important;
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45) !important;
     }
 
     .wa svg,
@@ -3794,8 +3841,8 @@
       right: 28px !important;
       bottom: calc(28px + env(safe-area-inset-bottom, 0px)) !important;
       z-index: 99 !important;
-      background: var(--primary-blue) !important;
-      color: var(--white) !important;
+      background: #25D366 !important;
+      color: #FFFFFF !important;
       border: none !important;
       border-radius: 50px !important;
       padding: 12px 22px !important;
@@ -3806,7 +3853,7 @@
       font-size: 0.92rem !important;
       font-weight: 600 !important;
       text-decoration: none !important;
-      box-shadow: 0 8px 24px rgba(30, 97, 172, 0.35) !important;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4) !important;
       cursor: pointer !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
@@ -3819,10 +3866,10 @@
     }
 
     .floating-whatsapp-btn:hover {
-      background: var(--sky-blue) !important;
-      color: var(--white) !important;
+      background: #20BA5A !important;
+      color: #FFFFFF !important;
       transform: translateY(-3px) scale(1.02) !important;
-      box-shadow: 0 12px 28px rgba(6, 169, 228, 0.45) !important;
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55) !important;
     }
 
     #back-to-top {
@@ -3901,11 +3948,10 @@
     }
 
     .top-admissions {
-      background: rgba(255, 255, 255, 0.15) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      background: transparent !important;
+      border: none !important;
       color: var(--white) !important;
-      padding: 3px 12px !important;
-      border-radius: 20px !important;
+      padding: 0 !important;
       font-size: 0.78rem !important;
       font-weight: 600 !important;
       display: inline-flex !important;
@@ -3922,98 +3968,256 @@
       box-shadow: 0 0 6px rgba(104, 184, 46, 0.8) !important;
     }
 
+    /* ─── SITE HEADER, LOGO & NAVIGATION ─── */
     .site-header {
       background: var(--white) !important;
-      border-bottom: 2px solid var(--light-grey) !important;
-      box-shadow: 0 2px 10px rgba(30, 97, 172, 0.05) !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 12px rgba(30, 97, 172, 0.06) !important;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
 
     .nav {
-      height: 68px;
+      min-height: 78px;
+      height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: clamp(16px, 2.5vw, 36px);
     }
 
     .logo {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 12px !important;
+      justify-content: center !important;
+      gap: 0 !important;
       text-decoration: none !important;
       line-height: 1 !important;
-      flex: none !important;
+      flex-shrink: 0 !important;
+      padding: 0 !important;
+      height: 100% !important;
     }
 
     .logo .brand-image {
       display: block !important;
-      height: 50px !important;
+      height: 54px !important;
       width: auto !important;
-      max-width: 185px !important;
+      max-width: 195px !important;
       object-fit: contain !important;
-      aspect-ratio: 1689 / 931;
-      transition: transform .2s ease;
+      aspect-ratio: 1689 / 931 !important;
+      transition: transform 0.25s ease;
     }
 
     .logo:hover .brand-image {
       transform: scale(1.02);
     }
 
-    .nav-menu>li>a {
-      color: var(--primary-blue) !important;
-      font-weight: 600;
-      font-size: 0.94rem;
-      padding: 7px 12px;
-      border-radius: 6px;
-      transition: color 0.2s ease, background-color 0.2s ease;
+    .logo small,
+    .logo .brand-wordmark {
+      display: none !important;
     }
 
-    .nav-menu>li>a:hover {
-      color: var(--sky-blue) !important;
-      background: rgba(6, 169, 228, 0.06);
+    #nav .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.35vw, 22px);
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .nav-menu>li>a.is-active {
-      color: var(--primary-blue) !important;
-      border-bottom: 2px solid var(--brand-green) !important;
-    }
-
-    .nav-dropdown-toggle {
-      color: var(--primary-blue) !important;
-      font-weight: 600;
-      font-size: 0.94rem;
+    #nav .nav-menu > li {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 7px 12px;
-      border-radius: 6px;
-      transition: color 0.2s ease, background-color 0.2s ease;
     }
 
+    #nav .nav-menu > li.nav-admissions {
+      margin-left: clamp(8px, 1.2vw, 18px);
+    }
+
+    .nav-menu>li>a:not(.header-cta),
+    .nav-dropdown-toggle {
+      color: var(--primary-blue, #1E61AC) !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-weight: 600 !important;
+      font-size: clamp(0.85rem, 0.9vw, 0.94rem) !important;
+      padding: 10px clamp(8px, 0.9vw, 14px) !important;
+      border-radius: 6px !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      white-space: nowrap !important;
+      text-decoration: none !important;
+      position: relative !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      box-shadow: none !important;
+      transition: color 0.25s ease, transform 0.25s ease !important;
+    }
+
+    /* Single clean, elegant animated underline (NO box background, NO double lines) */
+    .nav-menu>li>a:not(.header-cta)::after,
+    .nav-dropdown-toggle::after {
+      content: "";
+      position: absolute;
+      left: clamp(8px, 0.9vw, 14px);
+      right: clamp(8px, 0.9vw, 14px);
+      bottom: 0px;
+      height: 2.5px;
+      border-radius: 2px;
+      background: var(--sky-blue, #06A9E4);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.26s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+    }
+
+    /* Smooth, subtle hover effect */
+    .nav-menu>li>a:not(.header-cta):hover,
     .nav-dropdown-toggle:hover {
-      color: var(--sky-blue) !important;
-      background: rgba(6, 169, 228, 0.06);
+      color: var(--sky-blue, #06A9E4) !important;
+      background: transparent !important;
+      transform: translateY(-1px) !important;
+    }
+
+    .nav-menu>li>a:not(.header-cta):hover::after,
+    .nav-dropdown-toggle:hover::after {
+      transform: scaleX(1) !important;
+      background: var(--sky-blue, #06A9E4) !important;
+    }
+
+    /* Active / Current Page indicator */
+    .nav-menu>li>a:not(.header-cta).is-active,
+    .nav-menu>li>a:not(.header-cta)[aria-current="page"],
+    .has-submenu.has-active-descendant > .nav-dropdown-toggle {
+      color: var(--primary-blue, #1E61AC) !important;
+      font-weight: 700 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .nav-menu>li>a:not(.header-cta).is-active::after,
+    .nav-menu>li>a:not(.header-cta)[aria-current="page"]::after,
+    .has-submenu.has-active-descendant > .nav-dropdown-toggle::after {
+      transform: scaleX(1) !important;
+      background: var(--primary-blue, #1E61AC) !important;
+    }
+
+    /* Dropdown Chevron */
+    #nav .nav-chevron {
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      display: inline-block;
+      margin-left: 2px;
+      flex-shrink: 0;
+    }
+
+    #nav .has-submenu:hover .nav-chevron,
+    #nav .has-submenu.menu-open .nav-chevron {
+      border-color: var(--sky-blue, #06A9E4);
+    }
+
+    #nav .has-submenu.menu-open .nav-chevron {
+      transform: rotate(-135deg) translateY(-1px);
+    }
+
+    /* ─── NAVIGATION BAR: ENQUIRE NOW BUTTON (ONLY ENQUIRE CTA IN HEADER) ─── */
+    .header-cta,
+    .nav-menu>li.nav-admissions>a.header-cta,
+    .nav-menu>li>a.header-cta,
+    #nav .nav-menu>li.nav-admissions>a.header-cta,
+    #nav .header-cta,
+    #nav a.header-cta,
+    a.header-cta {
+      background: #2162A8 !important;
+      color: #FFFFFF !important;
+      border: 1.5px solid #2162A8 !important;
+      border-radius: 6px !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+      padding: 9px 20px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      text-decoration: none !important;
+      box-shadow: 0 2px 8px rgba(33, 98, 168, 0.22) !important;
+      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+      height: auto !important;
+      min-height: 40px !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+      -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .header-cta:hover,
+    .nav-menu>li.nav-admissions>a.header-cta:hover,
+    .nav-menu>li>a.header-cta:hover,
+    #nav .nav-menu>li.nav-admissions>a.header-cta:hover,
+    #nav .header-cta:hover,
+    #nav a.header-cta:hover,
+    a.header-cta:hover {
+      background: #174C85 !important;
+      border-color: #174C85 !important;
+      color: #FFFFFF !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(23, 76, 133, 0.28) !important;
+    }
+
+    .header-cta:active,
+    .header-cta:focus,
+    .header-cta:focus-visible,
+    .nav-menu>li.nav-admissions>a.header-cta:active,
+    .nav-menu>li.nav-admissions>a.header-cta:focus,
+    .nav-menu>li.nav-admissions>a.header-cta:focus-visible,
+    #nav .nav-menu>li.nav-admissions>a.header-cta:active,
+    #nav .nav-menu>li.nav-admissions>a.header-cta:focus,
+    #nav .nav-menu>li.nav-admissions>a.header-cta:focus-visible,
+    #nav .header-cta:active,
+    #nav .header-cta:focus,
+    #nav .header-cta:focus-visible,
+    a.header-cta:active,
+    a.header-cta:focus,
+    a.header-cta:focus-visible {
+      background: #174C85 !important;
+      border-color: #174C85 !important;
+      color: #FFFFFF !important;
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(33, 98, 168, 0.25) !important;
+      transform: none !important;
     }
 
     .nav-dropdown-menu {
       background: var(--white) !important;
-      border: 1px solid var(--light-grey) !important;
+      border: 1px solid #E2E8F0 !important;
       border-top: 3px solid var(--sky-blue) !important;
       border-radius: var(--card-radius) !important;
-      box-shadow: 0 10px 25px rgba(30, 97, 172, 0.1) !important;
+      box-shadow: 0 12px 32px rgba(23, 59, 101, 0.12) !important;
       padding: 8px !important;
+      width: 250px;
+      min-width: 230px;
+      max-width: calc(100vw - 32px);
+    }
+
+    /* Prevent rightmost dropdowns from overflowing the viewport */
+    #nav .has-submenu:nth-last-child(-n+5) > .nav-dropdown-menu {
+      left: auto !important;
+      right: 0 !important;
     }
 
     .nav-dropdown-menu a {
       color: var(--body-text) !important;
       border-radius: 6px;
       padding: 8px 12px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+      font-weight: 500;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -4028,37 +4232,50 @@
     }
 
     .nav-item-icon {
-      color: var(--sky-blue);
+      color: var(--brand-green) !important;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
-    /* Notice Marquee */
-    .notice-marquee {
-      background: var(--light-grey) !important;
-      border-bottom: 1px solid #E2E8F0 !important;
-      padding: 6px 0 !important;
+    .nav-item-icon svg {
+      stroke: var(--brand-green) !important;
+      color: var(--brand-green) !important;
     }
 
-    .notice-label {
-      background: var(--primary-blue) !important;
-      color: var(--white) !important;
-      border-radius: 6px !important;
-      padding: 2px 10px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.05em !important;
-      text-transform: uppercase !important;
-      font-size: 0.74rem !important;
+    #nav .nav-dropdown-menu a:hover .nav-item-icon,
+    #nav .nav-dropdown-menu a[aria-current="page"] .nav-item-icon {
+      background: rgba(104, 184, 46, 0.15) !important;
+      color: var(--brand-green) !important;
     }
 
-    .notice-track {
-      color: var(--body-text) !important;
-      font-weight: 500;
-      font-size: 0.88rem;
+    #nav .nav-dropdown-menu a:hover .nav-item-icon svg,
+    #nav .nav-dropdown-menu a[aria-current="page"] .nav-item-icon svg {
+      stroke: var(--brand-green) !important;
+      color: var(--brand-green) !important;
     }
 
-    .notice-dot {
-      color: var(--sky-blue) !important;
+    @media (max-width: 1180px) {
+      .nav {
+        min-height: 66px;
+        height: 66px;
+      }
+      .logo .brand-image {
+        height: 44px !important;
+        max-width: 160px !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        min-height: 60px;
+        height: 60px;
+      }
+      .logo .brand-image {
+        height: 38px !important;
+        max-width: 135px !important;
+      }
     }
 
     /* ─── HERO SECTION ─── */
@@ -4067,14 +4284,14 @@
       color: var(--body-text) !important;
       position: relative;
       overflow: hidden;
-      padding: clamp(36px, 4.5vw, 54px) 0 clamp(48px, 5.5vw, 68px) !important;
+      padding: clamp(40px, 4.5vw, 56px) 0 clamp(44px, 5vw, 64px) !important;
       border-bottom: 1px solid var(--light-grey);
     }
 
     .hero .hg {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 40px;
+      gap: clamp(28px, 4vw, 44px);
       align-items: center;
     }
 
@@ -4087,17 +4304,17 @@
 
     .hero h1 {
       color: var(--primary-blue) !important;
-      font-size: clamp(2.1rem, 3.8vw, 3rem) !important;
-      line-height: 1.18;
+      font-size: clamp(2.1rem, 3.6vw, 2.9rem) !important;
+      line-height: 1.2 !important;
       font-weight: 800;
-      margin-bottom: 0.35em;
+      margin: 0 0 14px 0 !important;
     }
 
     .hero p {
       color: var(--body-text) !important;
-      font-size: clamp(1rem, 1.6vw, 1.15rem) !important;
+      font-size: clamp(1rem, 1.5vw, 1.12rem) !important;
       line-height: 1.65;
-      margin-bottom: 22px;
+      margin: 0 0 24px 0 !important;
       max-width: 580px;
     }
 
@@ -4105,14 +4322,14 @@
       background: rgba(6, 169, 228, 0.1) !important;
       border: 1px solid var(--sky-blue) !important;
       color: var(--primary-blue) !important;
-      padding: 3px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       display: inline-block;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .hero .btns {
@@ -4120,6 +4337,7 @@
       gap: 14px;
       flex-wrap: wrap;
       align-items: center;
+      margin: 0;
     }
 
     .hf {
@@ -4133,14 +4351,14 @@
 
     .hp {
       aspect-ratio: 4/3 !important;
-      min-height: 340px !important;
-      max-height: 420px !important;
+      min-height: 320px !important;
+      max-height: 400px !important;
       width: 100% !important;
       border-radius: 14px !important;
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
-      background-image: linear-gradient(180deg, rgba(30, 97, 172, 0.05) 0%, rgba(16, 43, 64, 0.45) 100%), url('assets/images/campus-banner.webp'), url('https://www.enpeekkl.com/images/5-acre-campus-secured.jpg') !important;
+      background-image: linear-gradient(180deg, rgba(30, 97, 172, 0.05) 0%, rgba(16, 43, 64, 0.45) 100%), url('assets/images/campus-banner.webp'), url('/assets/images/5-acre-campus-secured.jpg') !important;
       display: flex !important;
       align-items: flex-end !important;
       padding: 18px !important;
@@ -4171,8 +4389,8 @@
 
     /* ─── STATS STRIP / KEY PILLARS ─── */
     .strip {
-      margin-top: -36px;
-      margin-bottom: 24px;
+      margin-top: -30px;
+      margin-bottom: 32px;
       position: relative;
       z-index: 2;
     }
@@ -4180,7 +4398,7 @@
     .sg {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+      gap: 20px;
     }
 
     @media (max-width: 992px) {
@@ -4196,22 +4414,44 @@
       }
     }
 
+    .sg div,
+    .sg article,
+    .sg .feature-card,
     .feature-card {
-      background: var(--white) !important;
-      border: 1px solid var(--light-grey) !important;
-      border-top: 3px solid var(--sky-blue) !important;
-      border-radius: var(--card-radius) !important;
-      padding: 20px 18px !important;
-      box-shadow: var(--shadow) !important;
-      transition: all 0.2s ease !important;
-      display: flex;
-      flex-direction: column;
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-left: 4px solid var(--brand-green, #68B82E) !important;
+      border-radius: 12px !important;
+      padding: 22px 20px !important;
+      box-shadow: 0 4px 20px rgba(30, 97, 172, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      position: relative !important;
+      overflow: hidden !important;
     }
 
+    .sg div:hover,
+    .sg article:hover,
+    .sg .feature-card:hover,
     .feature-card:hover {
-      transform: translateY(-3px) !important;
-      box-shadow: var(--shadow-hover) !important;
-      border-top-color: var(--primary-blue) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 14px 30px rgba(30, 97, 172, 0.16), 0 4px 10px rgba(0, 0, 0, 0.06) !important;
+      border-color: #CBD5E1 !important;
+      border-left-color: var(--brand-green, #68B82E) !important;
+    }
+
+    .sg i {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.12em !important;
+      color: #2162A8 !important;
+      text-transform: uppercase !important;
+      font-style: normal !important;
+      display: block !important;
+      margin-bottom: 8px !important;
     }
 
     .feature-number {
@@ -4225,15 +4465,134 @@
       color: var(--primary-blue) !important;
     }
 
+    .sg b,
     .feature-card b {
-      color: var(--primary-blue) !important;
-      font-size: 1rem;
-      margin-top: 4px;
+      color: #2162A8 !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      margin-top: 2px !important;
+      margin-bottom: 4px !important;
+      display: block !important;
     }
 
+    .sg small,
     .feature-card small {
+      color: #64748B !important;
+      font-size: 0.88rem !important;
+      line-height: 1.45 !important;
+      display: block !important;
+    }
+
+    /* ─── EXPERIENCE ENPEE (VIDEO GALLERY SECTION) ─── */
+    .video-section.grey {
+      background: var(--light-grey) !important;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .youtube-gallery {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 22px !important;
+      margin-top: 24px !important;
+    }
+
+    @media (max-width: 992px) {
+      .youtube-gallery {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .youtube-gallery {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    .youtube-card {
+      background: var(--white) !important;
+      border: 1px solid var(--border-subtle) !important;
+      border-radius: var(--card-radius) !important;
+      overflow: hidden !important;
+      box-shadow: var(--shadow) !important;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .youtube-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: var(--shadow-hover) !important;
+      border-color: var(--sky-blue) !important;
+    }
+
+    .youtube-thumb {
+      aspect-ratio: 16/9;
+      position: relative;
+      background: #0F2238;
+      overflow: hidden;
+    }
+
+    .youtube-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      transition: transform 0.3s ease;
+    }
+
+    .youtube-card:hover .youtube-thumb img {
+      transform: scale(1.04);
+    }
+
+    .youtube-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 34, 56, 0.25);
+      transition: background 0.2s ease;
+    }
+
+    .youtube-card:hover .youtube-play {
+      background: rgba(15, 34, 56, 0.08);
+    }
+
+    .youtube-play svg {
+      width: 52px;
+      height: 52px;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+      transition: transform 0.2s ease;
+    }
+
+    .youtube-card:hover .youtube-play svg {
+      transform: scale(1.08);
+    }
+
+    .youtube-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .youtube-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--primary-blue) !important;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .youtube-channel {
+      font-size: 0.8rem;
       color: var(--muted-text) !important;
-      font-size: 0.85rem;
+      margin-top: 6px;
     }
 
     /* ─── ABOUT SECTION (SCHOOL INTRODUCTION) ─── */
@@ -4839,13 +5198,13 @@
     .contact-actions {
       display: grid !important;
       grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px !important;
-      margin-top: 20px !important;
+      gap: 12px !important;
+      margin-top: 24px !important;
     }
 
     .contact-map {
       width: 100%;
-      height: 260px;
+      height: 290px;
       border: 1px solid var(--border-subtle);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow);
@@ -4856,13 +5215,14 @@
       background: #153250 !important;
       border-top: 4px solid var(--sky-blue) !important;
       color: var(--white) !important;
-      padding: 48px 0 24px !important;
+      padding: 56px 0 28px !important;
     }
 
     .fg {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-      gap: 32px;
+      grid-template-columns: 1.35fr 1fr 1fr 1.15fr;
+      gap: 36px;
+      align-items: start;
     }
 
     @media (max-width: 992px) {
@@ -4882,23 +5242,33 @@
     footer h4 {
       color: var(--white) !important;
       font-family: 'Poppins', sans-serif !important;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       font-weight: 700;
-      margin: 0 0 12px;
+      margin: 0 0 16px;
     }
 
     footer p,
-    footer a,
     footer address {
       color: #CAD5E2 !important;
       font-size: 0.9rem;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
-    footer a:hover {
+    footer .fg > div > a {
+      display: block !important;
+      color: #CAD5E2 !important;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      margin-bottom: 9px;
+      text-decoration: none;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    footer .fg > div > a:hover {
       color: var(--sky-blue) !important;
+      transform: translateX(3px);
     }
 
     .logo-footer-badge {
@@ -4906,14 +5276,17 @@
       align-items: center;
       justify-content: center;
       background: var(--white);
-      padding: 7px 16px;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      padding: 8px 18px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
 
     .logo-footer-badge .brand-image {
       height: 44px !important;
-      max-width: 165px !important;
+      width: auto !important;
+      max-width: 170px !important;
+      object-fit: contain !important;
+      aspect-ratio: 1689 / 931 !important;
     }
 
     .so {
@@ -4990,14 +5363,16 @@
     }
 
     .detail-surface {
-      background: var(--white) !important;
-      border: 1px solid var(--border-subtle) !important;
-      border-radius: var(--card-radius) !important;
-      padding: clamp(20px, 3.2vw, 32px) !important;
-      box-shadow: 0 4px 18px rgba(30, 97, 172, 0.06) !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      box-shadow: none !important;
       margin-bottom: 0 !important;
       min-height: auto !important;
       height: auto !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
 
     .subpage-hero {
@@ -5082,24 +5457,27 @@
     }
 
     .subpage-section {
-      background: var(--white) !important;
-      border: 1px solid var(--border-subtle) !important;
-      border-radius: var(--card-radius) !important;
-      padding: 24px 26px !important;
-      margin-bottom: 20px !important;
-      box-shadow: 0 4px 14px rgba(30, 97, 172, 0.05) !important;
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important; /* 1px solid #CBD5E1 (border-slate-300) */
+      border-radius: 12px !important; /* rounded-xl */
+      padding: clamp(22px, 2.8vw, 30px) !important;
+      margin-bottom: 24px !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08) !important; /* shadow-sm */
+      box-sizing: border-box !important;
+      width: 100% !important;
       height: auto !important;
+      overflow: hidden !important;
     }
 
     .subpage-section h2 {
       font-family: 'Poppins', sans-serif !important;
-      color: var(--primary-blue) !important;
-      font-size: 1.45rem !important;
+      color: #2162A8 !important;
+      font-size: 1.35rem !important;
       font-weight: 700 !important;
-      margin: 0 0 10px !important;
-      border-bottom: 2px solid var(--sky-blue);
-      padding-bottom: 6px;
-      display: inline-block;
+      margin: 0 0 16px 0 !important;
+      border-bottom: none !important;
+      padding-bottom: 0 !important;
+      display: block !important;
     }
 
     .subpage-section p {
@@ -5107,6 +5485,73 @@
       line-height: 1.65 !important;
       color: var(--body-text) !important;
       margin-bottom: 10px !important;
+    }
+
+    /* ─── CBSE MANDATORY DISCLOSURE TABLE STYLES ─── */
+    .cbse-table-wrap {
+      width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 8px !important;
+      background: #FFFFFF !important;
+    }
+
+    .cbse-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      text-align: left !important;
+      font-size: 0.92rem !important;
+      color: #334155 !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+    }
+
+    .cbse-table thead {
+      background: #F8FAFC !important; /* bg-slate-50 */
+      border-bottom: 1px solid #CBD5E1 !important;
+    }
+
+    .cbse-table th {
+      text-align: left !important;
+      padding: 12px 16px !important; /* py-3 px-4 */
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 700 !important;
+      color: #1E293B !important;
+      letter-spacing: 0.02em !important;
+      background: #F8FAFC !important; /* bg-slate-50 */
+      border-bottom: 1px solid #CBD5E1 !important;
+      white-space: nowrap !important;
+    }
+
+    .cbse-table td {
+      text-align: left !important;
+      padding: 12px 16px !important; /* py-3 px-4 */
+      border-bottom: 1px solid #E2E8F0 !important; /* border-b border-slate-200 */
+      color: #334155 !important;
+      font-size: 0.92rem !important;
+      line-height: 1.55 !important;
+      vertical-align: top !important;
+    }
+
+    .cbse-table tbody tr:last-child td {
+      border-bottom: none !important;
+    }
+
+    .cbse-table tbody tr:hover td {
+      background: #F8FAFC !important;
+    }
+
+    .cbse-table td.strong {
+      font-weight: 600 !important;
+      color: #1E293B !important;
+      width: 38% !important;
+      min-width: 180px !important;
+    }
+
+    .cbse-table a {
+      color: #2162A8 !important;
+      text-decoration: underline !important;
     }
 
     /* ─── SUBPAGE ADMISSIONS CTA SECTION (COMPACT 28-36PX PADDING, HEIGHT-TO-FIT) ─── */
@@ -5228,6 +5673,410 @@
         scroll-behavior: auto !important;
       }
     }
+  
+    /* ─── DOWNLOADS TAB RESPONSIVE GRID & CARDS LAYOUT ─── */
+    .downloads-category-title {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: clamp(1.2rem, 1.8vw, 1.35rem) !important;
+      font-weight: 700 !important;
+      color: #1E61AC !important;
+      margin: 36px 0 20px !important;
+      padding-bottom: 10px !important;
+      border-bottom: 2px solid #E2E8F0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      letter-spacing: -0.01em !important;
+    }
+
+    .downloads-category-title::before {
+      content: "" !important;
+      display: inline-block !important;
+      width: 5px !important;
+      height: 20px !important;
+      background: #2162A8 !important;
+      border-radius: 3px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .downloads-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 26px !important;
+      margin-bottom: 38px !important;
+      align-items: stretch !important;
+    }
+
+    @media (max-width: 992px) {
+      .downloads-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .downloads-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+      }
+    }
+
+    .download-card {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      box-shadow: 0 4px 16px rgba(30, 97, 172, 0.06) !important;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+      position: relative !important;
+      box-sizing: border-box !important;
+    }
+
+    .download-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 28px rgba(30, 97, 172, 0.14) !important;
+      border-color: #06A9E4 !important;
+    }
+
+    .download-card-thumb-wrap {
+      height: 165px !important;
+      width: 100% !important;
+      position: relative !important;
+      overflow: hidden !important;
+      background: #F8FAFC !important;
+      flex-shrink: 0 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .download-card-thumb {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: top center !important;
+      display: block !important;
+      transition: transform 0.35s ease !important;
+    }
+
+    .download-card:hover .download-card-thumb {
+      transform: scale(1.04) !important;
+    }
+
+    .download-card-thumb-placeholder {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%) !important;
+      color: #2162A8 !important;
+    }
+
+    .download-card-thumb-placeholder svg {
+      width: 46px !important;
+      height: 46px !important;
+      stroke: #2162A8 !important;
+    }
+
+    .download-card-thumb-placeholder span {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.05em !important;
+      color: #2162A8 !important;
+      text-transform: uppercase !important;
+    }
+
+    .download-card-body {
+      padding: 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 1 auto !important;
+      box-sizing: border-box !important;
+    }
+
+    .download-card-meta {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+      margin-bottom: 12px !important;
+    }
+
+    .download-badge {
+      background: rgba(33, 98, 168, 0.08) !important;
+      color: #2162A8 !important;
+      font-size: 0.74rem !important;
+      font-weight: 700 !important;
+      padding: 3px 10px !important;
+      border-radius: 4px !important;
+      letter-spacing: 0.03em !important;
+      text-transform: uppercase !important;
+      border: 1px solid rgba(33, 98, 168, 0.14) !important;
+    }
+
+    .download-format {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      color: #64748B !important;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+    }
+
+    .download-format svg {
+      width: 14px !important;
+      height: 14px !important;
+      stroke-width: 2 !important;
+      stroke: #64748B !important;
+      flex-shrink: 0 !important;
+    }
+
+    .download-card h4,
+    .download-card .download-card-title {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 1.08rem !important;
+      font-weight: 700 !important;
+      color: #1E61AC !important;
+      margin: 0 0 10px 0 !important;
+      line-height: 1.35 !important;
+      min-height: 2.7em !important;
+    }
+
+    .download-card p,
+    .download-card .download-card-desc {
+      color: #4A5568 !important;
+      font-size: 0.88rem !important;
+      line-height: 1.55 !important;
+      margin: 0 0 20px 0 !important;
+      flex-grow: 1 !important;
+    }
+
+    .download-card-footer {
+      margin-top: auto !important;
+      width: 100% !important;
+    }
+
+    .download-card .download-btn {
+      margin-top: auto !important;
+      width: 100% !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      padding: 10px 18px !important;
+      font-size: 0.9rem !important;
+      font-weight: 600 !important;
+      box-sizing: border-box !important;
+    }
+
+  
+    /* ─── ENHANCED PHOTO GALLERY WITH DESCRIPTIONS & BADGES ─── */
+    #subpage-gallery-list.gallery-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 26px !important;
+      margin-top: 24px !important;
+      margin-bottom: 36px !important;
+      align-items: stretch !important;
+    }
+
+    @media (max-width: 992px) {
+      #subpage-gallery-list.gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #subpage-gallery-list.gallery-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+      }
+    }
+
+    .gallery-photo-card {
+      display: flex !important;
+      flex-direction: column !important;
+      height: 100% !important;
+      min-height: 320px !important;
+      aspect-ratio: auto !important;
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      box-shadow: 0 4px 16px rgba(30, 97, 172, 0.06) !important;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+      position: relative !important;
+      cursor: pointer !important;
+      text-align: left !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .gallery-photo-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 12px 28px rgba(30, 97, 172, 0.14) !important;
+      border-color: #06A9E4 !important;
+    }
+
+    .gallery-photo-thumb-wrap {
+      width: 100% !important;
+      height: 220px !important;
+      position: relative !important;
+      overflow: hidden !important;
+      background: #F1F5F9 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .gallery-photo-thumb-wrap img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      image-rendering: -webkit-optimize-contrast !important;
+      image-rendering: crisp-edges !important;
+      transition: transform 0.4s ease !important;
+    }
+
+    .gallery-photo-card:hover .gallery-photo-thumb-wrap img {
+      transform: scale(1.05) !important;
+    }
+
+    .gallery-photo-badge {
+      position: absolute !important;
+      top: 12px !important;
+      left: 12px !important;
+      background: #1E61AC !important;
+      color: #FFFFFF !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.06em !important;
+      text-transform: uppercase !important;
+      padding: 4px 10px !important;
+      border-radius: 6px !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+      z-index: 2 !important;
+    }
+
+    .gallery-photo-zoom-hint {
+      position: absolute !important;
+      bottom: 12px !important;
+      right: 12px !important;
+      background: rgba(15, 34, 56, 0.9) !important;
+      color: #FFFFFF !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      padding: 4px 10px !important;
+      border-radius: 6px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      opacity: 0 !important;
+      transform: translateY(4px) !important;
+      transition: opacity 0.25s ease, transform 0.25s ease !important;
+      z-index: 2 !important;
+    }
+
+    .gallery-photo-card:hover .gallery-photo-zoom-hint {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .gallery-photo-info {
+      padding: 18px 20px 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 1 auto !important;
+      box-sizing: border-box !important;
+      background: #FFFFFF !important;
+    }
+
+    .gallery-photo-title {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #1E61AC !important;
+      margin: 0 0 8px 0 !important;
+      line-height: 1.35 !important;
+    }
+
+    .gallery-photo-desc {
+      color: #4A5568 !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.86rem !important;
+      line-height: 1.55 !important;
+      margin: 0 !important;
+      flex-grow: 1 !important;
+    }
+
+  
+    /* ─── CLEAN LISTS (NO BULLET DOTS OR OVERLAPPING ARTIFACTS) ─── */
+    #admission-classes,
+    .admission-classes-list,
+    #admission-classes li,
+    .admission-classes-list li,
+    #facility-list,
+    .facility-list,
+    #facility-list li,
+    .facility-list li,
+    ul.tick,
+    ul.tick li {
+      list-style: none !important;
+      list-style-type: none !important;
+    }
+
+    #admission-classes,
+    .admission-classes-list,
+    #facility-list,
+    .facility-list,
+    ul.tick {
+      padding: 0 !important;
+      margin: 18px 0 22px 0 !important;
+    }
+
+    #admission-classes li,
+    .admission-classes-list li,
+    #facility-list li,
+    .facility-list li,
+    ul.tick li {
+      padding: 10px 0 !important;
+      padding-left: 0 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #1E293B !important;
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 600 !important;
+      font-size: 1.05rem !important;
+      line-height: 1.4 !important;
+      position: static !important;
+    }
+
+    #admission-classes li::before,
+    .admission-classes-list li::before,
+    #admission-classes li::after,
+    .admission-classes-list li::after,
+    #facility-list li::before,
+    .facility-list li::before,
+    #facility-list li::after,
+    .facility-list li::after,
+    ul.tick li::before,
+    ul.tick li::after {
+      content: none !important;
+      display: none !important;
+    }
+
   </style>
   <script>if (location.pathname !== '/' && !/^\/(programs|events)\/[^/]+\/?$/.test(location.pathname)) document.documentElement.classList.add('cms-route-loading')</script>
 </head>
@@ -5245,7 +6094,6 @@
           <path
             d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z" />
         </svg>04368 265 265</a>
-      <a class="top-enquire" href="/contact-us#admissions">Enquire Now <span aria-hidden="true">→</span></a>
     </div>
   </div>
   <header class="site-header">
@@ -5253,8 +6101,6 @@
       <a class="logo" href="/" aria-label="ENPEE International School">
         <img class="brand-image" src="assets/images/enpee-logo.webp" alt="ENPEE International School Karaikal"
           width="1689" height="931">
-        <span class="brand-wordmark" hidden>ENPEE</span>
-        <small hidden>INTERNATIONAL SCHOOL · KARAIKAL</small>
       </a>
       <nav id="nav" aria-label="Main navigation">
         <ul class="nav-menu" id="nav-list">
@@ -5304,41 +6150,6 @@
             </ul>
           </li>
 
-          <li class="has-submenu" data-nav-group="admissions">
-            <button class="nav-dropdown-toggle" type="button" aria-expanded="false"
-              aria-controls="nav-menu-admissions">Admissions <span class="nav-chevron"
-                aria-hidden="true"></span></button>
-            <ul class="nav-dropdown-menu" id="nav-menu-admissions">
-              <li><a data-page-link="admissions-overview" href="#admissions"><span class="nav-item-icon"
-                    aria-hidden="true"><svg viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" y1="16" x2="12" y2="12" />
-                      <line x1="12" y1="8" x2="12.01" y2="8" />
-                    </svg></span><span>Admissions Overview</span></a></li>
-              <li><a data-page-link="admissions-process" href="#admissions"><span class="nav-item-icon"
-                    aria-hidden="true"><svg viewBox="0 0 24 24">
-                      <polyline points="9 11 12 14 22 4" />
-                      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-                    </svg></span><span>Admission Process</span></a></li>
-              <li><a data-page-link="admissions-criteria" href="#admissions"><span class="nav-item-icon"
-                    aria-hidden="true"><svg viewBox="0 0 24 24">
-                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-                    </svg></span><span>Eligibility &amp; Age Criteria</span></a></li>
-              <li><a data-page-link="admission-flyer" href="assets/downloads/ENPEE-ADMISSION-FLYER.pdf"
-                  download="ENPEE-Admission-Flyer.pdf" target="_blank" rel="noopener"><span class="nav-item-icon"
-                    aria-hidden="true"><svg viewBox="0 0 24 24">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg></span><span>Download Admission Flyer</span></a></li>
-              <li><a data-page-link="enquire-now" href="#admissions"><span class="nav-item-icon" aria-hidden="true"><svg
-                      viewBox="0 0 24 24">
-                      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                    </svg></span><span>Enquire Now</span></a></li>
-            </ul>
-          </li>
-
           <li class="has-submenu" data-nav-group="campus-life">
             <button class="nav-dropdown-toggle" type="button" aria-expanded="false"
               aria-controls="nav-menu-campus">Campus Life <span class="nav-chevron" aria-hidden="true"></span></button>
@@ -5347,22 +6158,22 @@
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
                     </svg></span><span>Château Français Campus</span></a></li>
-              <li><a data-page-link="infrastructure" href="#campus"><span class="nav-item-icon" aria-hidden="true"><svg
+              <li><a data-page-link="infrastructure" href="/infrastructure"><span class="nav-item-icon" aria-hidden="true"><svg
                       viewBox="0 0 24 24">
                       <rect x="3" y="3" width="18" height="18" rx="2" />
                     </svg></span><span>Infrastructure &amp; Facilities</span></a></li>
-              <li><a data-page-link="digital-classrooms" href="#campus"><span class="nav-item-icon"
+              <li><a data-page-link="digital-classrooms" href="/digital-classrooms"><span class="nav-item-icon"
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <rect x="2" y="3" width="20" height="14" rx="2" />
                       <line x1="8" y1="21" x2="16" y2="21" />
                       <line x1="12" y1="17" x2="12" y2="21" />
                     </svg></span><span>Digital Classrooms</span></a></li>
-              <li><a data-page-link="sports-academy" href="#sports"><span class="nav-item-icon" aria-hidden="true"><svg
+              <li><a data-page-link="sports-academy" href="/sports-academy"><span class="nav-item-icon" aria-hidden="true"><svg
                       viewBox="0 0 24 24">
                       <circle cx="12" cy="8" r="5" />
                       <path d="m8 12-1 9 5-2 5 2-1-9" />
                     </svg></span><span>Sports Academy</span></a></li>
-              <li><a data-page-link="student-activities" href="#activities"><span class="nav-item-icon"
+              <li><a data-page-link="student-activities" href="/student-activities"><span class="nav-item-icon"
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <polygon
                         points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -5374,18 +6185,18 @@
             <button class="nav-dropdown-toggle" type="button" aria-expanded="false"
               aria-controls="nav-menu-gallery">Gallery <span class="nav-chevron" aria-hidden="true"></span></button>
             <ul class="nav-dropdown-menu" id="nav-menu-gallery">
-              <li><a data-page-link="photo-gallery" href="#gallery"><span class="nav-item-icon" aria-hidden="true"><svg
+              <li><a data-page-link="photo-gallery" href="/photo-gallery"><span class="nav-item-icon" aria-hidden="true"><svg
                       viewBox="0 0 24 24">
                       <rect x="3" y="3" width="18" height="18" rx="2" />
                       <circle cx="8.5" cy="8.5" r="1.5" />
                       <polyline points="21 15 16 10 5 21" />
                     </svg></span><span>Photo Gallery</span></a></li>
-              <li><a data-page-link="video-gallery" href="#videos-section"><span class="nav-item-icon"
+              <li><a data-page-link="video-gallery" href="/video-gallery"><span class="nav-item-icon"
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <polygon points="23 7 16 12 23 17 23 7" />
                       <rect x="1" y="5" width="15" height="14" rx="2" />
                     </svg></span><span>Video Gallery</span></a></li>
-              <li><a data-page-link="events-activities" href="#activities"><span class="nav-item-icon"
+              <li><a data-page-link="events-celebrations" href="/events-celebrations"><span class="nav-item-icon"
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <rect x="3" y="4" width="18" height="18" rx="2" />
                       <line x1="16" y1="2" x2="16" y2="6" />
@@ -5395,7 +6206,6 @@
             </ul>
           </li>
 
-          <li><a data-page-link="parents-corner" href="#parents-corner">Parents Corner</a></li>
           <li><a data-page-link="downloads" href="/downloads">Downloads</a></li>
           <li><a data-page-link="cbse-disclosure" href="/cbse-mandatory-disclosure">CBSE Disclosure</a></li>
           <li><a data-page-link="contact-us" href="/contact-us">Contact Us</a></li>
@@ -5410,7 +6220,8 @@
   </header>
   <button class="nav-scrim" id="nav-scrim" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
   <div class="notice-marquee" id="notice-marquee" role="region" aria-label="School announcements">
-    <span class="notice-label">Latest</span>
+    <div class="notice-container w">
+      <span class="notice-label"><span class="notice-live-dot" aria-hidden="true"></span>Latest</span>
     <div class="notice-window">
       <div class="notice-track" id="notice-track">
         <div class="notice-group" id="notice-group" aria-live="polite"><span class="notice-item"><span
@@ -5428,6 +6239,7 @@
             Academy &amp; Smart Digitized Classrooms</span><span class="notice-item"><span
               class="notice-dot">●</span>Campus Visits &amp; Enquiries: 04368 265 265 · +91 8300 111 265</span></div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -5491,7 +6303,44 @@
         <div class="eyebrow">Campus • Learning • Student Life</div>
         <h2 id="videos-heading">Experience ENPEE International School</h2>
         <p id="videos-subtitle">Discover our campus, learning environment and student experiences.</p>
-        <div id="youtube-gallery" class="youtube-gallery"></div>
+        <div id="youtube-gallery" class="youtube-gallery">
+          <div class="youtube-card rv" data-video-id="51JIyUQ92BM">
+            <div class="youtube-thumb">
+              <img src="/assets/images/video-thumbnails/51JIyUQ92BM.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/51JIyUQ92BM/maxresdefault.jpg'" alt="ENPEE International School, Karaikal – Admissions Open" loading="lazy">
+              <div class="youtube-play">
+                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div class="youtube-info">
+              <p class="youtube-title">ENPEE International School, Karaikal – Admissions Open</p>
+              <p class="youtube-channel">Official Video · Pre-KG to Standard IX</p>
+            </div>
+          </div>
+          <div class="youtube-card rv" data-video-id="jK2BNKqiNeU">
+            <div class="youtube-thumb">
+              <img src="/assets/images/video-thumbnails/jK2BNKqiNeU.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/jK2BNKqiNeU/maxresdefault.jpg'" alt="ENPEE International School – Annual Sports Day" loading="lazy">
+              <div class="youtube-play">
+                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div class="youtube-info">
+              <p class="youtube-title">ENPEE International School – Annual Sports Day</p>
+              <p class="youtube-channel">Sports Academy · Annual Celebrations</p>
+            </div>
+          </div>
+          <div class="youtube-card rv" data-video-id="7oKB8BsWht4">
+            <div class="youtube-thumb">
+              <img src="/assets/images/video-thumbnails/7oKB8BsWht4.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7oKB8BsWht4/maxresdefault.jpg'" alt="ENPEE International School – Annual Day Celebrations" loading="lazy">
+              <div class="youtube-play">
+                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+              </div>
+            </div>
+            <div class="youtube-info">
+              <p class="youtube-title">ENPEE International School – Annual Day Celebrations</p>
+              <p class="youtube-channel">Student Performances &amp; Cultural Events</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -5529,7 +6378,7 @@
         <div class="rv">
           <p id="campus-description">Our 5-acre campus is surrounded by greenery, with French-style architecture and a
             secure environment for learning.</p>
-          <ul class="tick" id="facility-list">
+          <ul class="facility-list" id="facility-list">
             <li>French-style architecture</li>
             <li>Modern classrooms</li>
             <li>Digitized learning spaces</li>
@@ -5539,15 +6388,15 @@
           </ul>
         </div>
         <div class="grid facility-grid" id="facility-photos"><button class="gallery-card" type="button"
-            data-category="Campus"><img loading="lazy" src="https://www.enpeekkl.com/images/5-acre-campus-secured.jpg"
+            data-category="Campus"><img loading="lazy" src="/assets/images/5-acre-campus-secured.jpg"
               alt="ENPEE secured five-acre campus"><span>Secured 5-Acre Campus</span></button><button
             class="gallery-card" type="button" data-category="Classrooms"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/interactive-digitized.jpg"
+              src="/assets/images/interactive-digitized.jpg"
               alt="ENPEE interactive digitized classroom"><span>Digitized Classrooms</span></button><button
             class="gallery-card" type="button" data-category="Sports"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/community-football.jpg" alt="ENPEE football ground"><span>Football
+              src="/assets/images/community-football.jpg" alt="ENPEE football ground"><span>Football
               Ground &amp; Sports Academy</span></button><button class="gallery-card" type="button"
-            data-category="Transport"><img loading="lazy" src="https://www.enpeekkl.com/images/air-buses.jpg"
+            data-category="Transport"><img loading="lazy" src="/assets/images/air-buses.jpg"
               alt="ENPEE air-conditioned school buses"><span>Air-Conditioned School Buses</span></button></div>
         <p style="text-align:center;margin:24px auto 0"><a id="campus-gallery-link" class="btn ghost2"
             href="#gallery">Explore School Gallery →</a></p>
@@ -5697,11 +6546,7 @@
           <h2 data-section-copy="partnersHeading">School Partners &amp; Providers</h2>
           <div class="cards" id="partner-list"></div>
         </div>
-        <div class="managed-subsection" id="leadership-section" hidden>
-          <div class="eyebrow" data-section-copy="leadershipEyebrow">Leadership</div>
-          <h2 data-section-copy="leadershipHeading">Promoters &amp; School Management</h2>
-          <div class="cards" id="leadership-list"></div>
-        </div>
+        <div class="managed-subsection" id="leadership-section" hidden style="display:none !important"></div>
         <div class="managed-subsection" id="parent-resources-section" hidden>
           <div class="eyebrow" data-section-copy="parentResourcesEyebrow">Parents’ Corner</div>
           <h2 data-section-copy="parentResourcesHeading">Resources for Families</h2>
@@ -5723,27 +6568,27 @@
             class="gallery-filter" type="button" data-filter="Events" aria-pressed="false">Events</button></div>
         <div class="grid gallery-grid" id="gallery-list"><button class="gallery-card" type="button"
             data-category="Events"
-            data-lightbox-url="https://www.enpeekkl.com/images/first-annual-day-celebration.jpeg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/first-annual-day-celebration-small.jpg"
+            data-lightbox-url="/assets/images/first-annual-day-celebration.jpeg"><img loading="lazy"
+              src="/assets/images/first-annual-day-celebration-small.jpg"
               alt="ENPEE International School Annual Day celebration"><span>Annual Day
               Celebration</span></button><button class="gallery-card" type="button" data-category="Campus"
-            data-lightbox-url="https://www.enpeekkl.com/images/5-acre-campus-secured.jpg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/5-acre-campus-secured.jpg"
+            data-lightbox-url="/assets/images/5-acre-campus-secured.jpg"><img loading="lazy"
+              src="/assets/images/5-acre-campus-secured.jpg"
               alt="ENPEE secured five-acre campus"><span>Our Secured Campus</span></button><button class="gallery-card"
             type="button" data-category="Learning"
-            data-lightbox-url="https://www.enpeekkl.com/images/interactive-digitized.jpg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/interactive-digitized.jpg"
+            data-lightbox-url="/assets/images/interactive-digitized.jpg"><img loading="lazy"
+              src="/assets/images/interactive-digitized.jpg"
               alt="ENPEE interactive digitized classroom"><span>Digitized Classrooms</span></button><button
             class="gallery-card" type="button" data-category="Sports"
-            data-lightbox-url="https://www.enpeekkl.com/images/community-football.jpg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/community-football.jpg"
+            data-lightbox-url="/assets/images/community-football.jpg"><img loading="lazy"
+              src="/assets/images/community-football.jpg"
               alt="ENPEE football ground and sports academy"><span>Sports Academy</span></button><button
             class="gallery-card" type="button" data-category="Campus"
-            data-lightbox-url="https://www.enpeekkl.com/images/air-buses.jpg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/air-buses.jpg" alt="ENPEE air-conditioned school bus"><span>School
+            data-lightbox-url="/assets/images/air-buses.jpg"><img loading="lazy"
+              src="/assets/images/air-buses.jpg" alt="ENPEE air-conditioned school bus"><span>School
               Transport</span></button><button class="gallery-card" type="button" data-category="Learning"
-            data-lightbox-url="https://www.enpeekkl.com/images/carosel/009.jpg"><img loading="lazy"
-              src="https://www.enpeekkl.com/images/carosel/009.jpg"
+            data-lightbox-url="/assets/images/carosel/009.jpg"><img loading="lazy"
+              src="/assets/images/carosel/009.jpg"
               alt="ENPEE robotics learning activity"><span>Robotics</span></button></div>
         <p style="text-align:center;margin:24px auto 0"><a id="gallery-explore-link" class="btn ghost2"
             href="https://www.instagram.com/enpeeschool/" target="_blank" rel="noopener">View More School Photos →</a>
@@ -5766,7 +6611,7 @@
           <h2>Give Your Child a Remarkable Beginning</h2>
           <p>Admissions are open for the Academic Year <span data-cms="home.academicYear">2026–27</span>. Join the ENPEE
             learning community.</p>
-          <ul class="tick" id="admission-classes">
+          <ul class="admission-classes-list" id="admission-classes">
             <li>Pre-KG</li>
             <li>LKG – UKG</li>
             <li>Classes I – IX</li>
@@ -5876,11 +6721,8 @@
               Now</a><a class="btn wa" href="https://wa.me/918300111265" target="_blank" rel="noopener">WhatsApp</a><a
               class="btn" style="color:var(--hd)" href="mailto:info@enpeekkl.com">Email Us</a></div>
         </div>
-        <div class="rv"><iframe class="contact-map"
-            src="https://maps.google.com/maps?q=ENPEE%20International%20School%20Karaikal&output=embed"
-            title="Map showing ENPEE International School in Karaikal" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-          <form id="f2" class="admission-form" style="margin-top:20px">
+        <div class="rv">
+          <form id="f2" class="admission-form">
             <h3>Send us a message</h3>
             <div><label for="n2" id="contact-name-label">Your name</label><input id="n2" name="name" autocomplete="name"
                 maxlength="120" placeholder="Your full name" required></div>
@@ -5912,15 +6754,12 @@
               aria-label="Facebook"><svg viewBox="0 0 24 24">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg></a><a href="https://www.instagram.com/enpeeschool/" target="_blank" rel="noopener"
-              aria-label="Instagram"><svg viewBox="0 0 24 24">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg></a><a href="https://www.youtube.com/@enpeeinternationalschoolka3067" target="_blank" rel="noopener"
-              aria-label="YouTube"><svg viewBox="0 0 24 24">
-                <path
-                  d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
-                <path d="m10 15 5-3-5-3z" />
+              aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg></a><a href="https://www.linkedin.com/in/enpee-international-school/" target="_blank" rel="noopener"
               aria-label="LinkedIn"><svg viewBox="0 0 24 24">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -6104,7 +6943,29 @@
     function setActiveNav() {
       var currentPath = (location.pathname.replace(/\/+$/, '') || '/').replace(/\/index\.php$/, '/');
       var currentPath = stripBasePath(location.pathname);
-      var routeAliases = { '/': '/index.php', '/about': '/about.php', '/promoters': '/promoters.php', '/management': '/management.php', '/chateau-francais': '/chateau-francais.php', '/way-we-work': '/way-we-work.php', '/programs-offered': '/programs-offered.php', '/what-makes-us-different': '/what-makes-us-different.php', '/contact-us': '/contact.php' };
+      var routeAliases = {
+        '/': '/index.php',
+        '/about': '/about.php',
+        '/promoters': '/promoters.php',
+        '/management': '/management.php',
+        '/advisory-board': '/advisory-board.php',
+        '/cbse-mandatory-disclosure': '/cbse-mandatory-disclosure.php',
+        '/chateau-francais': '/chateau-francais.php',
+        '/infrastructure': '/infrastructure.php',
+        '/digital-classrooms': '/digital-classrooms.php',
+        '/sports-academy': '/sports-academy.php',
+        '/student-activities': '/student-activities.php',
+        '/way-we-work': '/way-we-work.php',
+        '/programs-offered': '/programs-offered.php',
+        '/what-makes-us-different': '/what-makes-us-different.php',
+        '/photo-gallery': '/gallery.php',
+        '/gallery': '/photo-gallery',
+        '/video-gallery': '/videos.php',
+        '/events-celebrations': '/events.php',
+        '/events': '/events-celebrations',
+        '/downloads': '/downloads.php',
+        '/contact-us': '/contact.php'
+      };
       var currentAlias = routeAliases[currentPath] || currentPath;
       nv.querySelectorAll('a[data-page-link]').forEach(function (link) {
         var href = link.getAttribute('href') || '';
@@ -6119,15 +6980,15 @@
     window.addEventListener('scroll', updateActiveNav, { passive: true });
     window.addEventListener('resize', updateActiveNav);
     updateActiveNav();
-    document.getElementById('gallery-filters').addEventListener('click', function (event) { var button = event.target.closest('[data-filter]'); if (button) applyGalleryFilter(button.dataset.filter) });
-    document.addEventListener('click', function (event) { var card = event.target.closest('.gallery-card[data-lightbox-url]'); if (card) showLightbox(card) });
+    document.addEventListener('click', function (event) { var button = event.target.closest('.gallery-filter[data-filter]'); if (button) applyGalleryFilter(button.dataset.filter) });
+    document.addEventListener('click', function (event) { var card = event.target.closest('.gallery-card[data-lightbox-url], .gallery-photo-card[data-lightbox-url]'); if (card) showLightbox(card) });
     document.getElementById('lightbox-close').addEventListener('click', function () { document.getElementById('image-lightbox').close() });
     var videoDialog = document.getElementById('video-dialog'), videoFrame = document.getElementById('video-player-frame');
     function closeVideo() { videoFrame.replaceChildren(); if (videoDialog.open) videoDialog.close() }
     document.getElementById('video-close').addEventListener('click', closeVideo);
     videoDialog.addEventListener('close', function () { videoFrame.replaceChildren() });
     document.addEventListener('click', function (event) {
-      var playButton = event.target.closest('.video-poster[data-video-id]');
+      var playButton = event.target.closest('.video-poster[data-video-id], .youtube-card[data-video-id]');
       if (!playButton) return;
       var videoId = playButton.dataset.videoId;
       if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) { console.error('The YouTube video ID is invalid.'); return }
@@ -6290,12 +7151,37 @@
         if (home.statistics && Array.isArray(home.statistics)) {
           var sg = document.querySelector('.sg');
           if (sg) {
-            sg.innerHTML = '';
-            home.statistics.forEach(function (stat) {
-              var div = document.createElement('div');
-              div.innerHTML = '<i>' + escapeHtml(stat.number || stat.title || '') + '</i><b>' + escapeHtml(stat.title || '') + '</b><small>' + escapeHtml(stat.detail || '') + '</small>';
-              sg.appendChild(div);
-            });
+            var existingCards = sg.querySelectorAll('.feature-card');
+            if (existingCards.length === home.statistics.length) {
+              home.statistics.forEach(function (stat, idx) {
+                var card = existingCards[idx];
+                var b = card.querySelector('b');
+                var small = card.querySelector('small');
+                var numSpan = card.querySelector('.feature-number');
+                if (b) b.textContent = stat.title || '';
+                if (small) small.textContent = stat.detail || '';
+                if (stat.number && numSpan) numSpan.textContent = stat.number;
+              });
+            } else {
+              var defaultIcons = [
+                '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 10 10-6 10 6-10 6-10-6Z"/><path d="M6 13v5c4 3 8 3 12 0v-5"/><path class="accent" d="M22 10v6"/></svg>',
+                '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2"/><path class="accent" d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>',
+                '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 20h10M10 20c5.5-2.5.8-6.4 3-10"/><path class="accent" d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8ZM14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2Z"/></svg>',
+                '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path class="accent" d="m8 12-1 9 5-2 5 2-1-9"/><path d="m10 8 1.3 1.3L14 6.5"/></svg>'
+              ];
+              sg.innerHTML = '';
+              home.statistics.forEach(function (stat, idx) {
+                var num = stat.number || (idx < 9 ? '0' + (idx + 1) : String(idx + 1));
+                if (num && num.toLowerCase() === (stat.title || '').toLowerCase()) {
+                  num = idx < 9 ? '0' + (idx + 1) : String(idx + 1);
+                }
+                var iconHtml = defaultIcons[idx] ? '<span class="feature-icon">' + defaultIcons[idx] + '</span>' : '';
+                var article = document.createElement('article');
+                article.className = 'feature-card';
+                article.innerHTML = '<span class="feature-number">' + escapeHtml(num) + '</span>' + iconHtml + '<b>' + escapeHtml(stat.title || '') + '</b><small>' + escapeHtml(stat.detail || '') + '</small>';
+                sg.appendChild(article);
+              });
+            }
           }
         }
       }
@@ -6305,7 +7191,7 @@
         var aboutPhotos = document.querySelectorAll('#about .ph');
         about.photos.forEach(function (url, i) {
           if (aboutPhotos[i] && url) {
-            aboutPhotos[i].style.backgroundImage = "linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.45)),url('" + resolveMediaUrl(url) + "')";
+            aboutPhotos[i].style.setProperty('background-image', "linear-gradient(180deg,rgba(6,18,30,.08),rgba(6,18,30,.45)),url('" + resolveMediaUrl(url) + "')", 'important');
           }
         });
       }
@@ -6443,31 +7329,36 @@
     }
     function applyGalleryFilter(filter) {
       activeGalleryFilter = filter;
-      var container = document.getElementById('gallery-list');
-      if (!container) return;
-      if (galleryItems.length) {
-        container.innerHTML = '';
-        var filtered = filter === 'All' || filter === 'all' ? galleryItems : galleryItems.filter(function (g) { return g.category === filter });
-        filtered.forEach(function (g) {
-          var card = document.createElement('button'); card.className = 'gallery-card rv'; card.type = 'button';
-          card.dataset.category = g.category || '';
-          var imgUrl = resolveMediaUrl(g.image || '');
-          card.dataset.lightboxUrl = imgUrl;
-          card.innerHTML = '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(g.title || '') + '" loading="lazy"><span>' + escapeHtml(g.title || '') + '</span>';
-          container.appendChild(card);
-        });
-        container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
-      } else {
-        container.querySelectorAll('.gallery-card').forEach(function (card) {
-          card.hidden = (filter !== 'All' && filter !== 'all' && card.dataset.category !== filter);
-        });
-      }
-      var filtersEl = document.getElementById('gallery-filters');
-      if (filtersEl) {
-        filtersEl.querySelectorAll('button').forEach(function (btn) {
-          btn.setAttribute('aria-pressed', btn.dataset.filter === filter ? 'true' : 'false');
-        });
-      }
+      var containers = document.querySelectorAll('#gallery-list, #subpage-gallery-list');
+      containers.forEach(function (container) {
+        if (!container) return;
+        if (galleryItems.length && container.id === 'gallery-list') {
+          container.innerHTML = '';
+          var filtered = filter === 'All' || filter === 'all' ? galleryItems : galleryItems.filter(function (g) { return g.category === filter });
+          filtered.forEach(function (g) {
+            var card = document.createElement('button'); card.className = 'gallery-card rv'; card.type = 'button';
+            card.dataset.category = g.category || '';
+            var imgUrl = resolveMediaUrl(g.image || '');
+            card.dataset.lightboxUrl = imgUrl;
+            card.innerHTML = '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(g.title || '') + '" loading="lazy"><span>' + escapeHtml(g.title || '') + '</span>';
+            container.appendChild(card);
+          });
+          container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
+        } else {
+          container.querySelectorAll('.gallery-photo-card, .gallery-card').forEach(function (card) {
+            var match = (filter === 'All' || filter === 'all' || card.dataset.category === filter);
+            card.hidden = !match;
+            card.style.display = match ? 'flex' : 'none';
+          });
+        }
+      });
+      document.querySelectorAll('#gallery-filters, #subpage-gallery-filters').forEach(function (filtersEl) {
+        if (filtersEl) {
+          filtersEl.querySelectorAll('button').forEach(function (btn) {
+            btn.setAttribute('aria-pressed', btn.dataset.filter === filter ? 'true' : 'false');
+          });
+        }
+      });
     }
 
     function showLightbox(card) {
@@ -6477,9 +7368,15 @@
       var cap = document.getElementById('lightbox-caption');
       if (!dialog || !img) return;
       img.src = url;
+      var titleEl = card.querySelector('.gallery-photo-title');
+      var descEl = card.querySelector('.gallery-photo-desc');
       var label = card.querySelector('span,figcaption');
-      img.alt = label ? label.textContent : '';
-      if (cap) cap.textContent = img.alt;
+      var titleText = titleEl ? titleEl.textContent : (label ? label.textContent : '');
+      var descText = descEl ? descEl.textContent : '';
+      img.alt = titleText;
+      if (cap) {
+        cap.textContent = descText ? (titleText + ' · ' + descText) : titleText;
+      }
       dialog.showModal();
     }
 
@@ -6491,7 +7388,9 @@
       items.forEach(function (v) {
         var card = document.createElement('div'); card.className = 'youtube-card rv';
         card.dataset.videoId = v.videoId || '';
-        card.innerHTML = '<div class="youtube-thumb"><img src="https://img.youtube.com/vi/' + escapeHtml(v.videoId || '') + '/mqdefault.jpg" alt="' + escapeHtml(v.title || '') + '" loading="lazy"><div class="youtube-play"><svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="red"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg></div></div><div class="youtube-info"><p class="youtube-title">' + escapeHtml(v.title || '') + '</p>' + (v.channelTitle ? '<p class="youtube-channel">' + escapeHtml(v.channelTitle) + '</p>' : '') + '</div>';
+        var thumbSrc = resolveMediaUrl(v.image || ('/assets/images/video-thumbnails/' + (v.videoId || '') + '.jpg'));
+        var fallback = 'https://img.youtube.com/vi/' + escapeHtml(v.videoId || '') + '/maxresdefault.jpg';
+        card.innerHTML = '<div class="youtube-thumb"><img src="' + escapeHtml(thumbSrc) + '" onerror="this.onerror=null;this.src=\'' + fallback + '\'" alt="' + escapeHtml(v.title || '') + '" loading="lazy"><div class="youtube-play"><svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg></div></div><div class="youtube-info"><p class="youtube-title">' + escapeHtml(v.title || '') + '</p>' + (v.channelTitle || v.category ? '<p class="youtube-channel">' + escapeHtml(v.channelTitle || v.category) + '</p>' : '') + '</div>';
         card.addEventListener('click', function () { openVideo(v.videoId) });
         container.appendChild(card);
       });
@@ -6548,20 +7447,10 @@
     }
 
     function renderLeadership(items) {
+      // Leadership section removed from homepage layout per design specification.
+      // Separate /promoters and /management subpages render leadership content directly.
       var container = document.getElementById('leadership-list');
       if (!container || !items || !items.length) return;
-      var section = document.getElementById('leadership-section');
-      var managed = document.getElementById('managed-sections');
-      if (section) section.hidden = false;
-      if (managed) managed.hidden = false;
-      container.innerHTML = '';
-      items.forEach(function (p) {
-        var card = document.createElement('div'); card.className = 'cms-profile rv';
-        var imgUrl = p.image ? resolveMediaUrl(p.image) : '';
-        card.innerHTML = (imgUrl ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(p.name || '') + '" loading="lazy">' : '') + '<h3>' + escapeHtml(p.name || '') + '</h3><div class="role">' + escapeHtml(p.title || p.role || '') + '</div>' + (p.description ? '<p>' + escapeHtml(p.description) + '</p>' : '');
-        container.appendChild(card);
-      });
-      container.querySelectorAll('.rv').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in') });
     }
 
     function renderAnnouncements(items) {
@@ -6620,7 +7509,24 @@
       '/downloads': function () { showPage('downloads'); },
       '/downloads.php': function () { showPage('downloads'); },
       '/contact-us': function () { showPage('contact-us'); },
-      '/contact.php': function () { showPage('contact-us'); }
+      '/contact.php': function () { showPage('contact-us'); },
+      '/infrastructure': function () { showPage('infrastructure'); },
+      '/infrastructure.php': function () { showPage('infrastructure'); },
+      '/digital-classrooms': function () { showPage('digital-classrooms'); },
+      '/digital-classrooms.php': function () { showPage('digital-classrooms'); },
+      '/sports-academy': function () { showPage('sports-academy'); },
+      '/sports-academy.php': function () { showPage('sports-academy'); },
+      '/student-activities': function () { showPage('student-activities'); },
+      '/student-activities.php': function () { showPage('student-activities'); },
+      '/photo-gallery': function () { showPage('photo-gallery'); },
+      '/gallery': function () { showPage('photo-gallery'); },
+      '/gallery.php': function () { showPage('photo-gallery'); },
+      '/video-gallery': function () { showPage('video-gallery'); },
+      '/videos': function () { showPage('video-gallery'); },
+      '/video-gallery.php': function () { showPage('video-gallery'); },
+      '/events-celebrations': function () { showPage('events-celebrations'); },
+      '/events': function () { showPage('events-celebrations'); },
+      '/events.php': function () { showPage('events-celebrations'); }
     };
 
     function handleRoute() {
@@ -6862,11 +7768,8 @@
             '</tbody>' +
             '</table>' +
             '</div>' +
-            '</div>' +
 
-            '<div class="subpage-section">' +
-            '<h2>B. Documents and Information</h2>' +
-            '<div class="cbse-table-wrap">' +
+            '<div class="cbse-table-wrap" style="margin-top:20px;">' +
             '<table class="cbse-table">' +
             '<thead><tr><th>Document</th><th>Status / Access</th></tr></thead>' +
             '<tbody>' +
@@ -7046,6 +7949,396 @@
             subpageCtaHtml;
           break;
 
+        case 'infrastructure':
+          var pInfra = pages.infrastructure || {};
+          var infraSections = pInfra.sections || [
+            { heading: '5-Acre French-Colonial Eco Campus', body: 'Spacious, verdant, and pollution-free campus with French-colonial architecture in Karaikal. Over 60% of open areas are dedicated to lawns, gardens, and athletic fields.', badge: 'Campus Design' },
+            { heading: '24/7 Security & Child Safety Protocols', body: 'Gated perimeter wall, round-the-clock security personnel, automated visitor tracking, female bus attendants, and high-definition CCTV coverage throughout corridors and school zones.', badge: 'Safety First' },
+            { heading: 'Digitized Smart Classrooms', body: 'Equipped with interactive touch-enabled smart boards, high-speed campus Wi-Fi, audiovisual curriculum modules, and ergonomic student furniture.', badge: 'Modern Learning' },
+            { heading: 'Advanced Science Laboratories', body: 'Spacious, modern labs for Physics, Chemistry, and Biology facilitating hands-on experimentation, analytical thinking, and scientific inquiry under qualified educator guidance.', badge: 'STEM' },
+            { heading: 'Robotics & Computer Innovation Lab', body: 'High-speed computing systems with programming workstations, STEM robotics kits, and digital literacy curriculum for primary and secondary classes.', badge: 'Technology' },
+            { heading: 'Library & Knowledge Resource Centre', body: 'A tranquil reading sanctuary housing thousands of age-appropriate titles, encyclopaedias, reference works, CBSE journals, and audio-visual resources.', badge: 'Knowledge' },
+            { heading: 'Multipurpose Auditorium & Performing Arts', body: 'Acoustically balanced activity hall designed for classical dance, vocal music, drama rehearsals, public speaking, yoga sessions, and school gatherings.', badge: 'Arts & Culture' },
+            { heading: 'Safe & GPS-Enabled School Transport', body: 'Well-maintained fleet of GPS-equipped school buses with speed governors, emergency first-aid, female attendants, and real-time route monitoring across Karaikal.', badge: 'Transportation' }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <a href="/chateau-francais">Campus Life</a> <span class="bc-sep">/</span> <span class="bc-current">Infrastructure &amp; Facilities</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">World-Class Environment</div>' +
+            '<h1>' + escapeHtml(pInfra.title || 'Infrastructure & Facilities') + '</h1>' +
+            '<p class="subpage-desc">' + escapeHtml(pInfra.description || 'A 5-acre French-colonial inspired campus engineered for child safety, holistic exploration, digitized learning, and athletic growth in Karaikal.') + '</p>' +
+            '</div>' +
+            '<div class="subpage-grid">' +
+            infraSections.map(function (s) {
+              return '<article class="subpage-card">' +
+                (s.badge ? '<div style="color:var(--brand-green);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + escapeHtml(s.badge) + '</div>' : '') +
+                '<h3>' + escapeHtml(s.heading) + '</h3>' +
+                '<p>' + escapeHtml(s.body) + '</p>' +
+                '</article>';
+            }).join('') +
+            '</div>' +
+            '<div class="subpage-section" style="margin-top:28px;">' +
+            '<h2>Campus Highlights at a Glance</h2>' +
+            '<div class="grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px;">' +
+            '<div class="subpage-card" style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--primary-blue);">5 Acres</div><p style="margin:4px 0 0;font-size:0.9rem;">Eco-Friendly Green Campus</p></div>' +
+            '<div class="subpage-card" style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--brand-green);">100%</div><p style="margin:4px 0 0;font-size:0.9rem;">CCTV &amp; Guarded Security</p></div>' +
+            '<div class="subpage-card" style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--primary-blue);">100%</div><p style="margin:4px 0 0;font-size:0.9rem;">Digitized Smart Classrooms</p></div>' +
+            '<div class="subpage-card" style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--brand-green);">8+</div><p style="margin:4px 0 0;font-size:0.9rem;">Sports &amp; Athletic Arenas</p></div>' +
+            '</div>' +
+            '</div>' +
+            subpageCtaHtml;
+          break;
+
+        case 'digital-classrooms':
+          var pDigi = pages.digitalClassrooms || {};
+          var digiSections = pDigi.sections || [
+            { heading: 'Interactive Smart Panels', body: 'High-definition touchscreens enabling visual concept-mapping, digital whiteboard sketches, dynamic mathematics geometry, and engaging classroom interaction.', badge: 'EdTech' },
+            { heading: 'CBSE-Aligned Animated Content', body: 'Rich multimedia curriculum repository featuring 2D and 3D visual simulations that bring abstract Science and Math concepts to life.', badge: 'Curriculum' },
+            { heading: 'Ergonomic & Flexible Layouts', body: 'Child-centric modular desks and seating configured for smooth transition between focused individual work and collaborative team activities.', badge: 'Design' },
+            { heading: 'Safe Visual Health & Acoustics', body: 'Engineered with anti-glare display technology, flicker-free balanced lighting, and cross-ventilation to safeguard student eyesight and attention span.', badge: 'Health & Safety' },
+            { heading: 'Real-Time Formative Assessment', body: 'Interactive polling and digital concept check-ins enable our educators to immediately gauge comprehension and tailor individual support.', badge: 'Pedagogy' },
+            { heading: 'Connected Learning Hub', body: 'High-speed campus network linking classroom modules with digital libraries, curated educational videos, and parent communication platforms.', badge: 'Connectivity' }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <a href="/chateau-francais">Campus Life</a> <span class="bc-sep">/</span> <span class="bc-current">Digital Classrooms</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">Future-Ready Education</div>' +
+            '<h1>' + escapeHtml(pDigi.title || 'Digital Smart Classrooms') + '</h1>' +
+            '<p class="subpage-desc">' + escapeHtml(pDigi.description || 'Transforming abstract concepts into immersive visual learning experiences through interactive technology and CBSE-aligned digital pedagogy.') + '</p>' +
+            '</div>' +
+            '<div class="subpage-grid">' +
+            digiSections.map(function (s) {
+              return '<article class="subpage-card">' +
+                (s.badge ? '<div style="color:var(--brand-green);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + escapeHtml(s.badge) + '</div>' : '') +
+                '<h3>' + escapeHtml(s.heading) + '</h3>' +
+                '<p>' + escapeHtml(s.body) + '</p>' +
+                '</article>';
+            }).join('') +
+            '</div>' +
+            subpageCtaHtml;
+          break;
+
+        case 'sports-academy':
+          var pSports = pages.sportsAcademy || {};
+          var sportsDisciplines = pSports.sections || [
+            { heading: 'Roller Skating Rink', body: 'Professional outdoor skating rink guided by certified coaches, developing balance, agility, speed, and artistic roller-skating techniques.', badge: 'Speed & Agility' },
+            { heading: 'Certified Archery Range', body: 'Target archery facility with Olympic-standard recurve bows, safety netting, and expert instruction cultivating precision focus and mental calm.', badge: 'Focus & Precision' },
+            { heading: 'Track & Field Athletics', body: 'Multi-lane running tracks, sprint lanes, long jump pits, and shot put conditioning students for inter-school, district, and regional athletic meets.', badge: 'Athletics' },
+            { heading: 'Basketball Arena', body: 'Full-sized asphalt basketball court with regulation backboards, boundary markings, and tactical shooting drills.', badge: 'Team Sport' },
+            { heading: 'Badminton & Table Tennis Arenas', body: 'Indoor wooden and outdoor recreational courts fostering rapid reflexes, sharp hand-eye coordination, and cardiovascular endurance.', badge: 'Racquet Sports' },
+            { heading: 'Football & Cricket Practice Fields', body: 'Lush natural turf ground for football matches and dedicated cricket net practice areas for batting, bowling, and fielding drills.', badge: 'Field Sports' },
+            { heading: 'Martial Arts & Karate Academy', body: 'Self-defence discipline, core physical strength, kata techniques, and graded belt tests led by certified black-belt instructors.', badge: 'Self-Defence' },
+            { heading: 'Yoga & Mindful Morning Fitness', body: 'Daily morning yoga, Surya Namaskar routines, pranayama breathing, and posture correction enhancing physical flexibility and emotional well-being.', badge: 'Holistic Wellness' }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <a href="/chateau-francais">Campus Life</a> <span class="bc-sep">/</span> <span class="bc-current">Sports Academy</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">Athletic Excellence</div>' +
+            '<h1>' + escapeHtml(pSports.title || 'ENPEE Sports Academy') + '</h1>' +
+            '<p class="subpage-desc">' + escapeHtml(pSports.description || 'Cultivating athletic talent, endurance, sportsmanship, and leadership under certified physical education coaches and professional sports grounds.') + '</p>' +
+            '</div>' +
+            '<div class="subpage-grid">' +
+            sportsDisciplines.map(function (s) {
+              return '<article class="subpage-card">' +
+                (s.badge ? '<div style="color:var(--brand-green);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + escapeHtml(s.badge) + '</div>' : '') +
+                '<h3>' + escapeHtml(s.heading) + '</h3>' +
+                '<p>' + escapeHtml(s.body) + '</p>' +
+                '</article>';
+            }).join('') +
+            '</div>' +
+            subpageCtaHtml;
+          break;
+
+        case 'student-activities':
+          var pActs = pages.studentActivities || {};
+          var clubList = pActs.sections || [
+            { heading: 'Classical & Contemporary Dance', body: 'Bharatanatyam, traditional Indian folk, and modern creative dance cultivating poise, rhythm, cultural heritage, and stage confidence.', badge: 'Performing Arts' },
+            { heading: 'Music & Vocal Arts Academy', body: 'Carnatic vocal fundamentals, choir singing, harmonium, keyboards, and percussion instruments developing pitch, auditory awareness, and musical expression.', badge: 'Performing Arts' },
+            { heading: 'Fine Arts, Craft & Pottery Studio', body: 'Freehand sketching, watercolour painting, acrylics, origami, clay modelling, and student art exhibitions celebrating youthful imagination.', badge: 'Visual Arts' },
+            { heading: 'Robotics & STEM Tinkering Club', body: 'Hands-on experiential workshops where young engineers design circuits, assemble sensors, and program simple robotic modules.', badge: 'Innovation' },
+            { heading: 'Literary, Debating & Public Speaking', body: 'Elocution, debates, spelling bees, book reading clubs, and creative writing in English, Tamil, and French developing articulate orators.', badge: 'Communication' },
+            { heading: 'Eco Club & Green Warriors', body: 'Campus organic gardens, tree plantation, compost recycling, water conservation studies, and coastal cleanliness drives across Karaikal.', badge: 'Environment' },
+            { heading: 'Scouts, Guides & Junior Red Cross', body: 'Building self-reliance, emergency first aid, camping skills, disaster management drills, and civic duty.', badge: 'Leadership' },
+            { heading: 'Science & Mathematics Olympiad Club', body: 'Curiosity-led problem-solving sessions, mathematical logic puzzles, and science fair preparation encouraging analytical inquiry.', badge: 'Academic Clubs' }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <a href="/chateau-francais">Campus Life</a> <span class="bc-sep">/</span> <span class="bc-current">Student Activities</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">Beyond the Classroom</div>' +
+            '<h1>' + escapeHtml(pActs.title || 'Student Activities & Clubs') + '</h1>' +
+            '<p class="subpage-desc">' + escapeHtml(pActs.description || 'Nurturing curiosity, creative expression, cultural appreciation, and collaborative leadership through a vibrant spectrum of clubs and co-curricular programs.') + '</p>' +
+            '</div>' +
+            '<div class="subpage-grid">' +
+            clubList.map(function (s) {
+              return '<article class="subpage-card">' +
+                (s.badge ? '<div style="color:var(--brand-green);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + escapeHtml(s.badge) + '</div>' : '') +
+                '<h3>' + escapeHtml(s.heading) + '</h3>' +
+                '<p>' + escapeHtml(s.body) + '</p>' +
+                '</article>';
+            }).join('') +
+            '</div>' +
+            subpageCtaHtml;
+          break;
+
+        case 'photo-gallery':
+        case 'gallery':
+          var galleryPhotos = [
+            {
+              title: 'Annual Day Celebration & Stage Performances',
+              category: 'Events',
+              desc: 'Students showcasing artistic talents, classical and contemporary dance routines, theatrical dramas, and musical recitals on the grand stage.',
+              image: resolveMediaUrl('/assets/images/imgi_16_first-annual-day-celebration.jpg'),
+              thumb: resolveMediaUrl('/assets/images/imgi_16_first-annual-day-celebration.jpg')
+            },
+            {
+              title: '5-Acre Secured Eco-Friendly Campus',
+              category: 'Campus',
+              desc: 'Vast lush campus in Karaikal with 24/7 security, high-definition CCTV monitoring, tranquil green gardens, and dedicated assembly grounds.',
+              image: resolveMediaUrl('/assets/images/campus-banner.webp'),
+              thumb: resolveMediaUrl('/assets/images/campus-banner.webp')
+            },
+            {
+              title: 'Château Français French-Colonial Architecture',
+              category: 'Campus',
+              desc: 'Signature French-colonial heritage architecture combining historical grandeur with modern, well-ventilated, high-ceiling learning corridors.',
+              image: resolveMediaUrl('/assets/downloads/ENPEE-Brochure-2019.jpg'),
+              thumb: resolveMediaUrl('/assets/downloads/ENPEE-Brochure-2019.jpg')
+            },
+            {
+              title: 'Digitized Interactive Smart Classrooms',
+              category: 'Learning',
+              desc: 'Tech-enabled classrooms equipped with interactive smart panels, multimedia audiovisual tools, ergonomic modular desks, and digital teaching aids.',
+              image: resolveMediaUrl('/assets/images/interactive-digitized.jpg'),
+              thumb: resolveMediaUrl('/assets/images/interactive-digitized.jpg')
+            },
+            {
+              title: 'Sports Academy & Full-Sized Football Field',
+              category: 'Sports',
+              desc: 'Expansive outdoor athletic fields supporting competitive football training, track events, physical endurance drills, and inter-school tournaments.',
+              image: resolveMediaUrl('/assets/images/community-football.jpg'),
+              thumb: resolveMediaUrl('/assets/images/community-football.jpg')
+            },
+            {
+              title: 'Roller Skating Arena & Outdoor Sports',
+              category: 'Sports',
+              desc: 'Smooth custom-surfaced speed-skating track with certified coaching for agility, balance, speed development, and regional competition preparation.',
+              image: resolveMediaUrl('/assets/images/carosel/004.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/004.jpg')
+            },
+            {
+              title: 'Robotics & STEM Tinkering Lab',
+              category: 'Learning',
+              desc: 'Hands-on experiential makerspace where students construct motorized robotic models, learn basic coding logic, and experiment with scientific principles.',
+              image: resolveMediaUrl('/assets/images/carosel/009.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/009.jpg')
+            },
+            {
+              title: 'Creative Arts, Craft & Visual Expression',
+              category: 'Learning',
+              desc: 'Vibrant dedicated art studio fostering painting, clay sculpting, origami, sketching, and creative craft exhibitions under expert artist guidance.',
+              image: resolveMediaUrl('/assets/images/carosel/005.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/005.jpg')
+            },
+            {
+              title: 'Campus Life & Collaborative Learning',
+              category: 'Campus',
+              desc: 'Open-air paved quadrangles and verdant tree-shaded courtyards designed for group discussions, peer bonding, and cultural gatherings between lessons.',
+              image: resolveMediaUrl('/assets/images/school-img-2.jpg'),
+              thumb: resolveMediaUrl('/assets/images/school-img-2.jpg')
+            },
+            {
+              title: 'Traditional Celebrations & Cultural Heritage',
+              category: 'Events',
+              desc: 'Vibrant celebrations of Pongal, national holidays, and regional festivals, encouraging students to cherish traditions, unity, and communal heritage.',
+              image: resolveMediaUrl('/assets/images/carosel/003.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/003.jpg')
+            },
+            {
+              title: 'Montessori Activity & Early Childhood Play',
+              category: 'Learning',
+              desc: 'Child-centric kindergarten environments with sensorial learning apparatus, tactile learning stations, and age-appropriate educational developmental play.',
+              image: resolveMediaUrl('/assets/images/carosel/002.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/002.jpg')
+            },
+            {
+              title: 'Kindergarten Activity Discovery & Exploration',
+              category: 'Learning',
+              desc: 'Fun-filled early learning activities promoting motor skills, speech development, teamwork, and cognitive discovery in safe indoor play zones.',
+              image: resolveMediaUrl('/assets/images/carosel/001.jpg'),
+              thumb: resolveMediaUrl('/assets/images/carosel/001.jpg')
+            },
+            {
+              title: 'Air-Conditioned Safe Student Transport',
+              category: 'Campus',
+              desc: 'Modern fleet of air-conditioned buses featuring real-time GPS tracking, speed governors, trained female attendants, and emergency first-aid equipment.',
+              image: resolveMediaUrl('/assets/images/air-buses.jpg'),
+              thumb: resolveMediaUrl('/assets/images/air-buses.jpg')
+            },
+            {
+              title: 'Academic Calendar & Co-Curricular Schedule',
+              category: 'Learning',
+              desc: 'Structured academic schedules, holistic learning milestones, Olympiad preparation, and student development activities.',
+              image: resolveMediaUrl('/assets/downloads/ENPEE-School-Calendar-2019.jpg'),
+              thumb: resolveMediaUrl('/assets/downloads/ENPEE-School-Calendar-2019.jpg')
+            },
+            {
+              title: 'Grand Launch & School Infrastructure',
+              category: 'Campus',
+              desc: 'Comprehensive modern school infrastructure designed to cultivate academic curiosity, sportsmanship, and creative pursuits.',
+              image: resolveMediaUrl('/assets/downloads/ENPEE-School-Flyer-2019.jpg'),
+              thumb: resolveMediaUrl('/assets/downloads/ENPEE-School-Flyer-2019.jpg')
+            },
+            {
+              title: 'Commemorative Milestones & Foundation Invitations',
+              category: 'Events',
+              desc: 'Special commemorative occasions uniting students, faculty, distinguished patrons, and community families.',
+              image: resolveMediaUrl('/assets/downloads/ENPEE-School-Invitation-Card-2019.jpg'),
+              thumb: resolveMediaUrl('/assets/downloads/ENPEE-School-Invitation-Card-2019.jpg')
+            },
+            {
+              title: 'Admissions Open & Academic Excellence',
+              category: 'Events',
+              desc: 'Inviting young minds from Pre-KG to Class IX to embark on a transformative educational journey at Karaikal’s premier CBSE institution.',
+              image: resolveMediaUrl('/assets/images/imgi_4_enpee-admission-flyer.jpg'),
+              thumb: resolveMediaUrl('/assets/images/imgi_4_enpee-admission-flyer.jpg')
+            }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <span class="bc-current">Photo Gallery</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">Moments at ENPEE</div>' +
+            '<h1>Photo Gallery</h1>' +
+            '<p class="subpage-desc">Explore learning, campus life, sporting achievements, and celebratory milestones across our 5-acre eco-friendly campus in Karaikal.</p>' +
+            '</div>' +
+            '<div class="gallery-tools" id="subpage-gallery-filters" aria-label="Filter gallery photos" style="margin-bottom:24px;">' +
+            '<button class="gallery-filter" type="button" data-filter="All" aria-pressed="true">All photos</button>' +
+            '<button class="gallery-filter" type="button" data-filter="Campus" aria-pressed="false">Campus</button>' +
+            '<button class="gallery-filter" type="button" data-filter="Learning" aria-pressed="false">Learning</button>' +
+            '<button class="gallery-filter" type="button" data-filter="Sports" aria-pressed="false">Sports</button>' +
+            '<button class="gallery-filter" type="button" data-filter="Events" aria-pressed="false">Events</button>' +
+            '</div>' +
+            '<div class="grid gallery-grid" id="subpage-gallery-list">' +
+            galleryPhotos.map(function (p) {
+              return '<button class="gallery-photo-card gallery-card in" type="button" data-category="' + escapeHtml(p.category) + '" data-lightbox-url="' + escapeHtml(p.image) + '">' +
+                '<div class="gallery-photo-thumb-wrap">' +
+                '<img loading="lazy" src="' + escapeHtml(p.thumb || p.image) + '" alt="' + escapeHtml(p.title) + '">' +
+                '<span class="gallery-photo-badge">' + escapeHtml(p.category) + '</span>' +
+                '<span class="gallery-photo-zoom-hint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>Zoom Photo</span>' +
+                '</div>' +
+                '<div class="gallery-photo-info">' +
+                '<h4 class="gallery-photo-title">' + escapeHtml(p.title) + '</h4>' +
+                '<p class="gallery-photo-desc">' + escapeHtml(p.desc) + '</p>' +
+                '</div>' +
+                '</button>';
+            }).join('') +
+            '</div>' +
+            '<p style="text-align:center;margin:32px auto 0;">' +
+            '<a class="btn ghost2" href="https://www.instagram.com/enpeeschool/" target="_blank" rel="noopener">Follow @enpeeschool on Instagram for Daily Updates →</a>' +
+            '</p>' +
+            subpageCtaHtml;
+          break;
+
+        case 'video-gallery':
+          var videoItems = [
+            {
+              id: '51JIyUQ92BM',
+              title: 'ENPEE International School – Official Campus Tour & Admissions',
+              desc: 'Discover our 5-acre eco-campus, digitized smart classrooms, French-colonial architecture, and world-class learning facilities in Karaikal.',
+              badge: 'Featured Video',
+              thumbnail: '/assets/images/video-thumbnails/51JIyUQ92BM.jpg'
+            },
+            {
+              id: 'jK2BNKqiNeU',
+              title: 'ENPEE International School – Annual Sports Day Celebrations',
+              desc: 'High-energy track and field athletics, roller skating races, martial arts demonstrations, and team sports championship achievements.',
+              badge: 'Sports Academy',
+              thumbnail: '/assets/images/video-thumbnails/jK2BNKqiNeU.jpg'
+            },
+            {
+              id: '7oKB8BsWht4',
+              title: 'ENPEE International School – Annual Day Celebrations',
+              desc: 'Grand cultural stage performances, classical Bharatanatyam, contemporary orchestra recitals, theatrical drama, and annual achievement honors.',
+              badge: 'Cultural & Arts',
+              thumbnail: '/assets/images/video-thumbnails/7oKB8BsWht4.jpg'
+            }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <span class="bc-current">Video Gallery</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">Campus in Motion</div>' +
+            '<h1>Video Gallery</h1>' +
+            '<p class="subpage-desc">Experience the energy, creativity, and vibrant life at ENPEE International School through our video tours and official channel broadcasts.</p>' +
+            '</div>' +
+            '<div class="youtube-gallery" style="margin-top:20px;">' +
+            videoItems.map(function (v) {
+              var thumbSrc = resolveMediaUrl(v.thumbnail || ('/assets/images/video-thumbnails/' + v.id + '.jpg'));
+              var fallback = 'https://img.youtube.com/vi/' + escapeHtml(v.id) + '/maxresdefault.jpg';
+              return '<div class="youtube-card rv in" data-video-id="' + escapeHtml(v.id) + '" role="button" tabindex="0" aria-label="Play ' + escapeHtml(v.title) + '">' +
+                '<div class="youtube-thumb">' +
+                '<img src="' + escapeHtml(thumbSrc) + '" onerror="this.onerror=null;this.src=\'' + fallback + '\'" alt="' + escapeHtml(v.title) + '" loading="lazy">' +
+                '<div class="youtube-play">' +
+                '<svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>' +
+                '</div>' +
+                '</div>' +
+                '<div class="youtube-info">' +
+                (v.badge ? '<span style="color:var(--brand-green);font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">' + escapeHtml(v.badge) + '</span>' : '') +
+                '<p class="youtube-title" style="margin-top:4px;">' + escapeHtml(v.title) + '</p>' +
+                '<p class="youtube-channel">' + escapeHtml(v.desc) + '</p>' +
+                '</div>' +
+                '</div>';
+            }).join('') +
+            '</div>' +
+            '<p style="text-align:center;margin:32px auto 0;">' +
+            '<a class="btn ghost2" href="https://www.youtube.com/@enpeeinternationalschoolka3067" target="_blank" rel="noopener">Subscribe to ENPEE on YouTube →</a>' +
+            '</p>' +
+            subpageCtaHtml;
+          break;
+
+        case 'events-celebrations':
+        case 'events':
+          var eventsList = collections.events && collections.events.length ? collections.events : [
+            { title: 'Annual Day Extravaganza ("Tharang")', timing: 'Flagship Event · February', description: 'A grand celebration of student artistic brilliance featuring classical Bharatanatyam, theatrical drama, choral music, and annual academic excellence awards.' },
+            { title: 'Annual Sports Meet & Championship', timing: 'Athletics & Games · January', description: 'A thrilling celebration of sportsmanship featuring an Olympic-style torch relay, inter-house march past, track races, skating exhibitions, and trophy presentations.' },
+            { title: 'Science, Math & Robotics Innovation Expo', timing: 'Academic Showcase · November', description: 'Students engineer working robotics modules, hydraulic machines, environmental science models, and mathematical logic puzzles for visitors.' },
+            { title: 'Independence Day & Republic Day Celebrations', timing: 'National Day · August & January', description: 'Ceremonial national flag hoisting by school dignitaries, student parade march past, patriotic anthems, and speeches on constitutional ideals.' },
+            { title: 'Pongal & Traditional Heritage Festival', timing: 'Cultural Heritage · January', description: 'Authentic harvest celebrations with traditional earthen pot pongal preparation, folk music, kolam competitions, and gratitude to farmers.' },
+            { title: 'Kindergarten Convocation & Graduation Ceremony', timing: 'Early Years · March', description: 'A proud milestone ceremony celebrating our UKG graduates donning graduation caps as they step forward into primary schooling.' },
+            { title: 'World Environment Day & Green Karaikal Drive', timing: 'Community & Ecology · June', description: 'Tree plantation drives, native sapling distribution, coastal cleanliness campaigns in Karaikal, and student pledges for eco-friendly living.' },
+            { title: 'Children’s Day & Teachers’ Day Festivities', timing: 'School Community · September & November', description: 'Joyful bonding celebrations featuring student-led assemblies, teacher appreciation programs, role-plays, and friendly games.' }
+          ];
+
+          container.innerHTML = '<nav class="detail-breadcrumbs" aria-label="Breadcrumb">' +
+            '<a href="/">Home</a> <span class="bc-sep">/</span> <span class="bc-current">Events &amp; Celebrations</span>' +
+            '</nav>' +
+            '<div class="subpage-hero">' +
+            '<div class="subpage-badge">School Life &amp; Celebrations</div>' +
+            '<h1>Events &amp; Celebrations</h1>' +
+            '<p class="subpage-desc">Every event at ENPEE International School is an opportunity for students to express talents, cultivate leadership, and celebrate Indian culture and global traditions.</p>' +
+            '</div>' +
+            '<div class="subpage-grid">' +
+            eventsList.map(function (e) {
+              return '<article class="subpage-card">' +
+                (e.timing ? '<div style="color:var(--brand-green);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">' + escapeHtml(e.timing) + '</div>' : '') +
+                '<h3>' + escapeHtml(e.title) + '</h3>' +
+                '<p>' + escapeHtml(e.description) + '</p>' +
+                '</article>';
+            }).join('') +
+            '</div>' +
+            subpageCtaHtml;
+          break;
+
         case 'downloads':
           var dlAdmissionFlyerPdf = resolveMediaUrl('/assets/downloads/ENPEE-ADMISSION-FLYER.pdf');
           var dlAdmissionFlyerImg = resolveMediaUrl('/assets/downloads/enpee-admission-flyer.jpg');
@@ -7076,32 +8369,40 @@
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlAdmissionFlyerImg) + '" alt="ENPEE Admission Flyer" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Admission Guide</span>' +
-            '<span class="download-format">PDF · 412 KB</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF · 412 KB</span>' +
             '</div>' +
-            '<h4>ENPEE Admission Flyer</h4>' +
-            '<p>Comprehensive admission flyer detailing curriculum highlights, extracurricular programs, age criteria, and admissions contact.</p>' +
+            '<h4 class="download-card-title">ENPEE Admission Flyer</h4>' +
+            '<p class="download-card-desc">Comprehensive admission flyer detailing curriculum highlights, extracurricular programs, age criteria, and admissions contact.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlAdmissionFlyerPdf) + '" download="ENPEE-Admission-Flyer.pdf" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
             'Download Admission Flyer' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '<div class="download-card">' +
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlBrochureImg) + '" alt="ENPEE School Brochure" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">School Prospectus</span>' +
-            '<span class="download-format">PDF · 3.38 MB</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF · 3.38 MB</span>' +
             '</div>' +
-            '<h4>School Information Brochure</h4>' +
-            '<p>Complete official institutional prospectus covering campus infrastructure, Château Français architecture, learning methodologies, and philosophy.</p>' +
+            '<h4 class="download-card-title">School Information Brochure</h4>' +
+            '<p class="download-card-desc">Complete official institutional prospectus covering campus infrastructure, Château Français architecture, learning methodologies, and philosophy.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlBrochurePdf) + '" download="ENPEE-School-Brochure.pdf" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
             'Download School Brochure' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '</div>' +
@@ -7113,45 +8414,63 @@
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlCalendarImg) + '" alt="ENPEE School Academic Calendar" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Academic Calendar</span>' +
-            '<span class="download-format">PDF · 4.00 MB</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF · 4.00 MB</span>' +
             '</div>' +
-            '<h4>Annual Academic Calendar</h4>' +
-            '<p>Yearly schedule of academic terms, examination cycles, national observances, school holidays, and cultural events.</p>' +
+            '<h4 class="download-card-title">Annual Academic Calendar</h4>' +
+            '<p class="download-card-desc">Yearly schedule of academic terms, examination cycles, national observances, school holidays, and cultural events.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlCalendarPdf) + '" download="ENPEE-School-Calendar.pdf" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
             'Download Academic Calendar' +
             '</a>' +
             '</div>' +
+            '</div>' +
+            '</div>' +
 
             '<div class="download-card">' +
-            '<div class="download-card-icon" style="margin-top:10px;"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>' +
+            '<div class="download-card-thumb-wrap">' +
+            '<div class="download-card-thumb-placeholder">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>' +
+            '<span>CBSE Appendix IX</span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">CBSE Compliance</span>' +
-            '<span class="download-format">Appendix IX · Live</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Appendix IX · Live</span>' +
             '</div>' +
-            '<h4>CBSE Mandatory Public Disclosure</h4>' +
-            '<p>Official Appendix IX disclosure report covering CBSE affiliation No. 2930085, trust status, safety certificates, fee structure, and staff details.</p>' +
+            '<h4 class="download-card-title">CBSE Mandatory Public Disclosure</h4>' +
+            '<p class="download-card-desc">Official Appendix IX disclosure report covering CBSE affiliation No. 2930085, trust status, safety certificates, fee structure, and staff details.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="/cbse-mandatory-disclosure">' +
-            'View Mandatory Disclosure →' +
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
+            'View Mandatory Disclosure' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '<div class="download-card">' +
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlFlyerImg) + '" alt="Grand Launch Bilingual Flyer" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Bilingual Resource</span>' +
-            '<span class="download-format">JPG · High Resolution</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>JPG · High Resolution</span>' +
             '</div>' +
-            '<h4>Grand Launch Flyer (English &amp; Tamil)</h4>' +
-            '<p>Bilingual launch overview presenting the school’s founding mission, world-class pedagogical framework, and campus highlights.</p>' +
+            '<h4 class="download-card-title">Grand Launch Flyer (English &amp; Tamil)</h4>' +
+            '<p class="download-card-desc">Bilingual launch overview presenting the school’s founding mission, world-class pedagogical framework, and campus highlights.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlFlyerImg) + '" target="_blank" rel="noopener">' +
-            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
-            'View Launch Flyer' +
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+            'View &amp; Download Flyer' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '</div>' +
@@ -7163,48 +8482,60 @@
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlAnnualInvImg) + '" alt="1st Annual Day Celebration Invitation" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Celebration Archive</span>' +
-            '<span class="download-format">PDF · 164 KB</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF · 164 KB</span>' +
             '</div>' +
-            '<h4>1st Annual Day Celebration 2020</h4>' +
-            '<p>Official celebration invitation card and itinerary for ENPEE International School’s milestone 1st Annual Day celebration.</p>' +
+            '<h4 class="download-card-title">1st Annual Day Celebration 2020</h4>' +
+            '<p class="download-card-desc">Official celebration invitation card and itinerary for ENPEE International School’s milestone 1st Annual Day celebration.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlAnnualInv2020Pdf) + '" download="ENPEE-Annual-Day-Invitation-2020.pdf" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
             'Download Invitation (PDF)' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '<div class="download-card">' +
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlLaunchCardImg) + '" alt="Grand Launch Invitation Card" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Foundation Milestone</span>' +
-            '<span class="download-format">PDF · 546 KB</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF · 546 KB</span>' +
             '</div>' +
-            '<h4>Grand Launch Inauguration Invitation</h4>' +
-            '<p>Historic foundation invitation card commemorating the official inauguration of ENPEE International School Karaikal.</p>' +
+            '<h4 class="download-card-title">Grand Launch Inauguration Invitation</h4>' +
+            '<p class="download-card-desc">Historic foundation invitation card commemorating the official inauguration of ENPEE International School Karaikal.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlLaunchCardPdf) + '" download="ENPEE-Grand-Launch-Invitation.pdf" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
             'Download Invitation Card (PDF)' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '<div class="download-card">' +
             '<div class="download-card-thumb-wrap">' +
             '<img class="download-card-thumb" src="' + escapeHtml(dlAnnualPosterImg) + '" alt="First Annual Day Celebration Poster" loading="lazy">' +
             '</div>' +
+            '<div class="download-card-body">' +
             '<div class="download-card-meta">' +
             '<span class="download-badge">Events Poster</span>' +
-            '<span class="download-format">JPG · Full Poster</span>' +
+            '<span class="download-format"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>JPG · Full Poster</span>' +
             '</div>' +
-            '<h4>Annual Day Celebration Poster</h4>' +
-            '<p>Commemorative visual poster featuring cultural celebrations, student performances, and inaugural campus memories.</p>' +
+            '<h4 class="download-card-title">Annual Day Celebration Poster</h4>' +
+            '<p class="download-card-desc">Commemorative visual poster featuring cultural celebrations, student performances, and inaugural campus memories.</p>' +
+            '<div class="download-card-footer">' +
             '<a class="download-btn" href="' + escapeHtml(dlAnnualPosterImg) + '" target="_blank" rel="noopener">' +
             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' +
             'View Celebration Poster' +
             '</a>' +
+            '</div>' +
+            '</div>' +
             '</div>' +
 
             '</div>' +
@@ -7254,6 +8585,9 @@
           showPage('home');
           break;
       }
+      container.querySelectorAll('.rv').forEach(function (el) {
+        el.classList.add('in');
+      });
     }
 
     // ─── SPA Navigation ───────────────────────────────────────────────────────────
@@ -7336,48 +8670,8 @@
     var hasPreviewParam = /[?&](?:preview|t)=\d+/.test(location.search);
     loadCmsContent(hasPreviewParam);
   </script>
-  <!-- ═══════════════════════════════════════════════════════════════════
-     ENPEE Buddy Floating Mascot — Phase 2 Widget
-     Transparent video / Rive state machine / CSS static fallback
-     See /assets/mascot/enpee-buddy.js for mode switching instructions.
-═══════════════════════════════════════════════════════════════════ -->
 
-  <!-- Buddy CSS (loaded before widget HTML so no FOUC) -->
-  <link rel="stylesheet" href="/assets/mascot/enpee-buddy.css">
-  <link rel="stylesheet" href="/assets/mascot/enpee-buddy-sections.css">
-
-  <!--
-  OPTIONAL — Uncomment once enpee_buddy.riv is exported and placed in /assets/mascot/:
-  <script src="https://unpkg.com/@rive-app/canvas@2.21.6" defer></script>
--->
-
-  <div id="school-mascot" class="school-mascot-anchor" hidden></div>
-  <!-- ENPEE Buddy Widget Container -->
-  <div id="school-mascot" hidden></div>
-  <div id="enpee-buddy-widget" class="enpee-buddy" aria-live="polite" aria-label="ENPEE Buddy school companion"
-    data-state="idle" role="complementary">
-    <!-- Speech Bubble -->
-    <div id="buddy-speech" class="enpee-buddy__speech" hidden aria-live="polite">
-      Welcome to ENPEE!
-    </div>
-
-    <!-- Layer 1: Rive Interactive Canvas (Primary — requires .riv file) -->
-    <canvas id="enpee-rive-canvas" width="500" height="700" hidden></canvas>
-
-    <!-- Layer 2: Transparent Video Player (requires WebM/HEVC alpha assets) -->
-    <video id="enpee-buddy-video" class="enpee-buddy__media" muted playsinline preload="none"
-      poster="/assets/mascot/enpee-buddy-static.png" hidden></video>
-
-    <!-- Layer 3: Static WebP Fallback (always-works; active until video/Rive assets exist) -->
-    <img id="enpee-buddy-fallback" class="enpee-buddy__media" src="/assets/enpee-mascot-welcome.webp"
-      data-welcome="/assets/enpee-mascot-welcome.webp" data-present="/assets/enpee-mascot-present.webp"
-      alt="ENPEE International School Buddy Mascot" width="360" height="504" loading="lazy" decoding="async" />
-  </div>
-
-  <!-- Buddy Controller (defer so it runs after DOM is ready) -->
-  <script src="/assets/mascot/enpee-buddy.js" defer></script>
-  <script src="/assets/mascot/enpee-buddy-sections.js" defer></script>
-
+  <div id="school-mascot" hidden style="display:none !important"></div>
 
   <!-- Floating WhatsApp CTA Button (Strict Brand Primary CTA Style) -->
   <a id="floating-whatsapp" class="floating-whatsapp-btn"

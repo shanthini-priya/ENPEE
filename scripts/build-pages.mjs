@@ -72,6 +72,37 @@ if (!fs.existsSync(path.join(root, 'assets', 'mascot', 'enpee-buddy.js'))) {
 
 fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
 
+// Generate static pre-rendered routes for GitHub Pages direct URL access
+const staticSubpages = [
+  'about',
+  'promoters',
+  'management',
+  'advisory-board',
+  'cbse-mandatory-disclosure',
+  'chateau-francais',
+  'infrastructure',
+  'digital-classrooms',
+  'sports-academy',
+  'student-activities',
+  'way-we-work',
+  'programs-offered',
+  'what-makes-us-different',
+  'photo-gallery',
+  'gallery',
+  'video-gallery',
+  'videos',
+  'events-celebrations',
+  'events',
+  'downloads',
+  'contact-us'
+];
+
+for (const sub of staticSubpages) {
+  const dir = path.join(distDir, sub);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
+}
+
 // Build static admin UI for /ENPEE/admin and /ENPEE/admin.html
 const sourceAdminHtml = path.join(root, 'admin.html');
 if (fs.existsSync(sourceAdminHtml)) {

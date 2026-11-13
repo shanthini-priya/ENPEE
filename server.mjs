@@ -270,8 +270,8 @@ const defaults = {
     parentsCornerImage: '',
     parentsCornerPublished: false,
     photos: [
-      'https://www.enpeekkl.com/images/5-acre-campus-secured.jpg',
-      'https://www.enpeekkl.com/images/carosel/003.jpg'
+      '/assets/images/school-img.jpg',
+      '/assets/images/interactive-digitized.jpg'
     ]
   },
   contact: {
@@ -673,7 +673,7 @@ const migratePagesAndMediaContent = db.transaction(() => {
   for (const video of officialVideos) {
     const videoId = extractYouTubeVideoId(video.videoUrl);
     if (db.prepare("SELECT 1 FROM content_items WHERE collection='youtubeVideos' AND json_extract(payload,'$.videoId')=?").get(videoId)) continue;
-    addIfMissing('youtubeVideos', { ...video, videoId, image: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`, published: true });
+    addIfMissing('youtubeVideos', { ...video, videoId, image: `/assets/images/video-thumbnails/${videoId}.jpg`, published: true });
   }
   addIfMissing('programs', {
     title: 'ENPEE Sports Academy', classLevel: 'Sports', category: 'Sports Academy',
@@ -732,6 +732,70 @@ const migratePagesAndMediaContent = db.transaction(() => {
   db.prepare('INSERT INTO app_migrations(name,applied_at) VALUES(?,?)').run(migration, now());
 });
 migratePagesAndMediaContent();
+
+function syncStaticMedia() {
+  const imageExts = new Set(['.webp', '.jpg', '.jpeg', '.png', '.avif', '.mp4', '.webm']);
+  const mimeMap = {
+    '.webp': 'image/webp',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.png': 'image/png',
+    '.avif': 'image/avif',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm'
+  };
+
+  function walk(dir) {
+    let res = [];
+    if (!fs.existsSync(dir)) return res;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) res = res.concat(walk(full));
+      else {
+        const ext = path.extname(entry.name).toLowerCase();
+        if (imageExts.has(ext)) res.push(full);
+      }
+    }
+    return res;
+  }
+
+  const existingMedia = new Set(db.prepare('SELECT filename FROM media').all().map((r) => r.filename));
+  const insertStmt = db.prepare('INSERT INTO media(id,filename,original_name,mime_type,size,category,created_at) VALUES(?,?,?,?,?,?,?)');
+
+  const files = walk(path.join(root, 'assets'));
+  const syncTx = db.transaction(() => {
+    for (const file of files) {
+      const rel = path.relative(root, file).replace(/\\/g, '/');
+      if (existingMedia.has(rel) || existingMedia.has(path.basename(rel))) continue;
+
+      const ext = path.extname(file).toLowerCase();
+      const mime = mimeMap[ext] || 'application/octet-stream';
+      const stats = fs.statSync(file);
+
+      let category = 'Website photos';
+      if (rel.includes('video-thumbnails')) category = 'Video thumbnails';
+      else if (rel.includes('carosel')) category = 'Hero & Carousels';
+      else if (rel.includes('downloads')) category = 'Flyers & Brochures';
+      else if (rel.includes('mascot')) category = 'Mascot';
+      else if (rel.includes('campus') || rel.includes('school-img') || rel.includes('architecture')) category = 'Campus & Architecture';
+
+      const base = path.basename(file);
+      const originalName = base;
+      const recordId = id();
+      const createdAt = stats.mtime ? stats.mtime.toISOString() : now();
+
+      insertStmt.run(recordId, rel, originalName, mime, stats.size, category, createdAt);
+      existingMedia.add(rel);
+    }
+  });
+
+  try {
+    syncTx();
+  } catch (err) {
+    console.warn('Failed to sync static media to CMS:', err.message);
+  }
+}
+syncStaticMedia();
 
 const adminsCount = db.prepare('SELECT COUNT(*) AS count FROM admins').get().count;
 if (!adminsCount) {
@@ -798,10 +862,22 @@ const publicPageRoutes = [
   { path: '/about', key: 'about' },
   { path: '/promoters', key: 'promoters' },
   { path: '/management', key: 'management' },
+  { path: '/advisory-board', key: 'advisoryBoard' },
   { path: '/chateau-francais', key: 'chateauFrancais' },
+  { path: '/infrastructure', key: 'infrastructure' },
+  { path: '/digital-classrooms', key: 'digitalClassrooms' },
+  { path: '/sports-academy', key: 'sportsAcademy' },
+  { path: '/student-activities', key: 'studentActivities' },
   { path: '/way-we-work', key: 'wayWeWork' },
   { path: '/programs-offered', key: 'programsOffered' },
   { path: '/what-makes-us-different', key: 'whatMakesUsDifferent' },
+  { path: '/photo-gallery', key: 'photoGallery' },
+  { path: '/gallery', key: 'photoGallery' },
+  { path: '/video-gallery', key: 'videoGallery' },
+  { path: '/events-celebrations', key: 'eventsCelebrations' },
+  { path: '/events', key: 'eventsCelebrations' },
+  { path: '/downloads', key: 'downloads' },
+  { path: '/cbse-mandatory-disclosure', key: 'cbseMandatoryDisclosure' },
   { path: '/contact-us', key: 'contactUs' }
 ];
 for (const [source, destination] of [
@@ -811,9 +887,17 @@ for (const [source, destination] of [
   ['/management.php', '/management'],
   ['/advisory-board.php', '/management#advisory-board'],
   ['/chateau-francais.php', '/chateau-francais'],
+  ['/infrastructure.php', '/infrastructure'],
+  ['/digital-classrooms.php', '/digital-classrooms'],
+  ['/sports-academy.php', '/sports-academy'],
+  ['/student-activities.php', '/student-activities'],
   ['/way-we-work.php', '/way-we-work'],
   ['/programs-offered.php', '/programs-offered'],
   ['/what-makes-different.php', '/what-makes-us-different'],
+  ['/gallery.php', '/photo-gallery'],
+  ['/videos.php', '/video-gallery'],
+  ['/events.php', '/events-celebrations'],
+  ['/downloads.php', '/downloads'],
   ['/contact.php', '/contact-us']
 ]) app.get(source, (_req, res) => res.redirect(301, destination));
 app.get('/cbse-mandatory-disclosure.php', (_req, res) => res.redirect(301, 'https://www.enpeekkl.com/cbse-mandatory-disclosure.php'));
@@ -824,7 +908,7 @@ for (const route of publicPageRoutes) {
   app.get(route.path, (req, res, next) => {
     const row = db.prepare('SELECT payload FROM site_documents WHERE key=?').get('pages');
     const page = row && JSON.parse(row.payload)[route.key];
-    if (!page || !page.published) return res.status(404).sendFile(publicPage);
+    if (!page || !page.published) return res.sendFile(publicPage);
     fs.promises.readFile(publicPage, 'utf8').then((html) => {
       const title = `${page.title} | ENPEE International School`;
       const description = String(page.description || page.title).slice(0, 160);
@@ -1025,7 +1109,7 @@ function validateCollectionPayload(collection, payload) {
     const videoId = extractYouTubeVideoId(payload.videoUrl || '');
     if (!videoId) throw new Error('Enter a valid YouTube video URL.');
     payload.videoId = videoId;
-    if (!payload.image) payload.image = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+    if (!payload.image) payload.image = `/assets/images/video-thumbnails/${videoId}.jpg`;
   }
   return payload;
 }
@@ -1415,9 +1499,13 @@ const upload = multer({
 app.use('/api/admin/media', rateLimit({ windowMs: 60 * 60 * 1000, limit: 50, standardHeaders: 'draft-8', legacyHeaders: false, handler: limitResponse }));
 app.get('/api/admin/media', privateApi, (req, res) => {
   const query = `%${String(req.query.q || '').slice(0, 80)}%`;
-  res.json(db.prepare('SELECT * FROM media WHERE original_name LIKE ? OR category LIKE ? ORDER BY created_at DESC LIMIT 200').all(query, query));
+  const items = db.prepare('SELECT * FROM media WHERE original_name LIKE ? OR category LIKE ? ORDER BY created_at DESC LIMIT 300').all(query, query);
+  res.json(items.map((item) => ({
+    ...item,
+    url: item.filename.startsWith('assets/') ? `/${item.filename}` : `/uploads/${item.filename}`
+  })));
 });
-async function processMediaFile(file) {
+async function processMediaFile(file, targetMime = null) {
   let buffer = file.buffer;
   let mimeType = file.mimetype;
   try {
@@ -1425,8 +1513,17 @@ async function processMediaFile(file) {
       const image = sharp(buffer, { limitInputPixels: 40000000 });
       const metadata = await image.metadata();
       if (!metadata.width || !metadata.height || metadata.width > 10000 || metadata.height > 10000) throw new Error('Image dimensions are too large or invalid.');
-      buffer = await image.rotate().resize({ width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toBuffer();
-      mimeType = 'image/webp';
+      const desiredMime = targetMime || 'image/webp';
+      if (desiredMime === 'image/jpeg' || desiredMime === 'image/jpg') {
+        buffer = await image.rotate().resize({ width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true }).jpeg({ quality: 85 }).toBuffer();
+        mimeType = 'image/jpeg';
+      } else if (desiredMime === 'image/png') {
+        buffer = await image.rotate().resize({ width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true }).png({ compressionLevel: 8 }).toBuffer();
+        mimeType = 'image/png';
+      } else {
+        buffer = await image.rotate().resize({ width: 2400, height: 2400, fit: 'inside', withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toBuffer();
+        mimeType = 'image/webp';
+      }
     } else {
       const validMp4 = mimeType === 'video/mp4' && buffer.length > 12 && buffer.toString('ascii', 4, 8) === 'ftyp';
       const validWebm = mimeType === 'video/webm' && buffer.length > 4 &&
@@ -1467,22 +1564,99 @@ app.post('/api/admin/media/:id/replace', privateApi, upload.single('file'), asyn
   if (!req.file) return res.status(400).json({ error: 'Choose a replacement file.' });
   const item = db.prepare('SELECT * FROM media WHERE id=?').get(req.params.id);
   if (!item) return res.status(404).json({ error: 'Media item not found.' });
-  const processed = await processMediaFile(req.file);
+  const processed = await processMediaFile(req.file, item.mime_type);
   if (processed.mimeType !== item.mime_type) return res.status(400).json({ error: 'The replacement must use the same media type so existing website references remain valid.' });
-  fs.writeFileSync(path.join(uploadDir, item.filename), processed.buffer);
+  const isUpload = !item.filename.startsWith('assets/');
+  const targetPath = isUpload ? path.join(uploadDir, item.filename) : path.join(root, item.filename);
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  fs.writeFileSync(targetPath, processed.buffer);
+  if (!isUpload && fs.existsSync(path.join(root, 'dist'))) {
+    const distTarget = path.join(root, 'dist', item.filename);
+    try {
+      fs.mkdirSync(path.dirname(distTarget), { recursive: true });
+      fs.writeFileSync(distTarget, processed.buffer);
+    } catch (e) {
+      console.warn('Could not mirror replacement to dist:', e.message);
+    }
+  }
   db.prepare('UPDATE media SET original_name=?,size=? WHERE id=?')
     .run(req.file.originalname.slice(0, 200), processed.buffer.length, item.id);
   logAction(req.admin, 'Replaced', `Media: ${item.original_name}`);
-  res.json({ id: item.id, filename: item.filename, url: `/uploads/${item.filename}`, mime_type: item.mime_type, size: processed.buffer.length, category: item.category });
+  const url = isUpload ? `/uploads/${item.filename}` : `/${item.filename}`;
+  res.json({ id: item.id, filename: item.filename, url, mime_type: item.mime_type, size: processed.buffer.length, category: item.category });
 });
 app.delete('/api/admin/media/:id', privateApi, (req, res) => {
   const item = db.prepare('SELECT * FROM media WHERE id=?').get(req.params.id);
   if (!item) return res.status(404).json({ error: 'Media item not found.' });
-  const references = db.prepare("SELECT COUNT(*) AS count FROM content_items WHERE payload LIKE ?").get(`%/uploads/${item.filename}%`).count;
-  const documentReferences = db.prepare("SELECT COUNT(*) AS count FROM site_documents WHERE payload LIKE ?").get(`%/uploads/${item.filename}%`).count;
-  if (references || documentReferences) return res.status(409).json({ error: 'This file is referenced by website content. Replace or remove those references first.' });
+  const isUpload = !item.filename.startsWith('assets/');
+  const targetUrl = isUpload ? `/uploads/${item.filename}` : `/${item.filename}`;
+  const relativeTarget = item.filename;
+
+  const references = db.prepare("SELECT COUNT(*) AS count FROM content_items WHERE payload LIKE ? OR payload LIKE ?").get(`%${targetUrl}%`, `%${relativeTarget}%`).count;
+  const documentReferences = db.prepare("SELECT COUNT(*) AS count FROM site_documents WHERE payload LIKE ? OR payload LIKE ?").get(`%${targetUrl}%`, `%${relativeTarget}%`).count;
+  if ((references || documentReferences) && req.query.force !== 'true') {
+    return res.status(409).json({ error: 'This file is referenced by website content. Replace or remove those references first.' });
+  }
+
+  if (req.query.force === 'true' && (references || documentReferences)) {
+    const clearRefs = db.transaction(() => {
+      const rows = db.prepare("SELECT id, payload FROM content_items WHERE payload LIKE ? OR payload LIKE ?").all(`%${targetUrl}%`, `%${relativeTarget}%`);
+      for (const row of rows) {
+        try {
+          const parsed = JSON.parse(row.payload);
+          let changed = false;
+          for (const key of Object.keys(parsed)) {
+            if (typeof parsed[key] === 'string' && (parsed[key] === targetUrl || parsed[key] === relativeTarget || parsed[key].endsWith(item.filename))) {
+              parsed[key] = '';
+              changed = true;
+            } else if (Array.isArray(parsed[key])) {
+              const prev = JSON.stringify(parsed[key]);
+              parsed[key] = parsed[key].filter((v) => typeof v !== 'string' || (!v.includes(targetUrl) && !v.includes(relativeTarget) && !v.endsWith(item.filename)));
+              if (JSON.stringify(parsed[key]) !== prev) changed = true;
+            }
+          }
+          if (changed) {
+            db.prepare('UPDATE content_items SET payload=? WHERE id=?').run(JSON.stringify(parsed), row.id);
+          }
+        } catch {
+          const replaced = row.payload.replaceAll(targetUrl, '').replaceAll(relativeTarget, '');
+          db.prepare('UPDATE content_items SET payload=? WHERE id=?').run(replaced, row.id);
+        }
+      }
+
+      const docs = db.prepare("SELECT key, payload FROM site_documents WHERE payload LIKE ? OR payload LIKE ?").all(`%${targetUrl}%`, `%${relativeTarget}%`);
+      for (const doc of docs) {
+        try {
+          const parsed = JSON.parse(doc.payload);
+          let changed = false;
+          for (const key of Object.keys(parsed)) {
+            if (typeof parsed[key] === 'string' && (parsed[key] === targetUrl || parsed[key] === relativeTarget || parsed[key].endsWith(item.filename))) {
+              parsed[key] = '';
+              changed = true;
+            } else if (Array.isArray(parsed[key])) {
+              const prev = JSON.stringify(parsed[key]);
+              parsed[key] = parsed[key].map((v) => (typeof v === 'string' && (v === targetUrl || v === relativeTarget || v.endsWith(item.filename))) ? '' : v);
+              if (JSON.stringify(parsed[key]) !== prev) changed = true;
+            }
+          }
+          if (changed) {
+            db.prepare('UPDATE site_documents SET payload=? WHERE key=?').run(JSON.stringify(parsed), doc.key);
+          }
+        } catch {
+          const replaced = doc.payload.replaceAll(targetUrl, '').replaceAll(relativeTarget, '');
+          db.prepare('UPDATE site_documents SET payload=? WHERE key=?').run(replaced, doc.key);
+        }
+      }
+    });
+    clearRefs();
+  }
+
   db.prepare('DELETE FROM media WHERE id=?').run(item.id);
-  fs.rmSync(path.join(uploadDir, item.filename), { force: true });
+  const filePath = isUpload ? path.join(uploadDir, item.filename) : path.join(root, item.filename);
+  fs.rmSync(filePath, { force: true });
+  if (!isUpload && fs.existsSync(path.join(root, 'dist', item.filename))) {
+    fs.rmSync(path.join(root, 'dist', item.filename), { force: true });
+  }
   logAction(req.admin, 'Deleted', `Media: ${item.original_name}`);
   res.json({ ok: true });
 });
