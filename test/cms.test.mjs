@@ -112,7 +112,7 @@ test('CMS authentication, persistence, content publishing, enquiries, and media'
     assert.doesNotMatch(adminPage.data, /id="page-title"|['"]#page-title['"]/, 'the shared admin layout does not duplicate tab titles');
     const navigation = adminPage.data.match(/const navItems = \[([\s\S]*?)\];/)?.[1];
     assert.ok(navigation, 'simple admin navigation is present');
-    assert.equal((navigation.match(/\['/g) || []).length, 23, 'admin navigation exposes all editable website sections');
+    assert.equal((navigation.match(/\['/g) || []).length, 24, 'admin navigation exposes all editable website sections');
     assert.doesNotMatch(adminPage.data, /\sonclick=/i, 'admin actions use listeners compatible with the content security policy');
     assert.match(adminPage.data, /item\.previous_school\|\|'—'/, 'admission details display the previous school');
     assert.match(adminPage.data, /fieldHtml\('logoImage','School logo image'/, 'change photos includes a school logo upload field');

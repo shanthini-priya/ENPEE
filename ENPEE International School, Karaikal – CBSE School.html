@@ -78,7 +78,7 @@
     }
 
     .w {
-      max-width: 1180px;
+      max-width: 100%;
       margin: 0 auto;
       padding: 0 20px
     }
@@ -175,13 +175,13 @@
       background: #fff;
       color: var(--ink);
       font-size: .8rem;
-      padding: 8px 0
+      padding: 10px 0
     }
 
     .top .w {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px 22px;
+      gap: 10px 22px;
       justify-content: space-between;
       align-items: center
     }
@@ -1312,8 +1312,10 @@
     /* ─── NOTICE MARQUEE SYSTEM (PERFECT CONTAINER ALIGNMENT) ─── */
     .notice-marquee {
       background: #F4F8FD !important;
-      border-top: 1px solid #E2E8F0 !important; /* border-y border-slate-200 */
-      border-bottom: 1px solid #E2E8F0 !important; /* border-y border-slate-200 */
+      border-top: 1px solid #E2E8F0 !important;
+      /* border-y border-slate-200 */
+      border-bottom: 1px solid #E2E8F0 !important;
+      /* border-y border-slate-200 */
       width: 100% !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
@@ -1336,11 +1338,11 @@
       padding-bottom: 6px !important;
       box-sizing: border-box !important;
       width: 100% !important;
-      max-width: var(--container-max, 1180px) !important;
+      max-width: 100% !important;
       margin-left: auto !important;
       margin-right: auto !important;
-      padding-left: clamp(16px, 3vw, 28px) !important;
-      padding-right: clamp(16px, 3vw, 28px) !important;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
     }
 
     .notice-label {
@@ -1385,10 +1387,13 @@
     }
 
     @keyframes live-dot-pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: scale(1);
         opacity: 0.85;
       }
+
       50% {
         transform: scale(2);
         opacity: 0;
@@ -1456,6 +1461,7 @@
       from {
         transform: translate3d(0, 0, 0);
       }
+
       to {
         transform: translate3d(-50%, 0, 0);
       }
@@ -1470,32 +1476,35 @@
         padding-left: 16px !important;
         padding-right: 16px !important;
       }
+
       .notice-label {
         font-size: 0.68rem !important;
         padding: 3px 9px 3px 8px !important;
       }
+
       .notice-track,
       .notice-group,
       .notice-item {
         font-size: 0.82rem !important;
       }
+
       .notice-group {
         gap: 24px !important;
         padding-right: 24px !important;
       }
     }
 
-    
 
-      .notice-group {
-        gap: 24px;
-        padding-right: 24px;
-        font-size: .8rem
-      }
 
-      .notice-item {
-        gap: 8px
-      }
+    .notice-group {
+      gap: 24px;
+      padding-right: 24px;
+      font-size: .8rem
+    }
+
+    .notice-item {
+      gap: 8px
+    }
     }
 
     @media(prefers-reduced-motion:reduce) {
@@ -2509,10 +2518,9 @@
         left: auto;
         min-width: 0;
         max-width: none;
-        max-height: 0;
-        overflow: auto;
+        display: none;
         margin: 0;
-        padding: 0 0 0 14px;
+        padding: 0;
         border: 0;
         border-radius: 0;
         box-shadow: none;
@@ -2521,12 +2529,12 @@
         visibility: visible;
         transform: none;
         pointer-events: auto;
-        transition: max-height .25s ease, padding .25s ease
       }
 
+      #nav .has-submenu.menu-open>.nav-dropdown-menu,
       #nav .nav-menu>li.menu-open>.nav-dropdown-menu {
-        max-height: min(65vh, 560px);
-        padding: 4px 0 8px 14px
+        display: flex;
+        flex-direction: column;
       }
 
       #nav .nav-dropdown-menu a {
@@ -2977,9 +2985,8 @@
         width: 100%;
         min-width: 0;
         max-width: none;
-        max-height: 0;
-        overflow: hidden;
-        padding: 0 0 0 12px;
+        display: none;
+        padding: 0;
         border: 0;
         border-radius: 10px;
         background: rgba(25, 59, 87, .03);
@@ -2988,12 +2995,11 @@
         visibility: visible;
         transform: none;
         pointer-events: auto;
-        transition: max-height .25s ease, padding .25s ease
       }
 
       #nav .has-submenu.menu-open>.nav-dropdown-menu {
-        max-height: min(65vh, 520px);
-        padding: 6px 0 8px 12px
+        display: flex;
+        flex-direction: column;
       }
     }
 
@@ -3497,7 +3503,7 @@
       }
     }
 
-/* Legacy notice marquee removed */
+    /* Legacy notice marquee removed */
 
     /* ─── ENPEE OFFICIAL BRAND COLOUR & UNIFIED DESIGN SYSTEM ─── */
     :root {
@@ -3519,7 +3525,7 @@
       /* Shared System Metrics - Harmonious Spacing & Alignment */
       --button-radius: 8px;
       --card-radius: 12px;
-      --container-max: 1180px;
+      --container-max: 100%;
       --section-padding: clamp(48px, 5vw, 64px) 0;
 
       /* Legacy compatibility mappings */
@@ -3623,13 +3629,13 @@
 
     /* ─── CONTAINER & SECTION ALTERNATION (55% White, 20% Light Grey) ─── */
     .w {
-      max-width: var(--container-max) !important;
+      max-width: 100% !important;
       margin-left: auto !important;
       margin-right: auto !important;
-      padding-left: clamp(16px, 3vw, 28px) !important;
-      padding-right: clamp(16px, 3vw, 28px) !important;
-      box-sizing: border-box;
-      width: 100%;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
     }
 
     section {
@@ -3835,41 +3841,50 @@
       fill: #FFFFFF !important;
     }
 
-    /* Floating WhatsApp Button (Fixed Bottom-Right) */
-    .floating-whatsapp-btn {
+    /* Floating WhatsApp Button (Fixed Bottom-Right - Clean Circular Badge) */
+    #floating-whatsapp.floating-whatsapp-btn {
       position: fixed !important;
-      right: 28px !important;
-      bottom: calc(28px + env(safe-area-inset-bottom, 0px)) !important;
-      z-index: 99 !important;
+      right: 24px !important;
+      bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+      z-index: 9999 !important;
       background: #25D366 !important;
       color: #FFFFFF !important;
       border: none !important;
       border-radius: 50px !important;
-      padding: 12px 22px !important;
+      height: 48px !important;
+      padding: 0 18px 0 14px !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 10px !important;
+      justify-content: center !important;
+      gap: 8px !important;
       font-family: 'Inter', system-ui, sans-serif !important;
-      font-size: 0.92rem !important;
+      font-size: 14px !important;
       font-weight: 600 !important;
+      letter-spacing: 0.01em !important;
       text-decoration: none !important;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4) !important;
+      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.42), 0 2px 6px rgba(0, 0, 0, 0.08) !important;
       cursor: pointer !important;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease !important;
     }
 
-    .floating-whatsapp-btn svg {
+    #floating-whatsapp.floating-whatsapp-btn svg {
       fill: #FFFFFF !important;
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
+      flex-shrink: 0 !important;
+      width: 22px !important;
+      height: 22px !important;
     }
 
-    .floating-whatsapp-btn:hover {
-      background: #20BA5A !important;
+    #floating-whatsapp.floating-whatsapp-btn:hover {
+      background: #1EBE5D !important;
       color: #FFFFFF !important;
-      transform: translateY(-3px) scale(1.02) !important;
-      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55) !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.55), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    #floating-whatsapp .floating-whatsapp-text {
+      display: inline-block !important;
+      white-space: nowrap !important;
+      line-height: 1 !important;
     }
 
     #back-to-top {
@@ -3897,24 +3912,25 @@
       transform: translateY(-2px);
     }
 
-    @media (max-width: 600px) {
-      .floating-whatsapp-btn {
+    @media (max-width: 768px) {
+      #floating-whatsapp.floating-whatsapp-btn {
         right: 18px !important;
         bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
-        padding: 12px !important;
+        padding: 0 !important;
         border-radius: 50% !important;
-        width: 50px !important;
-        height: 50px !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
         justify-content: center !important;
       }
 
-      .floating-whatsapp-text {
+      #floating-whatsapp .floating-whatsapp-text {
         display: none !important;
       }
 
       #back-to-top {
         right: 18px !important;
-        bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+        bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
         width: 40px !important;
         height: 40px !important;
       }
@@ -4027,13 +4043,13 @@
       list-style: none;
     }
 
-    #nav .nav-menu > li {
+    #nav .nav-menu>li {
       position: relative;
       display: inline-flex;
       align-items: center;
     }
 
-    #nav .nav-menu > li.nav-admissions {
+    #nav .nav-menu>li.nav-admissions {
       margin-left: clamp(8px, 1.2vw, 18px);
     }
 
@@ -4091,7 +4107,7 @@
     /* Active / Current Page indicator */
     .nav-menu>li>a:not(.header-cta).is-active,
     .nav-menu>li>a:not(.header-cta)[aria-current="page"],
-    .has-submenu.has-active-descendant > .nav-dropdown-toggle {
+    .has-submenu.has-active-descendant>.nav-dropdown-toggle {
       color: var(--primary-blue, #1E61AC) !important;
       font-weight: 700 !important;
       background: transparent !important;
@@ -4100,7 +4116,7 @@
 
     .nav-menu>li>a:not(.header-cta).is-active::after,
     .nav-menu>li>a:not(.header-cta)[aria-current="page"]::after,
-    .has-submenu.has-active-descendant > .nav-dropdown-toggle::after {
+    .has-submenu.has-active-descendant>.nav-dropdown-toggle::after {
       transform: scaleX(1) !important;
       background: var(--primary-blue, #1E61AC) !important;
     }
@@ -4207,7 +4223,7 @@
     }
 
     /* Prevent rightmost dropdowns from overflowing the viewport */
-    #nav .has-submenu:nth-last-child(-n+5) > .nav-dropdown-menu {
+    #nav .has-submenu:nth-last-child(-n+5)>.nav-dropdown-menu {
       left: auto !important;
       right: 0 !important;
     }
@@ -4261,6 +4277,7 @@
         min-height: 66px;
         height: 66px;
       }
+
       .logo .brand-image {
         height: 44px !important;
         max-width: 160px !important;
@@ -4272,6 +4289,7 @@
         min-height: 60px;
         height: 60px;
       }
+
       .logo .brand-image {
         height: 38px !important;
         max-width: 135px !important;
@@ -5049,34 +5067,49 @@
     /* ─── EDUCATIONAL PHILOSOPHY BANNER ─── */
     .phil {
       background: linear-gradient(135deg, #1E61AC 0%, #174779 100%) !important;
-      color: var(--white) !important;
+      color: #FFFFFF !important;
       text-align: center;
       padding: 48px 0 !important;
       position: relative;
     }
 
     .phil h2 {
-      color: var(--white) !important;
+      color: #FFFFFF !important;
       font-size: clamp(1.6rem, 3vw, 2.3rem) !important;
       letter-spacing: 0.04em !important;
       margin-bottom: 6px !important;
     }
 
     .phil h2 i {
-      color: var(--sky-blue) !important;
+      color: var(--sky-blue, #ffffff) !important;
       font-style: normal;
       margin: 0 8px;
     }
 
-    .phil p {
-      color: #EAF2FC !important;
-      font-size: 1.05rem;
-      max-width: 580px;
+
+    .phil p,
+    .phil .phil-desc,
+    section.phil p,
+    section.phil .w p,
+    section.phil p.phil-desc {
+      color: #FFFFFF !important;
+      opacity: 1 !important;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    }
+    .phil p,
+    section.phil p,
+    .phil .w p {
+      color: #FFFFFF !important;
+      font-size: clamp(15px, 1.1vw, 17px) !important;
+      line-height: 1.65 !important;
+      max-width: 620px !important;
       margin: 0 auto !important;
+      opacity: 0.95 !important;
     }
 
-    .phil .eyebrow {
-      color: var(--sky-blue) !important;
+    .phil .eyebrow,
+    section.phil .eyebrow {
+      color: var(--sky-blue, #ffffff) !important;
     }
 
     /* ─── ADMISSIONS SECTION & FORM ─── */
@@ -5256,7 +5289,7 @@
       line-height: 1.6;
     }
 
-    footer .fg > div > a {
+    footer .fg>div>a {
       display: block !important;
       color: #CAD5E2 !important;
       font-size: 0.9rem;
@@ -5266,7 +5299,7 @@
       transition: color 0.2s ease, transform 0.2s ease;
     }
 
-    footer .fg > div > a:hover {
+    footer .fg>div>a:hover {
       color: var(--sky-blue) !important;
       transform: translateX(3px);
     }
@@ -5458,11 +5491,14 @@
 
     .subpage-section {
       background: #FFFFFF !important;
-      border: 1px solid #CBD5E1 !important; /* 1px solid #CBD5E1 (border-slate-300) */
-      border-radius: 12px !important; /* rounded-xl */
+      border: 1px solid #CBD5E1 !important;
+      /* 1px solid #CBD5E1 (border-slate-300) */
+      border-radius: 12px !important;
+      /* rounded-xl */
       padding: clamp(22px, 2.8vw, 30px) !important;
       margin-bottom: 24px !important;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08) !important; /* shadow-sm */
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08) !important;
+      /* shadow-sm */
       box-sizing: border-box !important;
       width: 100% !important;
       height: auto !important;
@@ -5507,27 +5543,32 @@
     }
 
     .cbse-table thead {
-      background: #F8FAFC !important; /* bg-slate-50 */
+      background: #F8FAFC !important;
+      /* bg-slate-50 */
       border-bottom: 1px solid #CBD5E1 !important;
     }
 
     .cbse-table th {
       text-align: left !important;
-      padding: 12px 16px !important; /* py-3 px-4 */
+      padding: 12px 16px !important;
+      /* py-3 px-4 */
       font-family: 'Poppins', sans-serif !important;
       font-size: 0.88rem !important;
       font-weight: 700 !important;
       color: #1E293B !important;
       letter-spacing: 0.02em !important;
-      background: #F8FAFC !important; /* bg-slate-50 */
+      background: #F8FAFC !important;
+      /* bg-slate-50 */
       border-bottom: 1px solid #CBD5E1 !important;
       white-space: nowrap !important;
     }
 
     .cbse-table td {
       text-align: left !important;
-      padding: 12px 16px !important; /* py-3 px-4 */
-      border-bottom: 1px solid #E2E8F0 !important; /* border-b border-slate-200 */
+      padding: 12px 16px !important;
+      /* py-3 px-4 */
+      border-bottom: 1px solid #E2E8F0 !important;
+      /* border-b border-slate-200 */
       color: #334155 !important;
       font-size: 0.92rem !important;
       line-height: 1.55 !important;
@@ -5591,8 +5632,10 @@
       text-align: left !important;
     }
 
-    .subpage-cta p {
-      color: rgba(255, 255, 255, 0.95) !important;
+    .subpage-cta p,
+    .subpage-cta-content p {
+      color: #FFFFFF !important;
+      opacity: 1 !important;
       font-size: 0.95rem !important;
       line-height: 1.55 !important;
       margin: 0 !important;
@@ -5673,7 +5716,7 @@
         scroll-behavior: auto !important;
       }
     }
-  
+
     /* ─── DOWNLOADS TAB RESPONSIVE GRID & CARDS LAYOUT ─── */
     .downloads-category-title {
       font-family: 'Poppins', sans-serif !important;
@@ -5876,7 +5919,7 @@
       box-sizing: border-box !important;
     }
 
-  
+
     /* ─── ENHANCED PHOTO GALLERY WITH DESCRIPTIONS & BADGES ─── */
     #subpage-gallery-list.gallery-grid {
       display: grid !important;
@@ -6022,7 +6065,7 @@
       flex-grow: 1 !important;
     }
 
-  
+
     /* ─── CLEAN LISTS (NO BULLET DOTS OR OVERLAPPING ARTIFACTS) ─── */
     #admission-classes,
     .admission-classes-list,
@@ -6077,28 +6120,1933 @@
       display: none !important;
     }
 
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       COMPACT, CLEAN & BALANCED SPACING & 1200PX CONTAINER SYSTEM
+       ═══════════════════════════════════════════════════════════════════════ */
+    html,
+    body {
+      overflow-x: hidden !important;
+      max-width: 100vw !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box !important;
+    }
+
+    /* ─── STRICT UNIFIED RESPONSIVE MARGINS & CONTAINER SYSTEM ───
+       Screen size                Left & right margin (padding)
+       Mobile 320–359px           12px
+       Mobile 360–479px           16px
+       Large mobile 480–599px     20px
+       Tablet 600–767px           24px
+       Tablet 768–1023px          28px
+       Laptop 1024–1279px         32px
+       Laptop 1280–1439px         36px
+       Desktop 1440–1919px        44px
+       Desktop 1920–2559px        56px
+       4K 2560px+                 64px
+    ─── */
+    .site-container,
+    .site-container,
+      .header-container,
+    .navbar-container,
+    .topbar-container,
+    .main-container,
+    .container,
+    .w,
+    header.site-header>.w,
+    header.site-header>.navbar-content,
+    .top>.w,
+    .top>.top-bar-content,
+    .notice-marquee>.w,
+    .notice-container,
+    .notice-container.w,
+    section>.w,
+    main>.w,
+    footer>.w,
+    .strip>.w,
+    .detail-surface {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+      padding-left: 36px !important;
+      padding-right: 36px !important;
+    }
+
+    /* Mobile 320–359px: 12px */
+    @media (max-width: 359px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+    }
+
+    /* Mobile 360–479px: 16px */
+    @media (min-width: 360px) and (max-width: 479px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+    }
+
+    /* Large mobile 480–599px: 20px */
+    @media (min-width: 480px) and (max-width: 599px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+    }
+
+    /* Tablet 600–767px: 24px */
+    @media (min-width: 600px) and (max-width: 767px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+      }
+    }
+
+    /* Tablet 768–1023px: 28px */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 28px !important;
+        padding-right: 28px !important;
+      }
+    }
+
+    /* Laptop 1024–1279px: 32px */
+    @media (min-width: 1024px) and (max-width: 1279px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 32px !important;
+        padding-right: 32px !important;
+      }
+    }
+
+    /* Laptop 1280–1439px: 36px */
+    @media (min-width: 1280px) and (max-width: 1439px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 36px !important;
+        padding-right: 36px !important;
+      }
+    }
+
+    /* Desktop 1440–1919px: 44px */
+    @media (min-width: 1440px) and (max-width: 1919px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 44px !important;
+        padding-right: 44px !important;
+      }
+    }
+
+    /* Desktop 1920–2559px: 56px */
+    @media (min-width: 1920px) and (max-width: 2559px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 56px !important;
+        padding-right: 56px !important;
+      }
+    }
+
+    /* 4K 2560px+: 64px */
+    @media (min-width: 2560px) {
+      .site-container,
+      .header-container,
+      .navbar-container,
+      .topbar-container,
+      .main-container,
+      .container,
+      .w,
+      header.site-header>.w,
+      header.site-header>.navbar-content,
+      .top>.w,
+      .top>.top-bar-content,
+      .notice-marquee>.w,
+      .notice-container,
+      .notice-container.w,
+      section>.w,
+      main>.w,
+      footer>.w,
+      .strip>.w,
+      .detail-surface {
+        padding-left: 64px !important;
+        padding-right: 64px !important;
+      }
+    }
+
+    /* Top Blue Announcement Bar */
+    .top {
+      width: 100% !important;
+      background: var(--primary-blue, #1E61AC) !important;
+      color: #FFFFFF !important;
+      border-bottom: 3px solid var(--sky-blue, #06A9E4) !important;
+      padding: 0 !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      max-height: 48px !important;
+      display: flex !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+    }
+
+    .top-bar-content {
+      width: 100% !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr 1fr !important;
+      align-items: center !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .top-col-left {
+      justify-self: start !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      white-space: nowrap !important;
+    }
+
+    .top-col-center {
+      justify-self: center !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+    }
+
+    .top-col-right {
+      justify-self: end !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      text-align: right !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .top-bar-phone,
+    .top a.top-phone {
+      justify-self: end !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 7px !important;
+      color: #FFFFFF !important;
+      font-size: 13.8px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.01em !important;
+      text-decoration: none !important;
+      line-height: 1 !important;
+    }
+
+    .top a,
+    .top span {
+      color: #FFFFFF !important;
+      font-size: 13.8px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.01em !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 7px !important;
+      line-height: 1 !important;
+    }
+
+    .top a:hover {
+      color: var(--sky-blue, #06A9E4) !important;
+    }
+
+    .top-icon {
+      width: 15px !important;
+      height: 15px !important;
+      stroke: var(--sky-blue, #06A9E4) !important;
+      flex-shrink: 0 !important;
+    }
+
+    @media (max-width: 820px) {
+      .top {
+        height: auto !important;
+        min-height: 42px !important;
+        max-height: none !important;
+        padding: 8px 0 !important;
+      }
+
+      .top-bar-content {
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+
+      .top-col-center {
+        display: none !important;
+      }
+    }
+
+    /* Main Navigation Bar */
+    .site-header {
+      width: 100% !important;
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 12px rgba(30, 97, 172, 0.06) !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1000 !important;
+      padding: 0 !important;
+      min-height: 114px !important;
+      max-height: 118px !important;
+      height: 114px !important;
+      display: flex !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+    }
+
+    .navbar-content,
+    .nav {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      min-height: 114px !important;
+      height: 114px !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+    }
+
+    .logo,
+    .navbar-logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      text-decoration: none !important;
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 100% !important;
+      position: relative !important;
+      top: 12px !important;
+    }
+
+    .logo .brand-image,
+    .logo .brand-image:not([hidden]) {
+      display: block !important;
+      height: 92px !important;
+      max-height: 96px !important;
+      width: auto !important;
+      max-width: 330px !important;
+      object-fit: contain !important;
+      aspect-ratio: 1689 / 931 !important;
+      transition: transform 0.2s ease !important;
+    }
+
+    .logo:hover .brand-image {
+      transform: scale(1.02) !important;
+    }
+
+    /* On desktop (>= 1180px), completely hide mobile burger button so it never offsets the right boundary */
+    @media (min-width: 1180px) {
+
+      .burger,
+      #bg,
+      button.burger {
+        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        width: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+      }
+    }
+
+    #nav {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      margin-left: auto !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+      height: 100% !important;
+      flex: 1 1 auto !important;
+    }
+
+    #nav .nav-menu {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      gap: clamp(14px, 1.4vw, 24px) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      flex-wrap: nowrap !important;
+      height: 100% !important;
+      width: auto !important;
+      margin-left: auto !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    #nav .nav-menu>li {
+      position: relative !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      height: 100% !important;
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .nav-menu>li>a:not(.header-cta),
+    .nav-dropdown-toggle {
+      color: var(--primary-blue, #1E61AC) !important;
+      font-size: 14.5px !important;
+      font-weight: 600 !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      padding: 8px 4px !important;
+      text-decoration: none !important;
+      background: transparent !important;
+      border: none !important;
+      cursor: pointer !important;
+      line-height: 1.2 !important;
+      transition: color 0.2s ease !important;
+    }
+
+    .nav-menu>li>a:not(.header-cta):hover,
+    .nav-dropdown-toggle:hover {
+      color: var(--sky-blue, #06A9E4) !important;
+    }
+
+    .nav-chevron {
+      display: inline-block !important;
+      width: 6.5px !important;
+      height: 6.5px !important;
+      border-right: 1.8px solid currentColor !important;
+      border-bottom: 1.8px solid currentColor !important;
+      transform: rotate(45deg) translateY(-2px) !important;
+      transition: transform 0.2s ease !important;
+      margin-left: 2px !important;
+      flex-shrink: 0 !important;
+    }
+
+    #nav .has-submenu.menu-open .nav-chevron,
+    #nav .has-submenu:hover .nav-chevron {
+      transform: rotate(-135deg) translateY(-1px) !important;
+    }
+
+    /* Pinned to far right with zero outer offset */
+    #nav .nav-menu>li.nav-admissions {
+      margin-left: clamp(10px, 1.2vw, 18px) !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+    }
+
+    .header-cta,
+    .navbar-enquire,
+    #nav .header-cta,
+    #nav .navbar-enquire,
+    #nav .nav-menu>li.nav-admissions>a.header-cta,
+    a.header-cta {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 11px 22px !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      border-radius: 6px !important;
+      background: var(--primary-blue, #1E61AC) !important;
+      color: #FFFFFF !important;
+      border: 1px solid var(--primary-blue, #1E61AC) !important;
+      text-decoration: none !important;
+      white-space: nowrap !important;
+      min-height: 42px !important;
+      box-shadow: 0 2px 8px rgba(30, 97, 172, 0.2) !important;
+      transition: background-color 0.2s ease, transform 0.2s ease !important;
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+      line-height: 1 !important;
+    }
+
+    /* ─── 3. COMPACT ANNOUNCEMENT TICKER (36–40px) ─── */
+    .notice-marquee {
+      width: 100% !important;
+      background: #F8FAFC !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      height: 38px !important;
+      min-height: 38px !important;
+      max-height: 38px !important;
+      display: flex !important;
+      align-items: center !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+    }
+
+    .notice-container.w {
+      display: flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+      height: 38px !important;
+      min-height: 38px !important;
+    }
+
+    .notice-label {
+      flex-shrink: 0 !important;
+      background: var(--primary-blue, #1E61AC) !important;
+      color: #FFFFFF !important;
+      font-size: 11.5px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      padding: 3px 10px !important;
+      border-radius: 16px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+    }
+
+    .notice-window {
+      font-size: 13.5px !important;
+    }
+
+    /* ─── 4. COMPACT HERO SECTION (TIGHT SPACING BELOW HEADER & TICKER) ─── */
+    .hero {
+      width: 100% !important;
+      background: #FFFFFF !important;
+      margin-top: 0 !important;
+      padding-top: 16px !important;
+      padding-bottom: 48px !important;
+      box-sizing: border-box !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    .hero .hg {
+      display: grid !important;
+      grid-template-columns: 1.15fr 0.85fr !important;
+      gap: clamp(24px, 3.5vw, 42px) !important;
+      align-items: center !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+    }
+
+    /* Right-Edge 100% Flush Alignment for Hero Image Card */
+    .hero .hf,
+    .hf {
+      max-width: 100% !important;
+      width: 100% !important;
+      justify-self: end !important;
+      margin-left: auto !important;
+      margin-right: 0 !important;
+      padding-right: 0 !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      box-shadow: 0 12px 32px rgba(30, 97, 172, 0.12) !important;
+      position: relative !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero .hp {
+      width: 100% !important;
+      aspect-ratio: 16 / 11 !important;
+      min-height: 320px !important;
+      max-height: 400px !important;
+      border-radius: 16px !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+    }
+
+    .hero h1 {
+      margin-top: 0 !important;
+      margin-bottom: 12px !important;
+      font-size: clamp(2rem, 3.4vw, 2.8rem) !important;
+      color: var(--primary-blue, #1E61AC) !important;
+      line-height: 1.2 !important;
+    }
+
+    .hero p {
+      margin-top: 0 !important;
+      margin-bottom: 18px !important;
+      line-height: 1.6 !important;
+      font-size: 0.96rem !important;
+    }
+
+    .hero .btns {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      flex-wrap: wrap !important;
+      margin-top: 0 !important;
+    }
+
+    .hero .tag {
+      margin-bottom: 8px !important;
+      display: inline-block !important;
+    }
+
+    .hero .eyebrow {
+      margin-bottom: 6px !important;
+    }
+
+    /* ─── 5. FEATURE CARDS STRIP (PRECISE HORIZONTAL ALIGNMENT & PROPORTIONS) ─── */
+    .strip {
+      width: 100% !important;
+      margin-top: 32px !important;
+      margin-bottom: 32px !important;
+      padding: 0 !important;
+      position: static !important;
+      box-sizing: border-box !important;
+    }
+
+    .sg {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)) !important;
+      gap: clamp(16px, 1.8vw, 32px) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      align-items: stretch !important;
+      width: 100% !important;
+    }
+
+    .sg div,
+    .sg article,
+    .sg .feature-card,
+    .feature-card {
+      position: relative !important;
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-left: 4px solid var(--brand-green, #68B82E) !important;
+      border-radius: 12px !important;
+      padding: 22px 20px 20px 20px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      align-items: flex-start !important;
+      min-height: 148px !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      box-shadow: 0 4px 18px rgba(30, 97, 172, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+      transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+    }
+
+    .sg .feature-card:hover,
+    .feature-card:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 10px 26px rgba(30, 97, 172, 0.12), 0 3px 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Top row: Icon on left, Number on right */
+    .feature-icon {
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 10px !important;
+      background: rgba(104, 184, 46, 0.12) !important;
+      color: var(--brand-green, #68B82E) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 14px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .feature-icon .ic,
+    .feature-icon svg {
+      width: 22px !important;
+      height: 22px !important;
+      stroke: var(--brand-green, #68B82E) !important;
+      color: var(--brand-green, #68B82E) !important;
+    }
+
+    .feature-number {
+      position: absolute !important;
+      top: 20px !important;
+      right: 20px !important;
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 0.88rem !important;
+      font-weight: 700 !important;
+      color: var(--sky-blue, #06A9E4) !important;
+      opacity: 0.9 !important;
+      line-height: 1 !important;
+      margin: 0 !important;
+    }
+
+    .sg b,
+    .feature-card b {
+      display: block !important;
+      color: var(--primary-blue, #1E61AC) !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      margin-top: 0 !important;
+      margin-bottom: 5px !important;
+      line-height: 1.3 !important;
+      text-align: left !important;
+    }
+
+    .sg small,
+    .feature-card small {
+      display: block !important;
+      color: #64748B !important;
+      font-size: 0.85rem !important;
+      line-height: 1.45 !important;
+      text-align: left !important;
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+      .sg {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .sg {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+    }
+
+    /* ─── 6. FLUID SECTION SPACING & PROPORTIONATE LAYOUTS ─── */
+    /* ─── STANDARDIZED VERTICAL SECTION SPACING (py-16 Desktop, py-14 Tablet, py-10 Mobile) ─── */
+    main>section,
+    section {
+      padding-top: 64px !important;
+      padding-bottom: 64px !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (max-width: 1023px) {
+      main>section,
+      section {
+        padding-top: 56px !important;
+        padding-bottom: 56px !important;
+      }
+    }
+
+    @media (max-width: 599px) {
+      main>section,
+      section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+      }
+    }
+
+    /* Section Headings Spacing */
+    section h2 {
+      margin-top: 0 !important;
+      margin-bottom: 8px !important;
+      font-size: clamp(1.6rem, 2.6vw, 2.2rem) !important;
+    }
+
+    section .eyebrow {
+      margin-bottom: 6px !important;
+    }
+
+    section p.lead,
+    section .w>p:not(.btns) {
+      margin-top: 0 !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* Detail / Subpage View */
+    .detail-view {
+      padding-top: 32px !important;
+      padding-bottom: 36px !important;
+      background: var(--light-grey, #EEEEEE) !important;
+      width: 100% !important;
+    }
+
+    .subpage-hero {
+      margin-bottom: 18px !important;
+      padding: 24px 22px !important;
+    }
+
+    .subpage-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 18px !important;
+      margin-top: 18px !important;
+      margin-bottom: 18px !important;
+    }
+
+    @media (max-width: 992px) {
+      .subpage-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .subpage-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    .subpage-card {
+      padding: 18px 16px !important;
+    }
+
+    .subpage-cta {
+      margin-top: 20px !important;
+      padding: 24px !important;
+    }
+
+    /* Hide breadcrumbs under all subpage tabs */
+    .detail-breadcrumbs,
+    nav.detail-breadcrumbs,
+    [aria-label="Breadcrumb"] {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    /* ─── 7. FOOTER COMPACT PADDING ─── */
+    footer {
+      width: 100% !important;
+      background: #102B40 !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      padding-top: 48px !important;
+      padding-bottom: 28px !important;
+      box-sizing: border-box !important;
+    }
+
+    .fg {
+      display: grid !important;
+      grid-template-columns: 1.35fr 1fr 1fr 1.15fr !important;
+      gap: 32px !important;
+      align-items: start !important;
+    }
+
+    @media (max-width: 992px) {
+      .fg {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .fg {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+    }
+
+    /* ─── 8. UNIFIED PREMIUM SCHOOL TYPOGRAPHY SYSTEM ─── */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.65 !important;
+      color: #334155 !important;
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
+    }
+
+    /* Headings Hierarchy */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Poppins', 'Inter', system-ui, sans-serif !important;
+      color: var(--primary-blue, #1E61AC) !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    /* Hero Heading: 44-48px Desktop, 36-40px Tablet, 30-34px Mobile */
+    h1,
+    .hero h1 {
+      font-size: clamp(30px, 4vw, 48px) !important;
+      font-weight: 800 !important;
+      line-height: 1.18 !important;
+      letter-spacing: -0.025em !important;
+      margin-top: 0 !important;
+      margin-bottom: 14px !important;
+    }
+
+    /* Section Headings: 28-32px Desktop, 25-28px Tablet, 23-26px Mobile */
+    h2,
+    section h2,
+    .subpage-hero h1 {
+      font-size: clamp(23px, 2.5vw, 32px) !important;
+      font-weight: 700 !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.02em !important;
+      margin-top: 0 !important;
+      margin-bottom: 10px !important;
+    }
+
+    /* Card Headings / Subheadings: 18-20px Desktop, 17-19px Mobile */
+    h3,
+    section h3,
+    .card h3,
+    .feature-card b,
+    .sg b {
+      font-size: clamp(17px, 1.5vw, 20px) !important;
+      font-weight: 700 !important;
+      line-height: 1.35 !important;
+      letter-spacing: -0.015em !important;
+    }
+
+    h4 {
+      font-size: clamp(16px, 1.2vw, 18px) !important;
+      font-weight: 600 !important;
+      line-height: 1.4 !important;
+    }
+
+    /* Paragraphs and Body Text: 16px Desktop/Tablet, 14-16px Mobile */
+    p,
+    section:not(.phil) p,
+    .detail-surface p {
+      font-size: clamp(14px, 1.1vw, 16px) !important;
+      line-height: 1.68 !important;
+      color: #334155 !important;
+    }
+
+    /* Paragraphs and descriptions on blue banners and dark sections */
+    .phil p,
+    section.phil p,
+    .phil .w p,
+    .subpage-hero p,
+    .subpage-hero .subpage-desc,
+    .subpage-desc,
+    .subpage-hero *,
+    .subpage-cta p,
+    .subpage-cta-content p,
+    .subpage-cta * {
+      color: #FFFFFF !important;
+      opacity: 1 !important;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 1.2vw, 17px) !important;
+      line-height: 1.65 !important;
+      color: #475569 !important;
+      max-width: 620px !important;
+    }
+
+    /* Section Subheadings / Lead Paragraphs */
+    section p.lead,
+    section .w>p:not(.btns) {
+      font-size: clamp(15px, 1.15vw, 16.5px) !important;
+      line-height: 1.65 !important;
+      color: #475569 !important;
+    }
+
+    /* Eyebrow & Category Badges */
+    .eyebrow,
+    section .eyebrow,
+    .hero .eyebrow {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 12.5px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      line-height: 1.4 !important;
+    }
+
+    .tag,
+    .hero .tag {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.08em !important;
+      padding: 4px 10px !important;
+      border-radius: 4px !important;
+    }
+
+    /* Navigation Typography */
+    .nav-menu>li>a:not(.header-cta),
+    .nav-dropdown-toggle {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.01em !important;
+      line-height: 1.2 !important;
+    }
+
+    .nav-dropdown-menu a {
+      font-size: 14.5px !important;
+      font-weight: 500 !important;
+      line-height: 1.4 !important;
+    }
+
+    /* Buttons Typography */
+    button,
+    .btn,
+    .btn.gold,
+    .btn.ghost,
+    .header-cta,
+    .navbar-enquire,
+    a.header-cta {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 15px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.01em !important;
+      line-height: 1 !important;
+    }
+
+    /* Cards Typography */
+    .feature-card b,
+    .sg b {
+      font-family: 'Poppins', 'Inter', system-ui, sans-serif !important;
+      font-size: 18px !important;
+      font-weight: 700 !important;
+      color: var(--primary-blue, #1E61AC) !important;
+      line-height: 1.3 !important;
+    }
+
+    .feature-card small,
+    .sg small {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      line-height: 1.55 !important;
+      color: #64748B !important;
+    }
+
+    .card b,
+    .card h3,
+    .program-card h3,
+    .why-card h3 {
+      font-size: clamp(17px, 1.4vw, 19px) !important;
+      font-weight: 700 !important;
+      line-height: 1.35 !important;
+    }
+
+    .card p,
+    .program-card p,
+    .why-card p {
+      font-size: 14.5px !important;
+      line-height: 1.6 !important;
+      color: #475569 !important;
+    }
+
+    /* Forms Typography */
+    label,
+    .form-group label,
+    .admission-form label {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      color: #1E293B !important;
+      line-height: 1.4 !important;
+      margin-bottom: 6px !important;
+      display: inline-block !important;
+    }
+
+    input,
+    select,
+    textarea,
+    .form-control {
+      font-family: 'Inter', system-ui, sans-serif !important;
+      font-size: 14.5px !important;
+      font-weight: 400 !important;
+      color: #1E293B !important;
+      line-height: 1.5 !important;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-size: 14px !important;
+      color: #94A3B8 !important;
+    }
+
+    /* Footer Typography */
+    footer {
+      font-size: 14.5px !important;
+      line-height: 1.65 !important;
+    }
+
+    footer h4,
+    footer .fh,
+    footer b {
+      font-family: 'Poppins', 'Inter', system-ui, sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.01em !important;
+      color: #FFFFFF !important;
+      margin-bottom: 14px !important;
+    }
+
+    footer a,
+    footer li a {
+      font-size: 14.5px !important;
+      font-weight: 400 !important;
+      line-height: 1.6 !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      transition: color 0.2s ease !important;
+    }
+
+    footer a:hover,
+    footer li a:hover {
+      color: var(--sky-blue, #06A9E4) !important;
+    }
+
+    footer p,
+    footer small,
+    footer address {
+      font-size: 14px !important;
+      line-height: 1.65 !important;
+      color: rgba(255, 255, 255, 0.75) !important;
+    }
+
+    .footer-bottom,
+    footer .copy {
+      font-size: 13.5px !important;
+      color: rgba(255, 255, 255, 0.65) !important;
+      line-height: 1.5 !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       9. MASTER RESPONSIVE SYSTEM (MOBILE, FOLDABLE, TABLET, TV & ULTRA-WIDE)
+       ═══════════════════════════════════════════════════════════════════ */
+
+    /* Global reset for overflow prevention across all devices */
+    html,
+    body {
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+    }
+
+    img,
+    video,
+    iframe,
+    svg {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+
+
+    /* ─── TABLET & MOBILE VIEWPORTS (<= 1180px) ─── */
+    @media (max-width: 1180px) {
+
+      /* Mobile/Tablet Header & Navigation */
+      .site-header {
+        height: 76px !important;
+        min-height: 76px !important;
+        max-height: 76px !important;
+      }
+
+      .navbar-content,
+      .nav {
+        height: 76px !important;
+        min-height: 76px !important;
+      }
+
+      .logo,
+      .navbar-logo {
+        top: 0 !important;
+        height: 100% !important;
+      }
+
+      .logo .brand-image,
+      .logo .brand-image:not([hidden]) {
+        height: 54px !important;
+        max-height: 56px !important;
+        width: auto !important;
+        max-width: 220px !important;
+      }
+
+      /* Burger Button visible & interactive on mobile/tablet */
+      .burger,
+      #bg,
+      button.burger {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        visibility: visible !important;
+        width: 44px !important;
+        height: 44px !important;
+        padding: 8px !important;
+        margin: 0 !important;
+        border: 1px solid rgba(16, 43, 64, 0.15) !important;
+        border-radius: 8px !important;
+        background: #FFFFFF !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        z-index: 1001 !important;
+      }
+
+      .burger:hover {
+        background: #F8FAFC !important;
+      }
+
+      /* Mobile Navigation Drawer */
+      #nav {
+        display: none !important;
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 76px !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: calc(100dvh - 110px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        background: #FFFFFF !important;
+        border-bottom: 2px solid #E2E8F0 !important;
+        box-shadow: 0 16px 32px rgba(16, 43, 64, 0.15) !important;
+        padding: 20px 24px 32px !important;
+        z-index: 9999 !important;
+        box-sizing: border-box !important;
+      }
+
+      #nav.open {
+        display: block !important;
+        height: auto !important;
+        max-height: calc(100dvh - 110px) !important;
+        overflow-y: auto !important;
+        z-index: 9999 !important;
+      }
+
+      #nav .nav-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        gap: 6px !important;
+        height: auto !important;
+        min-height: 0 !important;
+      }
+
+      #nav .nav-menu>li {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+
+      #nav .nav-menu>li>a:not(.header-cta),
+      #nav .nav-dropdown-toggle {
+        width: 100% !important;
+        padding: 12px 14px !important;
+        font-size: 16px !important;
+        justify-content: space-between !important;
+        border-radius: 6px !important;
+      }
+
+      #nav .nav-menu>li>a:not(.header-cta):hover,
+      #nav .nav-dropdown-toggle:hover {
+        background: rgba(30, 97, 172, 0.05) !important;
+      }
+
+      #nav .nav-dropdown-menu {
+        display: none !important;
+        position: static !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-left: 3px solid #06A9E4 !important;
+        border-radius: 0 8px 8px 0 !important;
+        background: #F4F8FD !important;
+        margin-top: 4px !important;
+        margin-bottom: 6px !important;
+        padding: 6px 8px 6px 14px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      #nav .has-submenu.menu-open > .nav-dropdown-menu,
+      #nav .nav-menu > li.menu-open > .nav-dropdown-menu {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      #nav .nav-dropdown-menu a {
+        display: flex !important;
+        align-items: center !important;
+        padding: 10px 12px !important;
+        font-size: 14.5px !important;
+        font-weight: 500 !important;
+        color: #173B65 !important;
+        border-radius: 6px !important;
+        text-decoration: none !important;
+        transition: background 0.15s ease, color 0.15s ease !important;
+      }
+
+      #nav .nav-dropdown-menu a:hover,
+      #nav .nav-dropdown-menu a:active {
+        background: rgba(6, 169, 228, 0.12) !important;
+        color: #1E61AC !important;
+      }
+
+      #nav .nav-menu>li.nav-admissions {
+        margin-top: 14px !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+      }
+
+      #nav .nav-menu>li.nav-admissions .header-cta {
+        width: 100% !important;
+        min-height: 46px !important;
+        font-size: 16px !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* ─── TABLET (601px to 992px) & FOLDABLE UNFOLDED ─── */
+    @media (max-width: 992px) {
+      .hero {
+        padding-top: 20px !important;
+        padding-bottom: 44px !important;
+      }
+
+      .hero .hg {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        text-align: left !important;
+      }
+
+      .hero .hf {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: 0 !important;
+      }
+
+      .sg {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+      }
+
+      .two {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+
+      .youtube-gallery,
+      .gallery-grid,
+      .programs-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 18px !important;
+      }
+
+      .admission-form {
+        grid-template-columns: 1fr !important;
+      }
+
+      .fg {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+      }
+    }
+
+    /* ─── COMPACT MOBILE & FOLDABLE COVER (<= 600px) ─── */
+    @media (max-width: 600px) {
+      .top {
+        height: auto !important;
+        min-height: 42px !important;
+        padding: 6px 0 !important;
+      }
+
+      .top-bar-content {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        font-size: 12px !important;
+      }
+
+      .top-col-center {
+        display: none !important;
+      }
+
+      .top-admissions {
+        font-size: 12px !important;
+      }
+
+      .top-phone {
+        font-size: 12.5px !important;
+      }
+
+      .site-header {
+        height: 64px !important;
+        min-height: 64px !important;
+      }
+
+      .navbar-content,
+      .nav {
+        height: 64px !important;
+        min-height: 64px !important;
+        /* paddings handled by screen margin system */
+      }
+
+      .logo .brand-image,
+      .logo .brand-image:not([hidden]) {
+        height: 42px !important;
+        max-width: 180px !important;
+      }
+
+      #nav {
+        top: 64px !important;
+        height: auto !important;
+        max-height: calc(100dvh - 110px) !important;
+        padding: 16px 18px 28px !important;
+        z-index: 9999 !important;
+      }
+
+      /* Hero Mobile & Tablet (< 768px): pt-4 (14px) pb-8 (32px) */
+      .hero {
+        padding-top: 14px !important;
+        padding-bottom: 32px !important;
+      }
+
+      .hero .hg {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+
+      .hero .btns {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        gap: 10px !important;
+      }
+
+      .hero .btns .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+      }
+
+      .hero .hp {
+        min-height: 260px !important;
+        aspect-ratio: 4 / 3 !important;
+      }
+
+      /* 4-Card Feature Strip Mobile: 1 Column cleanly aligned */
+      .strip {
+        margin-top: 20px !important;
+        margin-bottom: 24px !important;
+      }
+
+      .sg {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+
+      .sg div,
+      .sg article,
+      .sg .feature-card,
+      .feature-card {
+        min-height: auto !important;
+        padding: 18px 16px !important;
+      }
+
+      /* Single column for grids on mobile */
+      .youtube-gallery,
+      .gallery-grid,
+      .programs-grid,
+      .subpage-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+
+      .fg {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+
+      /* Forms Mobile */
+      .form-group,
+      .admission-form input,
+      .admission-form select,
+      .admission-form textarea,
+      .admission-form button {
+        width: 100% !important;
+      }
+
+      .notice-marquee {
+        height: 36px !important;
+        min-height: 36px !important;
+      }
+    }
+
+    /* ─── ULTRA-SMALL MOBILE (<= 360px - iPhone SE / Fold cover) ─── */
+    @media (max-width: 360px) {
+
+      /* 12px–16px paddings handled by unified screen margin system */
+
+      .logo .brand-image,
+      .logo .brand-image:not([hidden]) {
+        height: 40px !important;
+        max-width: 155px !important;
+      }
+
+      .top-admissions span:first-child {
+        display: none !important;
+      }
+
+      .top-admissions::before {
+        content: "Admissions " !important;
+      }
+    }
+
+    /* ─── 4K & SMART TV ULTRA-WIDE (>= 1920px & >= 2560px) ───
+       Strict Rule: Preserve exact container max-width and margin boundaries.
+       Scale internal contents (typography, cards, images, spacing) inside existing bounds. ─── */
+    @media (min-width: 1920px) {
+      .hero p {
+        max-width: 680px !important;
+      }
+
+      .hero .hp {
+        max-height: 440px !important;
+      }
+
+      .sg div,
+      .sg article,
+      .sg .feature-card,
+      .feature-card {
+        padding: 24px 22px !important;
+      }
+    }
+
+
+
+    /* Campus Explore Gallery CTA Button Spacing */
+    .campus-gallery-cta-wrap,
+    p:has(#campus-gallery-link) {
+      margin-top: clamp(36px, 4vw, 48px) !important;
+      padding-top: 12px !important;
+      text-align: center !important;
+    }
+
+    #campus-gallery-link {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Gallery CTA Button Spacing from Images */
+    .gallery-cta-wrap,
+    p:has(#gallery-explore-link) {
+      margin-top: clamp(36px, 4vw, 48px) !important;
+      padding-top: 8px !important;
+      text-align: center !important;
+    }
+
+    #gallery-explore-link {
+      margin-top: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       10. FLUID CONTENT FLEXING ACROSS ALL VIEWPORTS (NO OVERFLOW, SEAMLESS FIT)
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    /* Ensure flex and grid children can shrink fluidly without overflow */
+    .w,
+    .hg,
+    .sg,
+    .two,
+    .fg,
+    .youtube-gallery,
+    .gallery-grid,
+    .programs-grid,
+    .subpage-grid,
+    .contact-layout {
+      min-width: 0 !important;
+    }
+
+    .hg > *,
+    .sg > *,
+    .two > *,
+    .fg > *,
+    .youtube-gallery > *,
+    .gallery-grid > *,
+    .programs-grid > *,
+    .subpage-grid > *,
+    .contact-layout > * {
+      min-width: 0 !important;
+    }
+
+    /* Fluid responsive cards flexing */
+    .sg div,
+    .sg article,
+    .sg .feature-card,
+    .feature-card,
+    .card,
+    .program-card,
+    .why-card,
+    .subpage-card {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      word-break: break-word !important;
+      overflow-wrap: break-word !important;
+    }
+
+    /* Fluid responsive buttons & forms */
+    .btns {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: clamp(10px, 1.5vw, 16px) !important;
+    }
+
+    .btns .btn {
+      flex: 0 1 auto !important;
+      white-space: nowrap !important;
+    }
+
+    /* Responsive grid flexing breakpoints for smooth transition between desktop, tablet, and mobile */
+    @media (min-width: 993px) and (max-width: 1200px) {
+      .hero .hg {
+        grid-template-columns: 1.1fr 0.9fr !important;
+        gap: 28px !important;
+      }
+
+      .sg {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 14px !important;
+      }
+
+      .sg div,
+      .sg article,
+      .sg .feature-card,
+      .feature-card {
+        padding: 18px 14px !important;
+      }
+
+      .two {
+        gap: 32px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btns {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+
+      .btns .btn {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       11. DEVICE-OPTIMIZED PROPORTIONS (MACBOOK 16", DELL 24", 1080P & 1440P)
+       Strict constraint: Zero modification to global container max-width or margins.
+       Only balances internal padding, grid gaps and card heights for screen harmony.
+       ═══════════════════════════════════════════════════════════════════════ */
+
+    /* MacBook 16" & 1080p Desktop (1400px–1800px): Balanced density without sparse emptiness */
+    @media (min-width: 1400px) and (max-width: 1919px) {
+      .hero {
+        padding-top: 20px !important;
+        padding-bottom: 42px !important;
+      }
+
+      .hero .hg {
+        grid-template-columns: 1.1fr 0.9fr !important;
+        gap: 36px !important;
+      }
+
+      .hero .hf,
+      .hero .hp {
+        width: 100% !important;
+        max-height: none !important;
+        aspect-ratio: 16 / 11 !important;
+        min-height: 360px !important;
+      }
+
+      .strip {
+        margin-top: 32px !important;
+        margin-bottom: 32px !important;
+      }
+
+      .sg {
+        gap: 20px !important;
+      }
+
+      .sg div,
+      .sg article,
+      .sg .feature-card,
+      .feature-card {
+        padding: 22px 20px !important;
+        min-height: 154px !important;
+      }
+
+      main > section,
+      section {
+        padding-top: 48px !important;
+        padding-bottom: 48px !important;
+      }
+
+      .two {
+        gap: 48px !important;
+      }
+    }
+
+    /* Dell 24" / QHD / 1440p (1920px+): Content remains naturally centered, perfectly proportioned */
+    @media (min-width: 1920px) {
+      .hero {
+        padding-top: 20px !important;
+        padding-bottom: 46px !important;
+      }
+
+      .hero .hg {
+        grid-template-columns: 1.1fr 0.9fr !important;
+        gap: 40px !important;
+      }
+
+      .hero .hf,
+      .hero .hp {
+        width: 100% !important;
+        max-height: none !important;
+        aspect-ratio: 16 / 11 !important;
+        min-height: 380px !important;
+      }
+
+      .sg div,
+      .sg article,
+      .sg .feature-card,
+      .feature-card {
+        padding: 24px 22px !important;
+        min-height: 160px !important;
+      }
+
+      main > section,
+      section {
+        padding-top: 52px !important;
+        padding-bottom: 52px !important;
+      }
+    }
+
+    .subpage-cta-actions .btn.gold {
+      color: #FFFFFF !important;
+    }
+    .subpage-cta-actions .btn.ghost {
+      color: #1E61AC !important;
+      background: #FFFFFF !important;
+    }
+    .subpage-cta-content p {
+      color: #FFFFFF !important;
+      opacity: 1 !important;
+    }
   </style>
   <script>if (location.pathname !== '/' && !/^\/(programs|events)\/[^/]+\/?$/.test(location.pathname)) document.documentElement.classList.add('cms-route-loading')</script>
 </head>
 
 <body>
   <div class="top">
-    <div class="w">
-      <span class="top-admissions"><span id="top-admissions-label">Admissions Open – Academic Year</span> <span
-          data-cms="home.academicYear">2026–27</span></span>
-      <span class="top-location"><svg class="top-icon" aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-          <circle cx="12" cy="10" r="2.5" />
-        </svg>Karaikal, Puducherry</span>
-      <a class="top-phone" href="tel:04368265265"><svg class="top-icon" aria-hidden="true" viewBox="0 0 24 24">
-          <path
-            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z" />
-        </svg>04368 265 265</a>
+    <div class="header-container topbar-container w top-bar-content">
+      <div class="top-col-left">
+        <span class="top-admissions"><span id="top-admissions-label">Admissions Open – Academic Year</span> <span
+            data-cms="home.academicYear">2026–27</span></span>
+      </div>
+      <div class="top-col-center">
+        <span class="top-location"><svg class="top-icon" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>Karaikal, Puducherry</span>
+      </div>
+      <div class="top-col-right">
+        <a class="top-phone top-bar-phone" href="tel:04368265265"><svg class="top-icon" aria-hidden="true"
+            viewBox="0 0 24 24">
+            <path
+              d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z" />
+          </svg>04368 265 265</a>
+      </div>
     </div>
   </div>
   <header class="site-header">
-    <div class="w nav">
-      <a class="logo" href="/" aria-label="ENPEE International School">
+    <div class="header-container navbar-container w navbar-content nav">
+      <a class="logo navbar-logo" href="/" aria-label="ENPEE International School">
         <img class="brand-image" src="assets/images/enpee-logo.webp" alt="ENPEE International School Karaikal"
           width="1689" height="931">
       </a>
@@ -6158,8 +8106,8 @@
                     aria-hidden="true"><svg viewBox="0 0 24 24">
                       <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
                     </svg></span><span>Château Français Campus</span></a></li>
-              <li><a data-page-link="infrastructure" href="/infrastructure"><span class="nav-item-icon" aria-hidden="true"><svg
-                      viewBox="0 0 24 24">
+              <li><a data-page-link="infrastructure" href="/infrastructure"><span class="nav-item-icon"
+                    aria-hidden="true"><svg viewBox="0 0 24 24">
                       <rect x="3" y="3" width="18" height="18" rx="2" />
                     </svg></span><span>Infrastructure &amp; Facilities</span></a></li>
               <li><a data-page-link="digital-classrooms" href="/digital-classrooms"><span class="nav-item-icon"
@@ -6168,8 +8116,8 @@
                       <line x1="8" y1="21" x2="16" y2="21" />
                       <line x1="12" y1="17" x2="12" y2="21" />
                     </svg></span><span>Digital Classrooms</span></a></li>
-              <li><a data-page-link="sports-academy" href="/sports-academy"><span class="nav-item-icon" aria-hidden="true"><svg
-                      viewBox="0 0 24 24">
+              <li><a data-page-link="sports-academy" href="/sports-academy"><span class="nav-item-icon"
+                    aria-hidden="true"><svg viewBox="0 0 24 24">
                       <circle cx="12" cy="8" r="5" />
                       <path d="m8 12-1 9 5-2 5 2-1-9" />
                     </svg></span><span>Sports Academy</span></a></li>
@@ -6185,8 +8133,8 @@
             <button class="nav-dropdown-toggle" type="button" aria-expanded="false"
               aria-controls="nav-menu-gallery">Gallery <span class="nav-chevron" aria-hidden="true"></span></button>
             <ul class="nav-dropdown-menu" id="nav-menu-gallery">
-              <li><a data-page-link="photo-gallery" href="/photo-gallery"><span class="nav-item-icon" aria-hidden="true"><svg
-                      viewBox="0 0 24 24">
+              <li><a data-page-link="photo-gallery" href="/photo-gallery"><span class="nav-item-icon"
+                    aria-hidden="true"><svg viewBox="0 0 24 24">
                       <rect x="3" y="3" width="18" height="18" rx="2" />
                       <circle cx="8.5" cy="8.5" r="1.5" />
                       <polyline points="21 15 16 10 5 21" />
@@ -6209,7 +8157,8 @@
           <li><a data-page-link="downloads" href="/downloads">Downloads</a></li>
           <li><a data-page-link="cbse-disclosure" href="/cbse-mandatory-disclosure">CBSE Disclosure</a></li>
           <li><a data-page-link="contact-us" href="/contact-us">Contact Us</a></li>
-          <li class="nav-admissions"><a class="btn header-cta" data-page-link="admissions" href="#admissions">Enquire
+          <li class="nav-admissions"><a class="btn header-cta navbar-enquire" data-page-link="admissions"
+              href="#admissions">Enquire
               Now</a></li>
         </ul>
       </nav>
@@ -6222,24 +8171,24 @@
   <div class="notice-marquee" id="notice-marquee" role="region" aria-label="School announcements">
     <div class="notice-container w">
       <span class="notice-label"><span class="notice-live-dot" aria-hidden="true"></span>Latest</span>
-    <div class="notice-window">
-      <div class="notice-track" id="notice-track">
-        <div class="notice-group" id="notice-group" aria-live="polite"><span class="notice-item"><span
-              class="notice-dot">●</span>Admissions Open for Academic Year 2026–27 (Pre-KG to Class IX)</span><span
-            class="notice-item"><span class="notice-dot">●</span>CBSE Affiliated School · Affiliation No.
-            2930085</span><span class="notice-item"><span class="notice-dot">●</span>5-Acre Eco-Friendly Château
-            Français Campus, Karaikal</span><span class="notice-item"><span class="notice-dot">●</span>ENPEE Sports
-            Academy &amp; Smart Digitized Classrooms</span><span class="notice-item"><span
-              class="notice-dot">●</span>Campus Visits &amp; Enquiries: 04368 265 265 · +91 8300 111 265</span></div>
-        <div class="notice-group" id="notice-group-copy" aria-hidden="true"><span class="notice-item"><span
-              class="notice-dot">●</span>Admissions Open for Academic Year 2026–27 (Pre-KG to Class IX)</span><span
-            class="notice-item"><span class="notice-dot">●</span>CBSE Affiliated School · Affiliation No.
-            2930085</span><span class="notice-item"><span class="notice-dot">●</span>5-Acre Eco-Friendly Château
-            Français Campus, Karaikal</span><span class="notice-item"><span class="notice-dot">●</span>ENPEE Sports
-            Academy &amp; Smart Digitized Classrooms</span><span class="notice-item"><span
-              class="notice-dot">●</span>Campus Visits &amp; Enquiries: 04368 265 265 · +91 8300 111 265</span></div>
+      <div class="notice-window">
+        <div class="notice-track" id="notice-track">
+          <div class="notice-group" id="notice-group" aria-live="polite"><span class="notice-item"><span
+                class="notice-dot">●</span>Admissions Open for Academic Year 2026–27 (Pre-KG to Class IX)</span><span
+              class="notice-item"><span class="notice-dot">●</span>CBSE Affiliated School · Affiliation No.
+              2930085</span><span class="notice-item"><span class="notice-dot">●</span>5-Acre Eco-Friendly Château
+              Français Campus, Karaikal</span><span class="notice-item"><span class="notice-dot">●</span>ENPEE Sports
+              Academy &amp; Smart Digitized Classrooms</span><span class="notice-item"><span
+                class="notice-dot">●</span>Campus Visits &amp; Enquiries: 04368 265 265 · +91 8300 111 265</span></div>
+          <div class="notice-group" id="notice-group-copy" aria-hidden="true"><span class="notice-item"><span
+                class="notice-dot">●</span>Admissions Open for Academic Year 2026–27 (Pre-KG to Class IX)</span><span
+              class="notice-item"><span class="notice-dot">●</span>CBSE Affiliated School · Affiliation No.
+              2930085</span><span class="notice-item"><span class="notice-dot">●</span>5-Acre Eco-Friendly Château
+              Français Campus, Karaikal</span><span class="notice-item"><span class="notice-dot">●</span>ENPEE Sports
+              Academy &amp; Smart Digitized Classrooms</span><span class="notice-item"><span
+                class="notice-dot">●</span>Campus Visits &amp; Enquiries: 04368 265 265 · +91 8300 111 265</span></div>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 
@@ -6306,9 +8255,16 @@
         <div id="youtube-gallery" class="youtube-gallery">
           <div class="youtube-card rv" data-video-id="51JIyUQ92BM">
             <div class="youtube-thumb">
-              <img src="/assets/images/video-thumbnails/51JIyUQ92BM.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/51JIyUQ92BM/maxresdefault.jpg'" alt="ENPEE International School, Karaikal – Admissions Open" loading="lazy">
+              <img src="/assets/images/video-thumbnails/51JIyUQ92BM.jpg"
+                onerror="this.onerror=null;this.src='https://img.youtube.com/vi/51JIyUQ92BM/maxresdefault.jpg'"
+                alt="ENPEE International School, Karaikal – Admissions Open" loading="lazy">
               <div class="youtube-play">
-                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+                <svg viewBox="0 0 68 48">
+                  <path
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    fill="#E62117" />
+                  <path d="M27 33V14l19 9.5L27 33z" fill="#fff" />
+                </svg>
               </div>
             </div>
             <div class="youtube-info">
@@ -6318,9 +8274,16 @@
           </div>
           <div class="youtube-card rv" data-video-id="jK2BNKqiNeU">
             <div class="youtube-thumb">
-              <img src="/assets/images/video-thumbnails/jK2BNKqiNeU.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/jK2BNKqiNeU/maxresdefault.jpg'" alt="ENPEE International School – Annual Sports Day" loading="lazy">
+              <img src="/assets/images/video-thumbnails/jK2BNKqiNeU.jpg"
+                onerror="this.onerror=null;this.src='https://img.youtube.com/vi/jK2BNKqiNeU/maxresdefault.jpg'"
+                alt="ENPEE International School – Annual Sports Day" loading="lazy">
               <div class="youtube-play">
-                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+                <svg viewBox="0 0 68 48">
+                  <path
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    fill="#E62117" />
+                  <path d="M27 33V14l19 9.5L27 33z" fill="#fff" />
+                </svg>
               </div>
             </div>
             <div class="youtube-info">
@@ -6330,9 +8293,16 @@
           </div>
           <div class="youtube-card rv" data-video-id="7oKB8BsWht4">
             <div class="youtube-thumb">
-              <img src="/assets/images/video-thumbnails/7oKB8BsWht4.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7oKB8BsWht4/maxresdefault.jpg'" alt="ENPEE International School – Annual Day Celebrations" loading="lazy">
+              <img src="/assets/images/video-thumbnails/7oKB8BsWht4.jpg"
+                onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7oKB8BsWht4/maxresdefault.jpg'"
+                alt="ENPEE International School – Annual Day Celebrations" loading="lazy">
               <div class="youtube-play">
-                <svg viewBox="0 0 68 48"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#E62117"/><path d="M27 33V14l19 9.5L27 33z" fill="#fff"/></svg>
+                <svg viewBox="0 0 68 48">
+                  <path
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    fill="#E62117" />
+                  <path d="M27 33V14l19 9.5L27 33z" fill="#fff" />
+                </svg>
               </div>
             </div>
             <div class="youtube-info">
@@ -6391,14 +8361,13 @@
             data-category="Campus"><img loading="lazy" src="/assets/images/5-acre-campus-secured.jpg"
               alt="ENPEE secured five-acre campus"><span>Secured 5-Acre Campus</span></button><button
             class="gallery-card" type="button" data-category="Classrooms"><img loading="lazy"
-              src="/assets/images/interactive-digitized.jpg"
-              alt="ENPEE interactive digitized classroom"><span>Digitized Classrooms</span></button><button
-            class="gallery-card" type="button" data-category="Sports"><img loading="lazy"
-              src="/assets/images/community-football.jpg" alt="ENPEE football ground"><span>Football
+              src="/assets/images/interactive-digitized.jpg" alt="ENPEE interactive digitized classroom"><span>Digitized
+              Classrooms</span></button><button class="gallery-card" type="button" data-category="Sports"><img
+              loading="lazy" src="/assets/images/community-football.jpg" alt="ENPEE football ground"><span>Football
               Ground &amp; Sports Academy</span></button><button class="gallery-card" type="button"
             data-category="Transport"><img loading="lazy" src="/assets/images/air-buses.jpg"
               alt="ENPEE air-conditioned school buses"><span>Air-Conditioned School Buses</span></button></div>
-        <p style="text-align:center;margin:24px auto 0"><a id="campus-gallery-link" class="btn ghost2"
+        <p class="campus-gallery-cta-wrap" style="text-align:center;margin:42px auto 0;padding-top:12px;"><a id="campus-gallery-link" class="btn ghost2"
             href="#gallery">Explore School Gallery →</a></p>
       </div>
     </section>
@@ -6567,30 +8536,25 @@
             class="gallery-filter" type="button" data-filter="Sports" aria-pressed="false">Sports</button><button
             class="gallery-filter" type="button" data-filter="Events" aria-pressed="false">Events</button></div>
         <div class="grid gallery-grid" id="gallery-list"><button class="gallery-card" type="button"
-            data-category="Events"
-            data-lightbox-url="/assets/images/first-annual-day-celebration.jpeg"><img loading="lazy"
-              src="/assets/images/first-annual-day-celebration-small.jpg"
+            data-category="Events" data-lightbox-url="/assets/images/first-annual-day-celebration.jpeg"><img
+              loading="lazy" src="/assets/images/first-annual-day-celebration-small.jpg"
               alt="ENPEE International School Annual Day celebration"><span>Annual Day
               Celebration</span></button><button class="gallery-card" type="button" data-category="Campus"
             data-lightbox-url="/assets/images/5-acre-campus-secured.jpg"><img loading="lazy"
-              src="/assets/images/5-acre-campus-secured.jpg"
-              alt="ENPEE secured five-acre campus"><span>Our Secured Campus</span></button><button class="gallery-card"
-            type="button" data-category="Learning"
+              src="/assets/images/5-acre-campus-secured.jpg" alt="ENPEE secured five-acre campus"><span>Our Secured
+              Campus</span></button><button class="gallery-card" type="button" data-category="Learning"
             data-lightbox-url="/assets/images/interactive-digitized.jpg"><img loading="lazy"
-              src="/assets/images/interactive-digitized.jpg"
-              alt="ENPEE interactive digitized classroom"><span>Digitized Classrooms</span></button><button
-            class="gallery-card" type="button" data-category="Sports"
+              src="/assets/images/interactive-digitized.jpg" alt="ENPEE interactive digitized classroom"><span>Digitized
+              Classrooms</span></button><button class="gallery-card" type="button" data-category="Sports"
             data-lightbox-url="/assets/images/community-football.jpg"><img loading="lazy"
-              src="/assets/images/community-football.jpg"
-              alt="ENPEE football ground and sports academy"><span>Sports Academy</span></button><button
-            class="gallery-card" type="button" data-category="Campus"
-            data-lightbox-url="/assets/images/air-buses.jpg"><img loading="lazy"
-              src="/assets/images/air-buses.jpg" alt="ENPEE air-conditioned school bus"><span>School
+              src="/assets/images/community-football.jpg" alt="ENPEE football ground and sports academy"><span>Sports
+              Academy</span></button><button class="gallery-card" type="button" data-category="Campus"
+            data-lightbox-url="/assets/images/air-buses.jpg"><img loading="lazy" src="/assets/images/air-buses.jpg"
+              alt="ENPEE air-conditioned school bus"><span>School
               Transport</span></button><button class="gallery-card" type="button" data-category="Learning"
-            data-lightbox-url="/assets/images/carosel/009.jpg"><img loading="lazy"
-              src="/assets/images/carosel/009.jpg"
+            data-lightbox-url="/assets/images/carosel/009.jpg"><img loading="lazy" src="/assets/images/carosel/009.jpg"
               alt="ENPEE robotics learning activity"><span>Robotics</span></button></div>
-        <p style="text-align:center;margin:24px auto 0"><a id="gallery-explore-link" class="btn ghost2"
+        <p class="gallery-cta-wrap" style="text-align:center;margin:42px auto 0;padding-top:12px;"><a id="gallery-explore-link" class="btn ghost2"
             href="https://www.instagram.com/enpeeschool/" target="_blank" rel="noopener">View More School Photos →</a>
         </p>
       </div>
@@ -6600,7 +8564,7 @@
       <div class="w rv">
         <div class="eyebrow">Our Educational Philosophy</div>
         <h2>KNOWLEDGE <i>|</i> INNOVATION <i>|</i> EXCELLENCE</h2>
-        <p>The core values that guide every classroom, every activity and every child at ENPEE.</p>
+        <p class="phil-desc" style="color: #FFFFFF !important; opacity: 1 !important;">The core values that guide every classroom, every activity and every child at ENPEE.</p>
       </div>
     </section>
 
@@ -6755,7 +8719,8 @@
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg></a><a href="https://www.instagram.com/enpeeschool/" target="_blank" rel="noopener"
               aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg></a><a href="https://www.youtube.com/@enpeeinternationalschoolka3067" target="_blank" rel="noopener"
               aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -6841,7 +8806,13 @@
     }
     nv.addEventListener('click', function (event) {
       var menuLink = event.target.closest('.nav-dropdown-menu a');
-      if (menuLink) { closeDropdowns(); return }
+      if (menuLink) {
+        closeDropdowns();
+        if (window.innerWidth <= 1180 && nv.classList.contains('open')) {
+          closeMobileNav(false);
+        }
+        return;
+      }
       var toggle = event.target.closest('.nav-dropdown-toggle');
       if (!toggle) return;
       var item = toggle.closest('.has-submenu');
@@ -7589,7 +9560,7 @@
       var subpageCtaHtml = '<div class="subpage-cta">' +
         '<div class="subpage-cta-content">' +
         '<h3>Admissions Open 2026–27</h3>' +
-        '<p>Admissions are now open for Pre-KG to Class IX. Schedule a campus visit or speak directly with our admissions counselor.</p>' +
+        '<p style="color:#FFFFFF !important;opacity:1 !important;">Admissions are now open for Pre-KG to Class IX. Schedule a campus visit or speak directly with our admissions counselor.</p>' +
         '</div>' +
         '<div class="subpage-cta-actions">' +
         '<a class="btn gold" href="/#admissions">Enquire for Admission →</a>' +

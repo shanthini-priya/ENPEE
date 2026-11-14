@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--navy:#183653;--green:#80ad42;--gold:#4f7a1e;--bg:#f4f6f7;--white:#fff;--ink:#1c2b3a;--mute:#687786;--line:#e2e8ed;--red:#b64040;--shadow:0 12px 34px rgba(24,54,83,.08)}
+    :root{--navy:#1E61AC;--sky:#06A9E4;--green:#68B82E;--gold:#06A9E4;--bg:#F4F7FA;--white:#FFFFFF;--ink:#173B65;--mute:#687786;--line:#E2E8F0;--red:#b64040;--shadow:0 12px 34px rgba(30,97,172,.08)}
     *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 Inter,Inter,system-ui,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
     .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#f6f8f2,#eef3f6)}.login-card{width:min(440px,100%);background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;box-shadow:var(--shadow)}.brand{font-family:Georgia,serif;color:var(--navy);font-size:25px;font-weight:bold}.brand small{display:block;color:var(--gold);font:700 10px system-ui;letter-spacing:.18em;margin-top:3px}.login-card h1{font:600 27px Georgia;color:var(--navy);margin:32px 0 6px}.muted{color:var(--mute)}label{display:block;font-weight:650;margin:15px 0 6px}input,textarea,select{width:100%;border:1px solid #d5dee5;background:#fff;border-radius:8px;padding:11px 12px;color:var(--ink)}input:focus,textarea:focus,select:focus{outline:2px solid rgba(128,173,66,.45);border-color:var(--green)}textarea{min-height:90px;resize:vertical}.btn{border:0;border-radius:8px;background:var(--navy);color:#fff;padding:11px 16px;font-weight:700}.btn:hover{background:#244e73}.btn.green{background:var(--green);color:#183653}.btn.light{background:#edf2f5;color:var(--navy)}.btn.danger{background:#fff0f0;color:var(--red)}.btn.small{padding:7px 10px;font-size:12px}.btn.full{width:100%;margin-top:20px}.link-button{border:0;background:none;color:var(--gold);padding:10px 0;font-weight:650}.error{color:var(--red);margin-top:10px}.hidden{display:none!important}
     .app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#d7e2eb;padding:22px 14px;display:flex;flex-direction:column;z-index:5}.sidebar .brand{color:#fff;padding:0 12px 20px}.sidebar .brand small{color:#a7cd71}.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#9eb0be;padding:10px 12px 6px}.nav-list{overflow-y:auto;flex:1}.nav-item{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;color:#d7e2eb;margin:2px 0;font-weight:600}.nav-item:hover,.nav-item.active{background:rgba(255,255,255,.13);color:#fff}.nav-item .icon{width:20px;text-align:center;color:#acd17b}.logout{border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;padding:10px;border-radius:8px;margin-top:12px}
@@ -20,7 +20,7 @@
     .mobile-menu{display:none}.drop{border:2px dashed #c9d6df;padding:28px;text-align:center;border-radius:12px;background:#fafcfd}
     @media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}.dash-grid{grid-template-columns:1fr}}
     @media(max-width:760px){.sidebar{width:0;padding:0;overflow:hidden}.sidebar.open{width:265px;padding:18px 14px;box-shadow:10px 0 30px #10243830}.main{margin-left:0}.topbar{padding:0 16px;height:64px}.mobile-menu{display:block;border:0;background:none;color:var(--navy);font-size:22px}.content{padding:22px 15px 50px}.stats{grid-template-columns:repeat(2,1fr);gap:10px}.stat{padding:14px}.stat strong{font-size:24px}.welcome{align-items:flex-start;gap:10px;flex-direction:column}.form-grid{grid-template-columns:1fr}.field.wide{grid-column:auto}.toolbar input,.toolbar select{width:100%}.login-card{padding:25px}}
-    .portal-header{background:var(--navy);color:#fff;padding:18px max(20px,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}.portal-header .brand{color:#fff}.portal-header .brand small{color:#b4d488}.portal-actions{display:flex;align-items:center;gap:12px}.portal-header .user-pill{background:rgba(255,255,255,.12);color:#fff}.portal-header .logout{margin:0;padding:10px 15px}.admin-nav{max-width:1240px;margin:0 auto;padding:18px 20px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.admin-nav .nav-item{justify-content:center;text-align:center;min-height:54px;margin:0;padding:10px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:10px}.admin-nav .nav-item:hover,.admin-nav .nav-item.active{color:var(--navy);background:#eef3e7;border-color:var(--green)}.admin-nav .nav-item .icon{color:var(--gold)}.main{margin:0;min-height:0}.topbar{position:static;height:auto;padding:16px 20px;background:transparent;border:0;max-width:1240px;margin:auto}.topbar h1{font-size:28px}.content{max-width:1240px;padding:0 20px 56px}.section-heading{align-items:flex-start}.section-heading h2{font-size:26px}.panel{padding:24px}.content-actions{justify-content:flex-start;flex-wrap:wrap}.content-actions .btn,.section-heading .btn,.image-picker .upload-button,.gallery-upload button{min-height:46px;padding:12px 18px;font-size:15px}.field label{margin-top:14px}.help{font-size:14px}.editor-form{max-width:900px}.editor-form .form-grid{gap:4px 20px}.editor-form textarea{min-height:110px}.collection-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.content-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(24,54,83,.035)}.content-card>img{width:100%;height:180px;object-fit:cover;background:#edf1f4}.content-card-body{padding:18px}.content-card h3{margin:0 0 8px;color:var(--navy);font:600 19px Georgia}.content-card p{color:var(--mute);margin:0 0 14px}.content-card .actions{flex-wrap:wrap;margin-top:14px}.image-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.image-picker img{grid-column:1/-1;width:min(100%,360px);height:190px;object-fit:cover;border:1px solid var(--line);border-radius:8px;background:#f4f6f7}.image-picker img[hidden]{display:none}.upload-button{display:inline-flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:8px;background:#edf2f5;color:var(--navy);font-weight:700;cursor:pointer}.upload-button input{position:absolute;inset:0;opacity:0;cursor:pointer}.upload-state{grid-column:1/-1;min-height:20px}.gallery-upload{max-width:900px;margin-bottom:20px}.gallery-upload input[type=file]{padding:14px}.gallery-file{display:grid;grid-template-columns:100px 1fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.gallery-file img{width:100px;height:76px;object-fit:cover;border-radius:6px}.gallery-file label{margin:0}.preview-surface{padding:24px;background:#fff;border:1px solid var(--line);border-radius:10px}.preview-surface h2{color:var(--navy);font:600 28px Georgia;margin:0 0 12px}.preview-surface p{white-space:pre-wrap}.preview-surface img{display:block;max-width:100%;max-height:360px;object-fit:contain;margin:16px 0;border-radius:8px}.preview-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}.preview-details div{padding:12px;background:#f4f6f7;border-radius:8px;overflow-wrap:anywhere}.preview-details b{display:block;color:var(--navy);margin-bottom:4px}.status-actions{display:flex;gap:8px;flex-wrap:wrap}.status-actions .btn{min-height:38px}.success-note{color:#41611e;font-weight:650}.empty{padding:34px}.table-wrap table{min-width:860px}
+    .portal-header{background:var(--navy);color:#fff;padding:18px max(20px,calc((100vw - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}.portal-header .brand{color:#fff}.portal-header .brand small{color:#b4d488}.portal-actions{display:flex;align-items:center;gap:12px}.portal-header .user-pill{background:rgba(255,255,255,.12);color:#fff}.portal-header .logout{margin:0;padding:10px 15px}.admin-nav{max-width:1240px;margin:0 auto;padding:18px 20px;display:flex;flex-direction:column;gap:18px}.nav-category{display:flex;flex-direction:column;gap:8px}.nav-category-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy);opacity:0.85;padding-left:2px}.nav-category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}.admin-nav .nav-item{justify-content:center;text-align:center;min-height:54px;margin:0;padding:10px 14px;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:10px;display:inline-flex;align-items:center;gap:8px;font-weight:600;transition:all .18s ease}.admin-nav .nav-item:hover,.admin-nav .nav-item.active{color:var(--navy);background:#eef6ff;border-color:var(--sky);box-shadow:0 3px 10px rgba(30,97,172,.1)}.admin-nav .nav-item .icon{color:var(--sky)}.main{margin:0;min-height:0}.topbar{position:static;height:auto;padding:16px 20px;background:transparent;border:0;max-width:1240px;margin:auto}.topbar h1{font-size:28px}.content{max-width:1240px;padding:0 20px 56px}.section-heading{align-items:flex-start}.section-heading h2{font-size:26px}.panel{padding:24px}.content-actions{justify-content:flex-start;flex-wrap:wrap}.content-actions .btn,.section-heading .btn,.image-picker .upload-button,.gallery-upload button{min-height:46px;padding:12px 18px;font-size:15px}.field label{margin-top:14px}.help{font-size:14px}.editor-form{max-width:900px}.editor-form .form-grid{gap:4px 20px}.editor-form textarea{min-height:110px}.collection-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.content-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(24,54,83,.035)}.content-card>img{width:100%;height:180px;object-fit:cover;background:#edf1f4}.content-card-body{padding:18px}.content-card h3{margin:0 0 8px;color:var(--navy);font:600 19px Georgia}.content-card p{color:var(--mute);margin:0 0 14px}.content-card .actions{flex-wrap:wrap;margin-top:14px}.image-picker{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}.image-picker img{grid-column:1/-1;width:min(100%,360px);height:190px;object-fit:cover;border:1px solid var(--line);border-radius:8px;background:#f4f6f7}.image-picker img[hidden]{display:none}.upload-button{display:inline-flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-radius:8px;background:#edf2f5;color:var(--navy);font-weight:700;cursor:pointer}.upload-button input{position:absolute;inset:0;opacity:0;cursor:pointer}.upload-state{grid-column:1/-1;min-height:20px}.gallery-upload{max-width:900px;margin-bottom:20px}.gallery-upload input[type=file]{padding:14px}.gallery-file{display:grid;grid-template-columns:100px 1fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.gallery-file img{width:100px;height:76px;object-fit:cover;border-radius:6px}.gallery-file label{margin:0}.preview-surface{padding:24px;background:#fff;border:1px solid var(--line);border-radius:10px}.preview-surface h2{color:var(--navy);font:600 28px Georgia;margin:0 0 12px}.preview-surface p{white-space:pre-wrap}.preview-surface img{display:block;max-width:100%;max-height:360px;object-fit:contain;margin:16px 0;border-radius:8px}.preview-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}.preview-details div{padding:12px;background:#f4f6f7;border-radius:8px;overflow-wrap:anywhere}.preview-details b{display:block;color:var(--navy);margin-bottom:4px}.status-actions{display:flex;gap:8px;flex-wrap:wrap}.status-actions .btn{min-height:38px}.success-note{color:#41611e;font-weight:650}.empty{padding:34px}.table-wrap table{min-width:860px}
     @media(max-width:900px){.admin-nav{grid-template-columns:repeat(3,minmax(0,1fr))}}
     .content-picker-label{display:flex;align-items:center;gap:12px;width:min(100%,420px);margin:0 0 16px}.content-picker-label select{max-width:290px}
     .logo-photo-form .image-picker img{width:min(100%,320px);height:140px;object-fit:contain;background:#f7f9f6}
@@ -107,6 +107,7 @@
     const state = { csrf:'', email:'', page:'home', collection:'', editing:null, items:[], pageNum:1, query:'', filters:{}, galleryFiles:[], editingPage:'about' };
     document.addEventListener('click',event=>{const button=event.target.closest('[data-close-dialog]');if(button)document.getElementById(button.dataset.closeDialog).close()});
     const navItems = [
+      ['dashboard','📊','Dashboard'],
       ['home','⌂','Edit Homepage'],['pages','▤','Pages Management'],['youtubeVideos','▶','YouTube Videos'],['navigation','☷','Navigation Menu'],['sections','▤','Section Content'],['about','◈','About Our School'],['photos','▧','Change Photos'],
       ['facilities','▦','Facilities'],['programs','▤','Academic Programs'],['features','✦','Why Choose ENPEE'],
       ['activities','◉','Activities'],['sports','⚽','Sports Academy'],['events','▣','Events'],
@@ -172,10 +173,30 @@
     }
     function showApp(){
       $('#login').classList.add('hidden');$('#app').classList.remove('hidden');$('#user-email').textContent=state.email;
-      $('#navigation').innerHTML=navItems.map(([key,icon,label])=>`<a href="${key==='preview'?escapeHtml(getPreviewUrl()):'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`).join('');
+      const categories = [
+        {
+          title: 'Pages & Core Content',
+          keys: ['dashboard', 'home', 'pages', 'navigation', 'sections', 'about', 'photos', 'announcements', 'contact']
+        },
+        {
+          title: 'Campus, Academics & Media',
+          keys: ['facilities', 'programs', 'features', 'activities', 'sports', 'events', 'gallery', 'youtubeVideos', 'testimonials', 'leadership', 'parentResources', 'technologyPartners', 'infrastructureProviders']
+        },
+        {
+          title: 'Enquiries & Tools',
+          keys: ['enquiries', 'preview']
+        }
+      ];
+      const itemMap = new Map(navItems.map(item => [item[0], item]));
+      $('#navigation').innerHTML = categories.map(cat => {
+        const catLinks = cat.keys.map(k => itemMap.get(k)).filter(Boolean).map(([key, icon, label]) =>
+          `<a href="${key==='preview'?escapeHtml(getPreviewUrl()):'#'+key}" ${key==='preview'?'target="_blank" rel="noopener"':'data-page="'+key+'"'} class="nav-item"><span class="icon">${icon}</span>${label}</a>`
+        ).join('');
+        return `<div class="nav-category"><div class="nav-category-title">${escapeHtml(cat.title)}</div><div class="nav-category-grid">${catLinks}</div></div>`;
+      }).join('');
       $('#navigation').onclick=event=>{const link=event.target.closest('[data-page]');if(link){event.preventDefault();navigate(link.dataset.page)}};
-      window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)||'home'));
-      navigate(location.hash.slice(1)||'home');
+      window.addEventListener('hashchange',()=>navigate(location.hash.slice(1)||'dashboard'));
+      navigate(location.hash.slice(1)||'dashboard');
     }
     async function checkSession(){
       const params=new URLSearchParams(location.search);
@@ -188,12 +209,13 @@
       try{const user=await api('/api/auth/me');state.csrf=user.csrfToken;state.email=user.email;showApp()}catch(error){showLogin();if(error.status!==401)$('#login-error').textContent=`Sign-in service unavailable: ${error.message}`}
     }
     async function navigate(page){
-      if(!navItems.some(([key])=>key===page))page='home';
+      if(!navItems.some(([key])=>key===page))page='dashboard';
       state.page=page;state.pageNum=1;state.query='';
       document.querySelectorAll('.nav-item').forEach(item=>item.classList.toggle('active',item.dataset.page===page));
       const view=$('#view');view.innerHTML='<div class="panel empty">Loading…</div>';
       try{
-        if(['home','about','contact'].includes(page))await renderDocument(view,page);
+        if(page==='dashboard')await renderDashboard(view);
+        else if(['home','about','contact'].includes(page))await renderDocument(view,page);
         else if(page==='pages')await renderPageEditor(view);
         else if(page==='navigation')await renderNavigationEditor(view);
         else if(page==='sections')await renderSectionEditor(view);
@@ -215,119 +237,7 @@
         <section class="panel"><h3>Recent admin activity</h3><div class="activity-list">${data.activities.length?data.activities.map(item=>`<div class="activity"><b>${escapeHtml(item.action)}</b> · ${escapeHtml(item.target)}<small>${escapeHtml(item.admin_email)} · ${prettyDate(item.created_at)}</small></div>`).join(''):'<div class="empty">No activity yet.</div>'}</div></section></div>
         <section class="panel" style="margin-top:18px"><h3>Recent enquiries</h3>${tableEnquiries(data.recentEnquiries,false)}</section>`;
     }
-    function tableEnquiries(items,interactive=true){
-      if(!items.length)return '<div class="empty">No enquiries found.</div>';
-      return `<div class="table-wrap"><table><thead><tr><th>Parent / Student</th><th>Class</th><th>Phone</th><th>Received</th><th>Status</th>${interactive?'<th></th>':''}</tr></thead><tbody>${items.map(item=>`<tr><td><b>${escapeHtml(item.parent_name)}</b><br><span class="muted">${escapeHtml(item.student_name)}</span></td><td>${escapeHtml(item.applying_class)}</td><td>${escapeHtml(item.mobile)}</td><td>${prettyDate(item.created_at)}</td><td><span class="badge ${item.status==='Completed'?'gray':''}">${escapeHtml(item.status)}</span></td>${interactive?`<td><button class="btn light small" data-enquiry-action="view" data-enquiry-id="${escapeHtml(item.id)}">View</button></td>`:''}</tr>`).join('')}</tbody></table></div>`;
-    }
-    async function renderDocument(view,key){
-      const doc=await api(`/api/admin/documents/${key}`);
-      const shapes={
-        home:[['heroHeading','Hero heading','text'],['heroDescription','Hero description','textarea'],['heroImage','Hero featured image URL','text'],['heroPrimaryText','Primary button text','text'],['heroPrimaryLink','Primary button link','text'],['heroSecondaryText','Secondary button text','text'],['heroSecondaryLink','Secondary button link','text'],['welcomeHeading','Welcome heading','text'],['welcomeText','Welcome introduction','textarea'],['statistics','Homepage statistics (JSON list)','json'],['highlights','Homepage highlights (JSON list)','json']],
-        about:[['introduction','School introduction','textarea'],['vision','Vision','textarea'],['mission','Mission','textarea'],['values','School values (JSON list)','json'],['achievements','Achievements and milestones (JSON list)','json'],['photos','About section image URLs (JSON list)','json']],
-        contact:[['schoolName','School name','text'],['address','School address','textarea'],['phone','Office phone','text'],['mobile','Mobile number','text'],['email','Email address','email'],['whatsapp','WhatsApp number (international format)','text'],['mapsUrl','Google Maps URL','url'],['officeHours','Office timings','text'],['facebook','Facebook URL','url'],['instagram','Instagram URL','url'],['youtube','YouTube URL','url'],['linkedin','LinkedIn URL','url'],['x','X / Twitter URL','url']]
-      };
-      view.innerHTML=`<div class="section-heading"><div><h2>${key==='home'?'Homepage':key==='about'?'About school':'Contact information'}</h2><div class="help">Updates are saved to the database and applied to the public website.</div></div></div><form class="panel" id="document-form"><div class="form-grid">${shapes[key].map(([name,label,type])=>fieldHtml(name,label,doc[name],type)).join('')}</div><div class="content-actions"><button class="btn green">Save and publish</button></div></form>`;
-      $('#document-form').addEventListener('submit',async event=>{
-        event.preventDefault();const form=new FormData(event.currentTarget),result={};
-        for(const [name,label,type] of shapes[key]){
-          const value=form.get(name);
-          if(type==='json'){try{result[name]=JSON.parse(value)}catch{toast(`${label} must be valid JSON.`,true);return}}
-          else result[name]=value;
-        }
-        try{await api(`/api/admin/documents/${key}`,{method:'PUT',body:JSON.stringify(result)});toast('Changes saved and published.')}
-        catch(error){toast(error.message,true)}
-      });
-    }
-    function fieldHtml(name,label,value,type='text',required=false){
-      const full=['textarea','json'].includes(type)?' wide':'';
-      const safe=escapeHtml(type==='json'?JSON.stringify(value??[],null,2):value??'');
-      let input=type==='textarea'?`<textarea name="${name}" ${required?'required':''}>${safe}</textarea>`:
-        type==='json'?`<textarea name="${name}" spellcheck="false">${safe}</textarea>`:
-        `<input name="${name}" type="${type==='check'?'checkbox':type}" ${type==='check'?(value?'checked':''):''} value="${type==='check'?'true':safe}" ${required?'required':''}>`;
-      return `<div class="field${full}"><label for="${escapeHtml(name)}">${escapeHtml(label)}</label>${input.replace('<input ',`<input id="${escapeHtml(name)}" `).replace('<textarea ',`<textarea id="${escapeHtml(name)}" `)}</div>`;
-    }
-    async function renderCollection(view,collection){
-      state.collection=collection;
-      const result=await api(`/api/admin/collections/${collection}?page=${state.pageNum}&q=${encodeURIComponent(state.query)}&limit=20`);
-      state.items=result.items;
-      const definitions=fields[collection];
-      view.innerHTML=`<div class="section-heading"><div><h2>${collectionNames[collection]}</h2><div class="help">Manage published content. Public changes appear as soon as they are saved.</div></div><button class="btn green" id="add-item">＋ Add item</button></div>
-        <div class="toolbar"><input id="collection-search" type="search" placeholder="Search ${collectionNames[collection].toLowerCase()}…" value="${escapeHtml(state.query)}"><span class="muted">${result.total} item(s)</span></div>
-        <div class="table-wrap"><table><thead><tr><th>Title</th><th>Category / level</th><th>Visibility</th><th>Order</th><th>Updated</th><th>Actions</th></tr></thead><tbody>${result.items.length?result.items.map(item=>`<tr><td><b>${escapeHtml(item.title)}</b>${item.description?`<br><span class="muted">${escapeHtml(item.description.slice(0,90))}${item.description.length>90?'…':''}</span>`:''}</td><td>${escapeHtml(item.category||item.classLevel||'—')}</td><td><span class="badge ${item.published?'':'gray'}">${item.published?'Published':'Draft'}</span>${collection==='testimonials'?` <span class="badge ${item.approved?'':'gray'}">${item.approved?'Approved':'Pending review'}</span>`:''}</td><td>${Number(item.displayOrder)||0}</td><td>${prettyDate(item.updatedAt)}</td><td><div class="actions"><button class="btn light small" data-record-action="edit" data-record-id="${escapeHtml(item.id)}">Edit</button><button class="btn danger small" data-record-action="delete" data-record-id="${escapeHtml(item.id)}">Delete</button></div></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No items yet. Add the first item to get started.</td></tr>'}</tbody></table></div>
-        <div class="pager"><span>Page ${result.page} of ${result.pages}</span><div class="actions"><button class="btn light small" id="prev-page" ${result.page<=1?'disabled':''}>Previous</button><button class="btn light small" id="next-page" ${result.page>=result.pages?'disabled':''}>Next</button></div></div>`;
-      $('#add-item').onclick=()=>openRecord(collection,null);
-      $('#collection-search').oninput=debounce(event=>{state.query=event.target.value;state.pageNum=1;renderCollection($('#view'),collection)},300);
-      $('#prev-page').onclick=()=>{state.pageNum--;renderCollection($('#view'),collection)};
-      $('#next-page').onclick=()=>{state.pageNum++;renderCollection($('#view'),collection)};
-    }
     function debounce(fn,delay){let timer;return(...args)=>{clearTimeout(timer);timer=setTimeout(()=>fn(...args),delay)}}
-    function openRecord(collection,record){
-      state.editing=record;const definition=fields[collection],hiddenByDefault=['events','sports','technologyPartners','infrastructureProviders','leadership','parentResources','testimonials','youtubeVideos'].includes(collection);const values=record||{displayOrder:state.items.length+1,published:!hiddenByDefault,approved:false};
-      $('#dialog-title').textContent=`${record?'Edit':'Add'} ${collectionNames[collection]}`;
-      $('#record-fields').innerHTML=definition.map(([name,label,required,type])=>fieldHtml(name,label,values[name],type||'text',required)).join('');
-      bindImageUploads($('#record-fields'),collectionNames[collection]);
-      $('#record-preview').onclick=()=>{
-        const root=$('#record-fields'),formValues=new FormData($('#record-form')),details=definition
-          .filter(([name])=>!['title','description','image','published','displayOrder'].includes(name))
-          .map(([name,label,,type])=>[label,type==='check'?(root.elements[name].checked?'Shown':'Hidden'):formValues.get(name)||''])
-          .filter(([,value])=>value);
-        openDraftPreview(`${collectionNames[collection]} preview`,root.elements.title.value,root.elements.description?.value||'',root.querySelector('.image-picker input[type=hidden]')?.value||'',details);
-      };
-      $('#record-form').onsubmit=async event=>{
-        event.preventDefault();const data={};
-        for(const [name,label,required,type] of definition){
-          const control=$(`[name="${name}"]`,$('#record-fields'));
-          if(type==='check')data[name]=control.checked;
-          else if(type==='number')data[name]=Number(control.value||0);
-          else data[name]=control.value;
-          if(required&&!data[name]){control.focus();return}
-        }
-        try{
-          await api(`/api/admin/collections/${collection}${record?`/${record.id}`:''}`,{method:record?'PUT':'POST',body:JSON.stringify(data)});
-          $('#record-dialog').close();toast('Content saved.');await renderCollection($('#view'),collection);
-        }catch(error){toast(error.message,true)}
-      };
-      $('#record-dialog').showModal();
-    }
-    window.editRecord=recordId=>openRecord(state.collection,state.items.find(item=>item.id===recordId));
-    window.previewRecord=recordId=>{
-      const item=state.items.find(record=>record.id===recordId);if(!item)return;
-      const details=Object.entries(item).filter(([name,value])=>!['id','title','description','image','published','displayOrder','important','approved','createdAt','updatedAt'].includes(name)&&value!==''&&value!=null&&value!==false).map(([name,value])=>[name.replace(/([A-Z])/g,' $1'),value]);
-      openDraftPreview(`${collectionNames[state.collection]} preview`,item.title,item.description,item.image,details);
-    };
-    window.toggleVisibility=async recordId=>{
-      const item=state.items.find(record=>record.id===recordId);if(!item)return;
-      const payload={...item,published:!item.published};delete payload.createdAt;delete payload.updatedAt;
-      try{await api(`/api/admin/collections/${state.collection}/${recordId}`,{method:'PUT',body:JSON.stringify(payload)});toast(payload.published?'Content shown on the website.':'Content hidden from the website.');await renderCollection($('#view'),state.collection)}
-      catch(error){toast(error.message,true)}
-    };
-    window.deleteRecord=async recordId=>{
-      if(!confirm('Delete this content item? This cannot be undone.'))return;
-      try{await api(`/api/admin/collections/${state.collection}/${recordId}`,{method:'DELETE'});toast('Content deleted.');await renderCollection($('#view'),state.collection)}
-      catch(error){toast(error.message,true)}
-    };
-    async function renderEnquiries(view){
-      const params=new URLSearchParams({page:String(state.pageNum),limit:'20'});
-      for(const [key,value] of Object.entries(state.filters))if(value)params.set(key,value);
-      const result=await api(`/api/admin/enquiries?${params}`);
-      view.innerHTML=`<div class="section-heading"><div><h2>Admission enquiries</h2><div class="help">Enquiries are stored securely in the website database.</div></div><button class="btn light" id="export-enquiries">Export CSV</button></div>
-        <div class="toolbar"><input id="enquiry-search" type="search" placeholder="Search parent, student, email or phone" value="${escapeHtml(state.filters.q||'')}"><select id="status-filter"><option value="">All statuses</option>${['New','Contacted','In Progress','Completed'].map(value=>`<option ${state.filters.status===value?'selected':''}>${value}</option>`).join('')}</select><input id="class-filter" placeholder="Class" value="${escapeHtml(state.filters.class||'')}"><label>From <input id="from-filter" type="date" value="${escapeHtml(state.filters.from||'')}"></label><label>To <input id="to-filter" type="date" value="${escapeHtml(state.filters.to||'')}"></label></div>
-        ${tableEnquiries(result.items)}<div class="pager"><span>${result.total} enquiry(ies) · Page ${result.page} of ${result.pages}</span><div class="actions"><button class="btn light small" id="prev-page" ${result.page<=1?'disabled':''}>Previous</button><button class="btn light small" id="next-page" ${result.page>=result.pages?'disabled':''}>Next</button></div></div>`;
-      $('#export-enquiries').onclick=async()=>{try{const response=await fetch(apiUrl('/api/admin/enquiries.csv'),{credentials:credentialsMode()});if(!response.ok)throw new Error('CSV export failed.');const blob=await response.blob();const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='enpee-enquiries.csv';link.click();URL.revokeObjectURL(link.href)}catch(error){toast(error.message,true)}};
-      const search=debounce(event=>{state.filters.q=event.target.value;state.pageNum=1;renderEnquiries($('#view'))},300);
-      $('#enquiry-search').oninput=search;$('#status-filter').onchange=event=>{state.filters.status=event.target.value;renderEnquiries($('#view'))};
-      ['class','from','to'].forEach(key=>$('#'+key+'-filter').onchange=event=>{state.filters[key]=event.target.value;renderEnquiries($('#view'))});
-      $('#prev-page').onclick=()=>{state.pageNum--;renderEnquiries($('#view'))};$('#next-page').onclick=()=>{state.pageNum++;renderEnquiries($('#view'))};
-    }
-    window.openEnquiry=async enquiryId=>{
-      try{
-        const item=await api(`/api/admin/enquiries/${enquiryId}`);
-        $('#enquiry-details').innerHTML=`<div class="form-grid">${[['Parent',item.parent_name],['Student',item.student_name],['Mobile',item.mobile],['Email',item.email],['Class',item.applying_class],['Academic year',item.academic_year],['Previous school',item.previous_school||'—'],['Submitted',prettyDate(item.created_at)],['Message',item.message||'—']].map(([label,value])=>`<div class="field"><label>${label}</label><div>${escapeHtml(value)}</div></div>`).join('')}</div><label>Status</label><select id="detail-status">${['New','Contacted','In Progress','Completed'].map(value=>`<option ${item.status===value?'selected':''}>${value}</option>`).join('')}</select><label>Internal notes</label><textarea id="detail-notes">${escapeHtml(item.internal_notes)}</textarea><div class="content-actions"><button class="btn danger" id="delete-enquiry">Delete enquiry</button><button class="btn green" id="save-enquiry">Save follow-up</button></div>`;
-        $('#save-enquiry').onclick=async()=>{try{await api(`/api/admin/enquiries/${item.id}`,{method:'PATCH',body:JSON.stringify({status:$('#detail-status').value,internalNotes:$('#detail-notes').value})});$('#enquiry-dialog').close();toast('Enquiry updated.');navigate('enquiries')}catch(error){toast(error.message,true)}};
-        $('#delete-enquiry').onclick=async()=>{if(!confirm('Delete this admission enquiry permanently?'))return;try{await api(`/api/admin/enquiries/${item.id}`,{method:'DELETE'});$('#enquiry-dialog').close();toast('Enquiry deleted.');navigate('enquiries')}catch(error){toast(error.message,true)}};
-        $('#enquiry-dialog').showModal();
-      }catch(error){toast(error.message,true)}
-    };
     async function renderMedia(view){
       const items=await api('/api/admin/media');
       view.innerHTML=`<div class="section-heading"><div><h2>Media library</h2><div class="help">Upload images or videos. Images are resized and converted to WebP for the website.</div></div></div>
@@ -748,9 +658,9 @@
       try{await api(`/api/admin/collections/${state.collection}/${recordId}`,{method:'DELETE'});toast('Item deleted.');await renderCollection($('#view'),state.collection)}
       catch(error){toast(error.message,true)}
     };
-    function tableEnquiries(items){
+    function tableEnquiries(items, interactive=true){
       if(!items.length)return '<div class="panel empty">No admission enquiries found.</div>';
-      return `<div class="table-wrap"><table><thead><tr><th>Parent name</th><th>Student name</th><th>Phone number</th><th>Applying class</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>${items.map(item=>`<tr><td>${escapeHtml(item.parent_name)}</td><td>${escapeHtml(item.student_name)}</td><td>${escapeHtml(item.mobile)}</td><td>${escapeHtml(item.applying_class)}</td><td>${prettyDate(item.created_at)}</td><td><span class="badge ${item.status==='Completed'?'gray':''}">${escapeHtml(item.status)}</span></td><td><div class="status-actions"><button class="btn light small" data-enquiry-action="view" data-enquiry-id="${escapeHtml(item.id)}">View</button>${item.mobile&&item.mobile!=='—'?`<a class="btn light small" href="tel:${escapeHtml(item.mobile.replace(/[^+0-9]/g,''))}">Contact</a>`:`<a class="btn light small" href="mailto:${escapeHtml(item.email)}">Contact</a>`}${item.status!=='Completed'?`<button class="btn green small" data-enquiry-action="complete" data-enquiry-id="${escapeHtml(item.id)}">Mark completed</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`;
+      return `<div class="table-wrap"><table><thead><tr><th>Parent name</th><th>Student name</th><th>Phone number</th><th>Applying class</th><th>Date</th><th>Status</th>${interactive?'<th>Actions</th>':''}</tr></thead><tbody>${items.map(item=>`<tr><td>${escapeHtml(item.parent_name)}</td><td>${escapeHtml(item.student_name)}</td><td>${escapeHtml(item.mobile)}</td><td>${escapeHtml(item.applying_class)}</td><td>${prettyDate(item.created_at)}</td><td><span class="badge ${item.status==='Completed'?'gray':''}">${escapeHtml(item.status)}</span></td>${interactive?`<td><div class="status-actions"><button class="btn light small" data-enquiry-action="view" data-enquiry-id="${escapeHtml(item.id)}">View</button>${item.mobile&&item.mobile!=='—'?`<a class="btn light small" href="tel:${escapeHtml(item.mobile.replace(/[^+0-9]/g,''))}">Contact</a>`:`<a class="btn light small" href="mailto:${escapeHtml(item.email)}">Contact</a>`}${item.status!=='Completed'?`<button class="btn green small" data-enquiry-action="complete" data-enquiry-id="${escapeHtml(item.id)}">Mark completed</button>`:''}</div></td>`:''}</tr>`).join('')}</tbody></table></div>`;
     }
     async function renderEnquiries(view){
       const params=new URLSearchParams({page:String(state.pageNum),limit:'50'});if(state.query)params.set('q',state.query);
