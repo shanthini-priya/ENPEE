@@ -10583,8 +10583,11 @@
       }
       if (targetPath) {
         event.preventDefault();
-        var cleanPath = stripBasePath(targetPath);
-        var targetUrl = withBasePath(cleanPath);
+        var hashIdx = targetPath.indexOf('#');
+        var pathPart = hashIdx !== -1 ? targetPath.slice(0, hashIdx) : targetPath;
+        var hashPart = hashIdx !== -1 ? targetPath.slice(hashIdx) : '';
+        var cleanPath = stripBasePath(pathPart);
+        var targetUrl = withBasePath(cleanPath) + hashPart;
         history.pushState(null, '', targetUrl);
         handleRoute();
         closeMobileNav(false);
