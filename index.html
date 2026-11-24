@@ -16607,7 +16607,7 @@
     function apiUrl(path) {
       if (/^https?:\/\//i.test(path)) return path;
       var base = API_BASE;
-      if (!base && !IS_GITHUB_PAGES) return path;
+      if (!base && IS_GITHUB_PAGES) return withBasePath(path);
       return base ? base + path : path;
     }
     function stripBasePath(pathname) {

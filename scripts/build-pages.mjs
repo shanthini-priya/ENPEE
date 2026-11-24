@@ -22,6 +22,13 @@ if (fs.existsSync(assetsSrc)) {
   fs.cpSync(assetsSrc, assetsDest, { recursive: true });
 }
 
+// Copy static uploads directory
+const uploadsSrc = path.join(root, 'uploads');
+const uploadsDest = path.join(distDir, 'uploads');
+if (fs.existsSync(uploadsSrc)) {
+  fs.cpSync(uploadsSrc, uploadsDest, { recursive: true });
+}
+
 let html = fs.readFileSync(sourceHtml, 'utf8');
 
 // Inject GitHub Pages base path and optional external API URL
@@ -34,8 +41,9 @@ html = html.replace(
   `<meta name="enpee-api-base" content="${apiBase.replace(/"/g, '&quot;')}">`
 );
 
-// Rewrite root-relative /assets/ references to include the GitHub Pages base path
+// Rewrite root-relative /assets/ and /uploads/ references to include the GitHub Pages base path
 html = html.replace(/(["'(])\/assets\//g, `$1${basePath}assets/`);
+html = html.replace(/(["'(])\/uploads\//g, `$1${basePath}uploads/`);
 
 // Remove references to optional mascot files if they are not present in assets/
 const optionalAssetChecks = [
