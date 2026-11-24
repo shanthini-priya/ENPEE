@@ -30,6 +30,12 @@ if (fs.existsSync(uploadsSrc)) {
   fs.cpSync(uploadsSrc, uploadsDest, { recursive: true });
 }
 
+// Copy .htaccess for Apache / cPanel direct routing support
+const htaccessSrc = path.join(root, '.htaccess');
+if (fs.existsSync(htaccessSrc)) {
+  fs.copyFileSync(htaccessSrc, path.join(distDir, '.htaccess'));
+}
+
 // Load CMS content and copy data directory
 let cmsData = null;
 const cmsJsonPath = path.join(root, 'data', 'cms-content.json');
@@ -75,9 +81,14 @@ if (cmsData) {
 let html = fs.readFileSync(sourceHtml, 'utf8');
 
 // Inject GitHub Pages base path and optional external API URL
+const effectiveBaseHref = basePath || '/';
 html = html.replace(
   '<meta name="enpee-base-path" content="">',
-  `<meta name="enpee-base-path" content="${basePath}">\n  <base href="${basePath}">`
+  `<meta name="enpee-base-path" content="${basePath}">`
+);
+html = html.replace(
+  /<base\s+href="[^"]*">/i,
+  `<base href="${effectiveBaseHref}">`
 );
 html = html.replace(
   '<meta name="enpee-api-base" content="">',
