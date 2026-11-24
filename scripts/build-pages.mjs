@@ -30,6 +30,41 @@ if (fs.existsSync(uploadsSrc)) {
   fs.cpSync(uploadsSrc, uploadsDest, { recursive: true });
 }
 
+// Load CMS content and copy data directory
+let cmsData = null;
+const cmsJsonPath = path.join(root, 'data', 'cms-content.json');
+
+try {
+  const exportCmsPath = path.join(root, 'scripts', 'export-cms.mjs');
+  if (fs.existsSync(exportCmsPath)) {
+    const { getCmsContent } = await import('./export-cms.mjs');
+    cmsData = await getCmsContent();
+  }
+} catch (e) {}
+
+if (!cmsData && fs.existsSync(cmsJsonPath)) {
+  try {
+    cmsData = JSON.parse(fs.readFileSync(cmsJsonPath, 'utf8'));
+  } catch (e) {}
+}
+
+const dataSrc = path.join(root, 'data');
+const dataDest = path.join(distDir, 'data');
+if (fs.existsSync(dataSrc)) {
+  fs.cpSync(dataSrc, dataDest, {
+    recursive: true,
+    filter: (src) => !src.endsWith('.sqlite-shm') && !src.endsWith('.sqlite-wal')
+  });
+}
+
+if (cmsData) {
+  fs.mkdirSync(path.join(distDir, 'data'), { recursive: true });
+  fs.writeFileSync(path.join(distDir, 'data', 'cms-content.json'), JSON.stringify(cmsData), 'utf8');
+
+  fs.mkdirSync(path.join(distDir, 'api', 'public', 'content'), { recursive: true });
+  fs.writeFileSync(path.join(distDir, 'api', 'public', 'content', 'index.html'), JSON.stringify(cmsData), 'utf8');
+}
+
 let html = fs.readFileSync(sourceHtml, 'utf8');
 
 // Inject GitHub Pages base path and optional external API URL
@@ -41,6 +76,13 @@ html = html.replace(
   '<meta name="enpee-api-base" content="">',
   `<meta name="enpee-api-base" content="${apiBase.replace(/"/g, '&quot;')}">`
 );
+
+// Inject embedded initial CMS data bundle into HTML so it renders instantly with zero latency
+if (cmsData) {
+  const safeJson = JSON.stringify(cmsData).replace(/</g, '\\u003c');
+  const initialDataScript = `<script id="enpee-initial-cms-data">window.__INITIAL_CMS_DATA__ = ${safeJson};</script>`;
+  html = html.replace('</head>', `${initialDataScript}\n</head>`);
+}
 
 // Rewrite root-relative /assets/ and /uploads/ references to include the GitHub Pages base path
 if (basePath) {

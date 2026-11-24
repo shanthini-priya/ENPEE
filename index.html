@@ -16654,20 +16654,22 @@
       if (!url || typeof url !== 'string') return '';
       url = url.trim();
       if (/^https?:\/\//i.test(url) || url.indexOf('data:') === 0 || url.indexOf('blob:') === 0) return url;
-      if (url.charAt(0) === '/') {
-        if (url.indexOf('/uploads/') === 0) return apiUrl(url);
-        if (url.indexOf('/assets/') === 0) return withBasePath(url);
-        return apiUrl(url);
+      if (url.charAt(0) !== '/') {
+        url = '/' + url;
       }
-      return url;
+      if (url.indexOf('/uploads/') === 0) return apiUrl(url);
+      if (url.indexOf('/assets/') === 0) return withBasePath(url);
+      return apiUrl(url);
     }
     // ─── CMS Content Loader ────────────────────────────────────────────────────────
     var cmsData = null; var cmsLoadPromise = null; var cmsInitialized = false;
     function loadCmsContent(forceRefresh) {
       if (cmsLoadPromise && !forceRefresh) return cmsLoadPromise;
-      if (IS_GITHUB_PAGES && !API_BASE) {
+      if (window.__INITIAL_CMS_DATA__ && !forceRefresh) {
+        cmsData = window.__INITIAL_CMS_DATA__;
+        renderCmsContent(cmsData);
         handleRoute();
-        cmsLoadPromise = Promise.resolve(null);
+        cmsLoadPromise = Promise.resolve(cmsData);
         return cmsLoadPromise;
       }
       var endpoint = apiUrl('/api/public/content');
@@ -16677,6 +16679,11 @@
         headers: { 'Accept': 'application/json' },
         cache: 'no-store'
       }).then(function (r) {
+        if (!r.ok) {
+          return fetch(withBasePath('/data/cms-content.json'));
+        }
+        return r;
+      }).then(function (r) {
         if (!r.ok) throw new Error('CMS content unavailable (' + r.status + ')');
         return r.json();
       }).then(function (data) {
@@ -16684,9 +16691,14 @@
           cmsData = data;
           renderCmsContent(data);
         }
+        handleRoute();
         return data;
       }).catch(function (err) {
         console.warn('CMS load error:', err.message);
+        if (window.__INITIAL_CMS_DATA__) {
+          cmsData = window.__INITIAL_CMS_DATA__;
+          renderCmsContent(cmsData);
+        }
         handleRoute();
         return null;
       });
