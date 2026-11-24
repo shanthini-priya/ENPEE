@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const distDir = path.join(root, 'dist');
-const sourceHtml = path.join(root, 'ENPEE International School, Karaikal – CBSE School.html');
+const sourceHtml = path.join(root, 'index.html');
 const basePath = (process.env.PAGES_BASE_PATH || '/ENPEE/').replace(/\/?$/, '/');
 const apiBase = (process.env.ENPEE_API_BASE || '').trim().replace(/\/+$/, '');
 

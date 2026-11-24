@@ -1,0 +1,14 @@
+# Protect sensitive environment and repository files
+<FilesMatch "^\.(env|git)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect database files
+<FilesMatch "\.(db|sqlite|sqlite-journal|sqlite-shm|sqlite-wal)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
