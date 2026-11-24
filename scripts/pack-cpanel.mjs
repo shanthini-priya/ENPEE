@@ -56,6 +56,7 @@ fs.mkdirSync(stagingDir, { recursive: true });
 // Copy individual files to staging
 const rootFiles = [
   'server.mjs',
+  'server.js',
   'app.js',
   'sections_data.mjs',
   'package.json',
@@ -110,49 +111,47 @@ if (fs.existsSync(distZip)) {
   console.log('🗑️ Removed existing enpee-cpanel.zip');
 }
 
-// 6. Create zip archive from staging directory contents
+// 6. Create zip archive from staging directory contents (Node.js PaaS Package)
 console.log('⚡ Compressing all organized features and media into enpee-cpanel.zip...');
 const stagingEntries = fs.readdirSync(stagingDir);
 
-function createArchive() {
-  // Try tar first
-  const tarRes = spawnSync('tar', ['-a', '-cf', distZip, ...stagingEntries], {
-    cwd: stagingDir,
+function createArchive(targetZip, sourceDir, entries) {
+  if (fs.existsSync(targetZip)) {
+    try { fs.unlinkSync(targetZip); } catch (e) {}
+  }
+  const tarRes = spawnSync('tar', ['-a', '-cf', targetZip, ...entries], {
+    cwd: sourceDir,
     stdio: 'inherit'
   });
+  if (tarRes.status === 0) return;
 
-  if (tarRes.status === 0) {
-    return;
-  }
-
-  // Fallback to zip
-  const zipRes = spawnSync('zip', ['-r', distZip, ...stagingEntries], {
-    cwd: stagingDir,
+  const zipRes = spawnSync('zip', ['-r', targetZip, ...entries], {
+    cwd: sourceDir,
     stdio: 'inherit'
   });
+  if (zipRes.status === 0) return;
 
-  if (zipRes.status === 0) {
-    return;
-  }
-
-  // Fallback to PowerShell
   if (process.platform === 'win32') {
-    const paths = stagingEntries.map(item => `'${path.join(stagingDir, item).replace(/'/g, "''")}'`).join(', ');
-    const psScript = `$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path ${paths} -DestinationPath '${distZip.replace(/'/g, "''")}' -Force`;
+    const paths = entries.map(item => `'${path.join(sourceDir, item).replace(/'/g, "''")}'`).join(', ');
+    const psScript = `$ProgressPreference = 'SilentlyContinue'; Compress-Archive -Path ${paths} -DestinationPath '${targetZip.replace(/'/g, "''")}' -Force`;
     const psRes = spawnSync('powershell', ['-NoProfile', '-Command', psScript], {
-      cwd: stagingDir,
+      cwd: sourceDir,
       stdio: 'inherit'
     });
-    if (psRes.status === 0) {
-      return;
-    }
+    if (psRes.status === 0) return;
   }
-
-  console.error('❌ Failed to create zip archive.');
-  process.exit(1);
+  console.error(`❌ Failed to create archive ${targetZip}`);
 }
 
-createArchive();
+createArchive(distZip, stagingDir, stagingEntries);
+
+// 6b. Also create static-only public_html package (for cPanel static hosting Solution One)
+const staticZip = path.join(rootDir, 'enpee-static-public_html.zip');
+console.log('⚡ Compressing clean static files into enpee-static-public_html.zip (for cPanel public_html)...');
+if (fs.existsSync(distDir)) {
+  const distStaticEntries = fs.readdirSync(distDir);
+  createArchive(staticZip, distDir, distStaticEntries);
+}
 
 // 7. Cleanup staging directory
 try {
@@ -170,10 +169,14 @@ spawnSync('node', [path.join(rootDir, 'scripts', 'build-pages.mjs')], {
 if (fs.existsSync(distZip)) {
   const stats = fs.statSync(distZip);
   const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
-  console.log(`\n🎉 Successfully generated complete organized cPanel package!`);
+  console.log(`\n🎉 Successfully generated Node.js PaaS cPanel package!`);
   console.log(`📁 File: ${distZip}`);
   console.log(`📊 Size: ${sizeMB} MB`);
-} else {
-  console.error('❌ Failed to generate output zip.');
-  process.exit(1);
+}
+if (fs.existsSync(staticZip)) {
+  const stats = fs.statSync(staticZip);
+  const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
+  console.log(`🎉 Successfully generated Static public_html package!`);
+  console.log(`📁 File: ${staticZip}`);
+  console.log(`📊 Size: ${sizeMB} MB`);
 }

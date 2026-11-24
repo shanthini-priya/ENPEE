@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "server.mjs",
+  "main": "server.js",
   "scripts": {
     "build": "node scripts/build-pages.mjs",
-    "start": "node server.mjs",
+    "start": "node server.js",
     "dev": "node --watch server.mjs",
     "pack:cpanel": "node scripts/pack-cpanel.mjs",
     "test": "node --test"
