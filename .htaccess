@@ -1,14 +1,36 @@
-# Protect sensitive environment and repository files
+# Protect sensitive environment, git, and database files
 <FilesMatch "^\.(env|git)">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Protect database files
 <FilesMatch "\.(db|sqlite|sqlite-journal|sqlite-shm|sqlite-wal)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
 # Disable directory browsing
-Options -Indexes
+Options -Indexes +FollowSymLinks
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Allow existing files and directories to be served directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # 2. Route clean subpage URLs to their directory index.html if it exists
+    RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+    RewriteRule ^([^/]+)/?$ $1/index.html [L]
+
+    # 3. SPA fallback to index.html
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddType application/json .json
+</IfModule>

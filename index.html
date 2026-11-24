@@ -9200,23 +9200,29 @@
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1023px) {
 
-      /* Mobile top bar: clean 2-row layout with zero horizontal overflow */
+      /* Mobile top bar: clean 3-row layout with zero horizontal overflow, matching Image 2 */
       .top-row-1 .w {
+        display: flex !important;
+        flex-direction: column !important;
         padding-top: 8px !important;
         padding-bottom: 8px !important;
         gap: 8px !important;
       }
 
+      /* Row 1: Phone on the left, Email on the right */
       .top-left-group {
         width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
         justify-content: space-between !important;
+        align-items: center !important;
         gap: 8px !important;
         flex-wrap: nowrap !important;
       }
 
-      /* Hide Download Resources pill on mobile top bar to prevent clipping (Downloads is in nav menu) */
+      /* Hide Download Resources pill on mobile/tablet top bar to prevent clipping (Downloads is in nav menu) */
       .top a.top-pill-btn,
       .top-left-group .top-pill-btn,
       .top-pill-btn {
@@ -9225,33 +9231,54 @@
 
       .top a.top-phone,
       .top a.top-email {
-        font-size: 12.5px !important;
+        font-size: 13px !important;
         white-space: nowrap !important;
       }
 
+      /* Row 2: Social icons on the left, NEWS & EVENTS badge on the right */
       .top-right-group {
         width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
         justify-content: space-between !important;
+        align-items: center !important;
         gap: 8px !important;
-        margin-top: 2px !important;
+        margin-top: 0 !important;
+      }
+
+      .top-socials {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 6px !important;
       }
 
       .top-social-btn {
-        width: 30px !important;
-        height: 30px !important;
+        width: 32px !important;
+        height: 32px !important;
       }
 
       .top-events-badge {
         font-size: 11px !important;
-        padding: 4px 10px !important;
+        padding: 5px 12px !important;
+        font-weight: 700 !important;
+        border-radius: 4px !important;
       }
 
+      /* Row 3: Affiliation on line 1, Recognition on line 2 */
       .top-row-2 .w {
+        display: flex !important;
         flex-direction: column !important;
         align-items: flex-start !important;
-        gap: 3px !important;
+        gap: 2px !important;
         padding-top: 6px !important;
         padding-bottom: 6px !important;
+        font-size: 11.5px !important;
+        line-height: 1.35 !important;
+      }
+
+      .top-affiliation,
+      .top-recognition {
         font-size: 11.5px !important;
         line-height: 1.35 !important;
       }
@@ -9268,6 +9295,11 @@
       .top-recognition {
         font-size: 11px !important;
         line-height: 1.3 !important;
+      }
+
+      .top-social-btn {
+        width: 28px !important;
+        height: 28px !important;
       }
     }
 
@@ -15341,8 +15373,8 @@
             <span class="email-text whitespace-nowrap">info@enpeekkl.com</span>
           </a>
 
-          <!-- Rounded pill button: Download Resources (inline-flex items-center gap-1.5 bg-white text-[#1E61AC] hover:bg-sky-50 text-xs font-bold px-3.5 py-1.5 rounded-full whitespace-nowrap) -->
-          <a class="top-pill-btn inline-flex items-center gap-1.5 bg-white text-[#1E61AC] hover:bg-sky-50 text-xs font-bold px-3.5 py-1.5 rounded-full whitespace-nowrap shadow-sm transition"
+          <!-- Rounded pill button: Download Resources (hidden on mobile/tablet, shown on desktop lg+) -->
+          <a class="top-pill-btn hidden lg:inline-flex items-center gap-1.5 bg-white text-[#1E61AC] hover:bg-sky-50 text-xs font-bold px-3.5 py-1.5 rounded-full whitespace-nowrap shadow-sm transition"
             href="/downloads" data-page-link="downloads">
             <svg class="w-3.5 h-3.5 text-[#1E61AC] shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -15417,9 +15449,7 @@
         class="w w-full px-4 sm:px-6 flex flex-wrap items-center justify-between gap-2 py-2 min-h-[34px] text-xs sm:text-[13px] text-white/95">
         <!-- Left: Affiliated to CBSE, New Delhi | Aff No: 2930085 -->
         <div class="top-affiliation flex items-center gap-2 text-xs sm:text-[13px]">
-          <span class="inline-block w-2 h-2 rounded-full bg-[#68B82E] shrink-0" aria-hidden="true"></span>
           <span>Affiliated to CBSE, New Delhi <span class="text-white/40 font-normal">|</span> Aff No: 2930085</span>
-
         </div>
         <!-- Right: Recognised by: PUDUCHERRY GOVT. CODE NO: UN-03 -->
         <div class="top-recognition flex items-center gap-2 text-xs sm:text-[13px] text-white/95">

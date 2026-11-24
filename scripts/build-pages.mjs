@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url';
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const distDir = path.join(root, 'dist');
 const sourceHtml = path.join(root, 'index.html');
-const basePath = (process.env.PAGES_BASE_PATH || '/ENPEE/').replace(/\/?$/, '/');
+const rawBasePath = process.env.PAGES_BASE_PATH !== undefined ? process.env.PAGES_BASE_PATH : '/ENPEE/';
+const basePath = rawBasePath ? rawBasePath.replace(/\/?$/, '/') : '';
 const apiBase = (process.env.ENPEE_API_BASE || '').trim().replace(/\/+$/, '');
 
 if (!fs.existsSync(sourceHtml)) {
@@ -42,8 +43,10 @@ html = html.replace(
 );
 
 // Rewrite root-relative /assets/ and /uploads/ references to include the GitHub Pages base path
-html = html.replace(/(["'(])\/assets\//g, `$1${basePath}assets/`);
-html = html.replace(/(["'(])\/uploads\//g, `$1${basePath}uploads/`);
+if (basePath) {
+  html = html.replace(/(["'(])\/assets\//g, `$1${basePath}assets/`);
+  html = html.replace(/(["'(])\/uploads\//g, `$1${basePath}uploads/`);
+}
 
 // Remove references to optional mascot files if they are not present in assets/
 const optionalAssetChecks = [
