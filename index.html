@@ -15462,7 +15462,7 @@
     <div
       class="header-container navbar-container w navbar-content nav w-full px-4 sm:px-6 h-28 min-h-[115px] flex items-center justify-between">
       <a class="logo navbar-logo shrink-0" href="/" aria-label="ENPEE International School">
-        <img class="brand-image h-24 w-auto object-contain" src="assets/images/logo/enpee-logo.webp"
+        <img class="brand-image h-24 w-auto object-contain" src="/assets/images/logo/enpee-logo.webp"
           alt="ENPEE International School Karaikal" width="1689" height="931">
       </a>
       <nav id="nav" class="flex-1 ml-8 lg:ml-12 flex items-center" aria-label="Main navigation">
@@ -16246,12 +16246,12 @@
             id="tech-partners-list">
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/logo-YGSTUDIO.png" alt="ygstudio" title="ygstudio"
+              <img src="/assets/images/logo/logo-YGSTUDIO.png" alt="ygstudio" title="ygstudio"
                 class="max-h-14 w-auto object-contain partner-logo-img" loading="lazy">
             </div>
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/002.png" alt="morfosis architects structures"
+              <img src="/assets/images/logo/002.png" alt="morfosis architects structures"
                 title="morfosis architects structures" class="max-h-14 w-auto object-contain partner-logo-img"
                 loading="lazy">
             </div>
@@ -16267,24 +16267,24 @@
             id="infra-providers-list">
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/007.png" alt="OASIS INDIA A NETWORK PVT LTD"
+              <img src="/assets/images/logo/007.png" alt="OASIS INDIA A NETWORK PVT LTD"
                 title="OASIS INDIA A NETWORK PVT LTD" class="max-h-14 w-auto object-contain partner-logo-img"
                 loading="lazy">
             </div>
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/003.png" alt="KI – Krueger International Furnitures"
+              <img src="/assets/images/logo/003.png" alt="KI – Krueger International Furnitures"
                 title="KI – Krueger International Furnitures" class="max-h-14 w-auto object-contain partner-logo-img"
                 loading="lazy">
             </div>
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/004.png" alt="VESTAR INTELLIGENT COOLING" title="VESTAR INTELLIGENT COOLING"
+              <img src="/assets/images/logo/004.png" alt="VESTAR INTELLIGENT COOLING" title="VESTAR INTELLIGENT COOLING"
                 class="max-h-14 w-auto object-contain partner-logo-img" loading="lazy">
             </div>
             <div
               class="partner-card bg-white rounded-xl px-6 py-4 shadow-sm border border-slate-100 flex items-center justify-center h-24 w-full max-w-[230px]">
-              <img src="assets/images/logo/006.png" alt="FORCE MOTORS" title="FORCE MOTORS"
+              <img src="/assets/images/logo/006.png" alt="FORCE MOTORS" title="FORCE MOTORS"
                 class="max-h-14 w-auto object-contain partner-logo-img" loading="lazy">
             </div>
           </div>
@@ -16299,7 +16299,7 @@
         <div>
           <a class="logo" href="/" aria-label="ENPEE International School">
             <span class="logo-footer-badge">
-              <img class="brand-image" src="assets/images/logo/enpee-logo.webp" alt="ENPEE International School logo"
+              <img class="brand-image" src="/assets/images/logo/enpee-logo.webp" alt="ENPEE International School logo"
                 width="1689" height="931">
             </span>
           </a>
@@ -18158,7 +18158,7 @@
         '<div class="management-chairman-grid">' +
         '<!-- Left Portrait -->' +
         '<div class="management-chairman-portrait-wrap">' +
-        '<img src="assets/images/management/chairman.jpg" alt="Rtn. PHF. Hajee. L. KAMAL BATCHA" class="management-chairman-img" loading="lazy">' +
+        '<img src="' + resolveMediaUrl('assets/images/management/chairman.jpg') + '" alt="Rtn. PHF. Hajee. L. KAMAL BATCHA" class="management-chairman-img" loading="lazy">' +
         '<div class="management-chairman-portrait-caption">Founder &amp; Chairman · ENPEE Group</div>' +
         '</div>' +
 
@@ -18197,7 +18197,7 @@
         '<div class="management-awards-grid">' +
         awardsList.map(function (aw) {
           return '<div class="management-award-item">' +
-            '<img src="' + escapeHtml(aw.src) + '" alt="' + escapeHtml(aw.alt) + '" loading="lazy">' +
+            '<img src="' + escapeHtml(resolveMediaUrl(aw.src)) + '" alt="' + escapeHtml(aw.alt) + '" loading="lazy">' +
             '</div>';
         }).join('') +
         '</div>' +

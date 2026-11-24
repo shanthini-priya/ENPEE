@@ -58,6 +58,13 @@ if (fs.existsSync(dataSrc)) {
 }
 
 if (cmsData) {
+  if (basePath) {
+    const cb = basePath.replace(/\/+$/, '');
+    const assetUploadPattern = new RegExp(`(["'\\(])(?:${cb})?\\/?(assets|uploads)\\/`, 'g');
+    const jsonStr = JSON.stringify(cmsData).replace(assetUploadPattern, `$1${cb}/$2/`);
+    cmsData = JSON.parse(jsonStr);
+  }
+
   fs.mkdirSync(path.join(distDir, 'data'), { recursive: true });
   fs.writeFileSync(path.join(distDir, 'data', 'cms-content.json'), JSON.stringify(cmsData), 'utf8');
 
@@ -70,7 +77,7 @@ let html = fs.readFileSync(sourceHtml, 'utf8');
 // Inject GitHub Pages base path and optional external API URL
 html = html.replace(
   '<meta name="enpee-base-path" content="">',
-  `<meta name="enpee-base-path" content="${basePath}">`
+  `<meta name="enpee-base-path" content="${basePath}">\n  <base href="${basePath}">`
 );
 html = html.replace(
   '<meta name="enpee-api-base" content="">',
@@ -84,10 +91,11 @@ if (cmsData) {
   html = html.replace('</head>', `${initialDataScript}\n</head>`);
 }
 
-// Rewrite root-relative /assets/ and /uploads/ references to include the GitHub Pages base path
+// Rewrite root-relative and relative assets/ and uploads/ references to include the GitHub Pages base path
 if (basePath) {
-  html = html.replace(/(["'(])\/assets\//g, `$1${basePath}assets/`);
-  html = html.replace(/(["'(])\/uploads\//g, `$1${basePath}uploads/`);
+  const cb = basePath.replace(/\/+$/, '');
+  const assetUploadPattern = new RegExp(`(["'\\(])(?:${cb})?\\/?(assets|uploads)\\/`, 'g');
+  html = html.replace(assetUploadPattern, `$1${cb}/$2/`);
 }
 
 // Remove references to optional mascot files if they are not present in assets/
