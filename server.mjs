@@ -17,7 +17,15 @@ const rawPort = process.env.PORT;
 const port = rawPort ? (isNaN(Number(rawPort)) ? rawPort : Number(rawPort)) : 3000;
 const dbPath = path.resolve(root, process.env.DB_PATH || './data/enpee.sqlite');
 const uploadDir = path.resolve(root, process.env.UPLOAD_DIR || './uploads');
-const sessionSecret = process.env.SESSION_SECRET || 'enpee_production_session_secret_key_2026_min_32_characters';
+let sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret || sessionSecret.length < 32) {
+  if (process.env.NODE_ENV === 'production') {
+    console.warn('⚠️ WARNING: SESSION_SECRET is not set in production. Generating secure temporary 256-bit key.');
+    sessionSecret = crypto.randomBytes(32).toString('hex');
+  } else {
+    sessionSecret = process.env.SESSION_SECRET || 'enpee_dev_session_secret_key_2026_min_32_characters';
+  }
+}
 
 if (process.env.PUBLIC_ORIGIN) {
   try {
@@ -1109,6 +1117,14 @@ app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: false, limit: '16kb' }));
 app.get('/health', (_req, res) => res.status(200).json({ status: 'ok', uptime: process.uptime() }));
 app.get('/healthz', (_req, res) => res.status(200).json({ status: 'ok', uptime: process.uptime() }));
+app.get('/ready', (_req, res) => {
+  try {
+    db.prepare('SELECT 1').get();
+    res.status(200).json({ status: 'ready', uptime: process.uptime(), db: 'connected' });
+  } catch (err) {
+    res.status(503).json({ status: 'unready', error: err.message });
+  }
+});
 app.use('/uploads', express.static(uploadDir, { index: false, dotfiles: 'deny', maxAge: '0', setHeaders: (res) => res.setHeader('X-Content-Type-Options', 'nosniff') }));
 app.get('/assets/lottie.min.js', (_req, res) => {
   const bundled = path.join(root, 'assets', 'lottie.min.js');
@@ -1547,7 +1563,7 @@ app.post('/api/auth/forgot', async (req, res) => {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST, port: Number(process.env.SMTP_PORT || 587),
     secure: process.env.SMTP_SECURE === 'true',
-    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD } : undefined
+    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: (process.env.SMTP_PASSWORD || process.env.SMTP_PASS) } : undefined
   });
   try {
     await transporter.sendMail({
@@ -1854,7 +1870,8 @@ const upload = multer({
     callback(error, supported);
   }
 });
-app.use('/api/admin/media', rateLimit({ windowMs: 60 * 60 * 1000, limit: 50, standardHeaders: 'draft-8', legacyHeaders: false, handler: limitResponse }));
+const mediaUploadLimiter = rateLimit({ windowMs: 60 * 60 * 1000, limit: 50, standardHeaders: 'draft-8', legacyHeaders: false, handler: limitResponse });
+app.use('/api/admin/media', (req, res, next) => (req.method === 'POST' ? mediaUploadLimiter(req, res, next) : next()));
 app.get('/api/admin/media', privateApi, (req, res) => {
   const query = `%${String(req.query.q || '').slice(0, 80)}%`;
   const items = db.prepare('SELECT * FROM media WHERE original_name LIKE ? OR category LIKE ? ORDER BY created_at DESC LIMIT 300').all(query, query);
@@ -1909,8 +1926,10 @@ app.post('/api/admin/media', privateApi, upload.single('file'), async (req, res)
   if (req.file.mimetype.startsWith('image/') && category.startsWith('Section: ')) {
     const sectionId = category.replace('Section: ', '').trim();
     try {
-      const imgMeta = await sharp(req.file.buffer).metadata();
-      const reqRow = db.prepare('SELECT * FROM cms_image_requirements WHERE section_id=?').get(sectionId);
+      const slotKey = req.body.slotKey || req.body.slot_key;
+      const reqRow = slotKey
+        ? db.prepare('SELECT * FROM cms_image_requirements WHERE section_id=? AND slot_key=?').get(sectionId, slotKey)
+        : db.prepare('SELECT * FROM cms_image_requirements WHERE section_id=?').get(sectionId);
       if (reqRow) {
         const val = await validateImageRequirement(req.file.buffer, reqRow);
         if (!val.valid) {
@@ -3902,6 +3921,8 @@ app.post('/api/admin/sections/:id/pdfs', privateApi, upload.single('pdf'), (req,
   res.json({ ok: true, url, title: req.file.originalname || filename });
 });
 
+
+app.use('/api/*', (_req, res) => res.status(404).json({ error: 'Endpoint not found.' }));
 
 app.use((error, _req, res, _next) => {
   if (error instanceof multer.MulterError) return res.status(400).json({ error: error.code === 'LIMIT_FILE_SIZE' ? 'File exceeds the 40 MB upload limit.' : 'The upload could not be processed.' });
